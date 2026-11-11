@@ -1,0 +1,11 @@
+{
+  "description": "UniBridge roles, mapped onto the P14 access levels (no new ACL code): visitor = public; student = internal (public + student-only notices); office = restricted for its own office (public + student-only + that office's internal notes). API keys come from the environment variables named in api_key_env (.env).",
+  "principals": [
+    {"name": "visitor", "role": "consumer", "level": "public", "offices": [], "api_key_env": "UB_KEY_VISITOR"},
+    {"name": "student", "role": "employee", "level": "internal", "offices": [], "api_key_env": "UB_KEY_STUDENT"},
+    {"name": "scholarship-office", "role": "officer", "level": "restricted", "offices": ["scholarship"], "api_key_env": "UB_KEY_SCHOLARSHIP_OFFICE"},
+    {"name": "student-office", "role": "officer", "level": "restricted", "offices": ["student_office"], "api_key_env": "UB_KEY_STUDENT_OFFICE"},
+    {"name": "international-office", "role": "officer", "level": "restricted", "offices": ["international"], "api_key_env": "UB_KEY_INTERNATIONAL_OFFICE"},
+    {"name": "unibridge-admin", "role": "admin", "level": "restricted", "offices": ["*"], "api_key_env": "UB_KEY_ADMIN"}
+  ]
+}

@@ -54,6 +54,19 @@ def test_pdf_keeps_page_numbers():
     assert blocks[0].section == "Art. 1"
 
 
+def test_pdf_long_upper_case_article_titles_start_sections():
+    # Regional calls (ERDIS bando): "ART. 7 REQUISITI DI MERITO" on one line, longer than a bare "Art. 7".
+    data = make_pdf(["ART. 7 REQUISITI DI MERITO E ALTRE CONDIZIONI PER IL CONCORSO\nTesto del settimo articolo.\n"
+                     "Art. 10 TERMINI E MODALITA PER LA PRESENTAZIONE DELLA DOMANDA\nTesto del decimo articolo.\n"
+                     "Art. 11 prevede che lo studente presenti i documenti entro il termine indicato nel bando."])
+    blocks = parse(data, PDF, MAX)
+    assert [b.section for b in blocks] == [
+        "ART. 7 REQUISITI DI MERITO E ALTRE CONDIZIONI PER IL CONCORSO",
+        "Art. 10 TERMINI E MODALITA PER LA PRESENTAZIONE DELLA DOMANDA",
+    ]
+    assert "Art. 11 prevede" in blocks[-1].text  # a sentence that starts with "Art." is not a heading
+
+
 @pytest.mark.parametrize(
     "data, media_type, status",
     [

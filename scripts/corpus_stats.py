@@ -1,11 +1,13 @@
 """Corpus statistics from the ingested SQLite store -> eval/results/corpus_stats.json (used in docs/DATA.md).
 
 Usage:
-    python scripts/corpus_stats.py
+    python scripts/corpus_stats.py                      # P14 (D1) corpus
+    python scripts/corpus_stats.py --profile unibridge  # -> eval/results/unibridge/corpus_stats.json
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from collections import defaultdict
@@ -25,7 +27,17 @@ FORMAT = {
 
 
 def main() -> int:
-    store = Store(get_settings().sqlite_path)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--profile", choices=("p14", "unibridge"), default="p14")
+    args = parser.parse_args()
+    unibridge = args.profile == "unibridge"
+    if unibridge:
+        from p14_search.unibridge_profile import unibridge_settings
+
+        settings = unibridge_settings()
+    else:
+        settings = get_settings()
+    store = Store(settings.sqlite_path)
     rows = store.query(
         """SELECT d.document_id, d.source_id, d.access_level, d.office, d.synthetic, v.media_type, v.text_chars, v.bytes,
                   (SELECT COUNT(*) FROM passages p WHERE p.document_id = d.document_id AND p.indexed = 1) AS passages,
@@ -62,11 +74,21 @@ def main() -> int:
     }
     # Heuristic share of passages that are not readable prose (tables, lists, garbled font pages): long passages
     # with almost no function words. Reported in DATA.md as a data-quality indicator.
-    d1a = store.query("SELECT text FROM passages WHERE indexed = 1 AND document_id LIKE 'd1a:%'")
+    real = "ub" if unibridge else "d1a"
+    d1a = store.query(f"SELECT text FROM passages WHERE indexed = 1 AND document_id LIKE '{real}:%'")
     non_prose = sum(1 for r in d1a if len(r["text"]) > 200 and _text_quality(r["text"]) < 0.02)
-    out["quality"] = {"d1a_passages": len(d1a), "d1a_non_prose_passages": non_prose,
-                      "d1a_non_prose_share": round(non_prose / max(len(d1a), 1), 4)}
+    out["quality"] = {f"{real}_passages": len(d1a), f"{real}_non_prose_passages": non_prose,
+                      f"{real}_non_prose_share": round(non_prose / max(len(d1a), 1), 4)}
     path = ROOT / "eval" / "results" / "corpus_stats.json"
+    if unibridge:
+        record = json.loads((ROOT / "data/raw/unibridge/fetch_record.json").read_text(encoding="utf-8"))
+        for dim in ("publisher", "lang", "licence", "type"):
+            counts: dict[str, int] = defaultdict(int)
+            for d in record["documents"]:
+                counts[d[dim]] += 1
+            out[f"real_documents_by_{dim}"] = dict(sorted(counts.items()))
+        out["fetch_failures"] = record["failures"]
+        path = ROOT / "eval" / "results" / "unibridge" / "corpus_stats.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(out["totals"], indent=2))

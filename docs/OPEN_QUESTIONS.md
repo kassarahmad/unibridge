@@ -16,3 +16,12 @@
 | Q12 | Are LLM-drafted queries and relevance judgments acceptable for the evaluation if reviewed by the student, or is an independent human annotation required? | Requires professor confirmation |
 | Q13 | The synthetic Ente Demo documents were written with an LLM: is this acceptable as the "selected case study", given Q7? | Requires professor confirmation |
 | Q14 | What is the course policy on AI assistants (code, documentation, synthetic data, relevance judgments)? How should their use be declared in the report? | Requires professor confirmation |
+
+## UniBridge
+
+| # | Question | Status |
+|---|---|---|
+| U1 | `www.studiare-in-italia.it` (official MUR site for international students) returned HTTP 502 on 2026-11-11. The ministerial circular 2026-2028 is taken from the University of Ferrara copy. Re-check the official source before the exam. | Open: retry later |
+| U2 | `questure.poliziadistato.it` serves an HTML page instead of the study-permit PDF to scripts (bot protection). The document is not in the corpus; residence-permit questions rely on the UNICAM tutorial, the MUR circular and the ERDIS rules. | Open: could be downloaded by hand if the licence is confirmed |
+| U3 | www.unicam.it pages are "protected by copyright" (note legali) and have no open licence. They are used locally for a university project and not redistributed. Is this acceptable for the course, and would UNICAM authorise a public demo? | Requires professor / UNICAM confirmation |
+| U4 | Arabic and English translations of official FAQ questions were produced by an LLM. They need review by a native speaker (eval/review/unibridge_review.csv). | Requires Ahmad's review |

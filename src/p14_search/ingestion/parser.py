@@ -29,6 +29,8 @@ SUPPORTED = (PDF, DOCX, HTML, TXT)
 MAX_DOCX_UNCOMPRESSED = 100 * 1024 * 1024
 MAX_DOCX_RATIO = 100
 ARTICLE_RE = re.compile(r"^\s*((?:Art\.|Articolo)\s*\d+[\w-]*)\b", re.IGNORECASE)
+# Article heading followed by an upper-case title on the same line, e.g. "ART. 7 REQUISITI DI MERITO" (regional calls).
+TITLED_ARTICLE_RE = re.compile(r"^\s*(?:ART|Art)\.\s*\d+[\w-]*\s+(.{3,})$")
 _HEADINGS = {"h1", "h2", "h3", "h4"}
 _BLOCKS = {"p", "div", "li", "ul", "ol", "table", "tr", "td", "th", "section", "article", "blockquote", "pre"}
 GU_HEADER_RE =re.compile(r"^\s*(GAZZETTA UFFICIALE DELLA REPUBBLICA ITALIANA.*|[—–-]\s*\d+\s*[—–-])\s*$")
@@ -306,6 +308,13 @@ def _parse_pdf(data: bytes) -> list[Block]:
                     blocks.append(Block(" ".join(para), page=page_no, section=section))
                     para = []
                 section = art.group(1).rstrip(".")
+                continue
+            titled = TITLED_ARTICLE_RE.match(s)
+            if titled and len(s) <= 160 and titled.group(1) == titled.group(1).upper() and sum(c.isalpha() for c in titled.group(1)) >= 3:
+                if para:
+                    blocks.append(Block(" ".join(para), page=page_no, section=section))
+                    para = []
+                section = s
                 continue
             para.append(s)
             # A line ending a sentence closes the paragraph: keeps blocks short for chunking.

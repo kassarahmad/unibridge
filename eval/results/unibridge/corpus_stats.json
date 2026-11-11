@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-11-11T14:14:41+00:00",
+  "index_snapshot_id": "idx-87d61fa1037b8705",
+  "totals": {
+    "documents": 48,
+    "passages": 2330,
+    "text_chars": 1511965,
+    "raw_bytes": 33753161,
+    "passages_with_section_share": 0.6768,
+    "mean_passage_chars": 659.1
+  },
+  "source": {
+    "ub": {
+      "documents": 42,
+      "passages": 2305,
+      "text_chars": 1507155
+    },
+    "ubsyn": {
+      "documents": 6,
+      "passages": 25,
+      "text_chars": 4810
+    }
+  },
+  "format": {
+    "ub/html": {
+      "documents": 16,
+      "passages": 188,
+      "text_chars": 117467
+    },
+    "ub/pdf": {
+      "documents": 26,
+      "passages": 2117,
+      "text_chars": 1389688
+    },
+    "ubsyn/txt": {
+      "documents": 6,
+      "passages": 25,
+      "text_chars": 4810
+    }
+  },
+  "access_level": {
+    "internal": {
+      "documents": 3,
+      "passages": 13,
+      "text_chars": 2644
+    },
+    "public": {
+      "documents": 42,
+      "passages": 2305,
+      "text_chars": 1507155
+    },
+    "restricted": {
+      "documents": 3,
+      "passages": 12,
+      "text_chars": 2166
+    }
+  },
+  "office": {
+    "international": {
+      "documents": 14,
+      "passages": 189,
+      "text_chars": 107383
+    },
+    "scholarship": {
+      "documents": 16,
+      "passages": 1381,
+      "text_chars": 887921
+    },
+    "student_office": {
+      "documents": 18,
+      "passages": 760,
+      "text_chars": 516661
+    }
+  },
+  "largest_documents": [
+    {
+      "document_id": "ub:erdis-bando-borsa-2026-27",
+      "passages": 426
+    },
+    {
+      "document_id": "ub:erdis-call-scholarship-2026-27-en",
+      "passages": 423
+    },
+    {
+      "document_id": "ub:unicam-manifesto-studi-2026-27",
+      "passages": 169
+    },
+    {
+      "document_id": "ub:unicam-regolamento-didattico-en",
+      "passages": 131
+    },
+    {
+      "document_id": "ub:unicam-regolamento-didattico",
+      "passages": 130
+    }
+  ],
+  "quality": {
+    "ub_passages": 2305,
+    "ub_non_prose_passages": 27,
+    "ub_non_prose_share": 0.0117
+  },
+  "real_documents_by_publisher": {
+    "ERDIS Marche": 13,
+    "Ministero dell'Universit\u00e0 e della Ricerca": 1,
+    "Repubblica Italiana (Normattiva)": 1,
+    "Universit\u00e0 di Camerino": 17,
+    "Universit\u00e0 di Camerino - International Office": 10
+  },
+  "real_documents_by_lang": {
+    "en": 12,
+    "it": 30
+  },
+  "real_documents_by_licence": {
+    "erdis": 13,
+    "state_act": 2,
+    "unicam_act": 9,
+    "unicam_web": 18
+  },
+  "real_documents_by_type": {
+    "call": 4,
+    "circular": 1,
+    "faq": 5,
+    "guide": 7,
+    "legislation": 1,
+    "notice": 1,
+    "regulation": 9,
+    "web_page": 14
+  },
+  "fetch_failures": [
+    {
+      "id": "questura-studenti-permesso-2024",
+      "url": "https://questure.poliziadistato.it/statics/49/12-_-rilascio_rinnovo_conversione_studenti_ricercatori_tirocinanti_maggio_2024.pdf?lang=it",
+      "error": "response is not a PDF"
+    }
+  ]
+}

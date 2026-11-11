@@ -1,0 +1,10 @@
+[DOCUMENTO SINTETICO] Nota interna - Ufficio internazionale - Appuntamenti per il permesso di soggiorno nel prototipo
+
+Natura del documento
+Documento sintetico creato per il prototipo UniBridge (progetto universitario). Non è una nota dell'Università di Camerino né della Questura.
+
+Gruppi di accompagnamento
+Nel prototipo l'ufficio internazionale raccoglie le richieste di accompagnamento per il primo permesso di soggiorno in gruppi settimanali identificati dal codice interno PDS-GRUPPO-12. Il calendario dei gruppi non viene comunicato agli studenti tramite UniBridge.
+
+Escalation
+Se uno studente segnala che il kit postale è stato rifiutato, l'operatore apre una segnalazione interna con priorità alta e contatta lo studente entro due giorni lavorativi.

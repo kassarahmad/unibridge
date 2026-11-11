@@ -1,0 +1,13 @@
+[DOCUMENTO SINTETICO] Avviso riservato agli studenti iscritti - Sportello di supporto alla domanda di borsa
+
+Natura del documento
+Documento sintetico creato per il prototipo UniBridge (progetto universitario, corso Complex Systems Design). Non è un atto dell'Università di Camerino né di ERDIS Marche. Serve solo a verificare che i contenuti riservati agli studenti non siano visibili ai visitatori.
+
+Sportello di supporto (prototipo)
+Gli studenti iscritti possono prenotare un colloquio con i tutor del progetto pilota UniBridge per farsi aiutare nella compilazione della domanda online di borsa di studio. Il colloquio dura venti minuti e si prenota con il codice prenotazione SUP-PILOT nella pagina riservata dell'area studenti del prototipo.
+
+Cosa portare al colloquio
+Lo studente porta le credenziali di accesso alla domanda online, l'elenco degli esami sostenuti e, se già disponibile, l'attestazione ISEE per le prestazioni per il diritto allo studio universitario. Il tutor non compila la domanda al posto dello studente e non conserva copie dei documenti.
+
+Limiti del servizio
+Il tutor del progetto pilota non può confermare l'idoneità alla borsa di studio: l'esito dipende solo dalle graduatorie pubblicate da ERDIS Marche.

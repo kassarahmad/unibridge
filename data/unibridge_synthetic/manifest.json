@@ -1,0 +1,11 @@
+{
+  "description": "Synthetic documents for the restricted UniBridge roles only (student-only notices, internal office notes). Written by an LLM (Claude, in the coding session) for the prototype; every file says so in its first lines. They contain fictional codes (e.g. TRIAGE-BORSE-7) used by the ACL leakage tests. No public information in the corpus is synthetic.",
+  "documents": [
+    {"id": "avviso-studenti-sportello-domanda", "file": "avviso-studenti-sportello-domanda.txt", "title": "[SINTETICO] Avviso studenti - Sportello di supporto alla domanda di borsa", "office": "scholarship", "type": "notice", "access_level": "internal", "owner": "UniBridge pilot team (synthetic)"},
+    {"id": "avviso-studenti-checklist-parificato", "file": "avviso-studenti-checklist-parificato.txt", "title": "[SINTETICO] Avviso studenti - Promemoria per studenti con famiglia residente all'estero", "office": "international", "type": "notice", "access_level": "internal", "owner": "UniBridge pilot team (synthetic)"},
+    {"id": "avviso-studenti-buddy", "file": "avviso-studenti-buddy.txt", "title": "[SINTETICO] Avviso studenti - Programma buddy", "office": "international", "type": "notice", "access_level": "internal", "owner": "UniBridge pilot team (synthetic)"},
+    {"id": "nota-interna-ufficio-borse", "file": "nota-interna-ufficio-borse.txt", "title": "[SINTETICO] Nota interna ufficio borse - Istanze di revisione nel prototipo", "office": "scholarship", "type": "internal_note", "access_level": "restricted", "owner": "Scholarship office (synthetic)"},
+    {"id": "nota-interna-segreteria-studenti", "file": "nota-interna-segreteria-studenti.txt", "title": "[SINTETICO] Nota interna segreteria studenti - Rimborsi tasse nel prototipo", "office": "student_office", "type": "internal_note", "access_level": "restricted", "owner": "Student office (synthetic)"},
+    {"id": "nota-interna-welcome-office", "file": "nota-interna-welcome-office.txt", "title": "[SINTETICO] Nota interna ufficio internazionale - Permesso di soggiorno nel prototipo", "office": "international", "type": "internal_note", "access_level": "restricted", "owner": "International office (synthetic)"}
+  ]
+}

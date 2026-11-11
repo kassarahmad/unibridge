@@ -1,0 +1,10 @@
+[DOCUMENTO SINTETICO] Nota interna - Ufficio borse di studio - Gestione delle istanze di revisione nel prototipo
+
+Natura del documento
+Documento sintetico creato per il prototipo UniBridge (progetto universitario). Non è una nota di ERDIS Marche. Serve a verificare che le note interne di un ufficio siano visibili solo agli operatori di quell'ufficio.
+
+Triage delle bozze di e-mail ricevute da UniBridge
+Le bozze di e-mail che UniBridge prepara per l'ufficio borse arrivano con l'etichetta interna TRIAGE-BORSE-7. L'operatore verifica che la domanda dello studente riguardi davvero la borsa di studio; in caso contrario inoltra la richiesta all'ufficio competente.
+
+Tempi interni di risposta
+Nel prototipo l'obiettivo interno è rispondere entro cinque giorni lavorativi. Le istanze di revisione formali seguono invece solo le regole e i termini del bando ERDIS e non possono essere presentate tramite UniBridge.

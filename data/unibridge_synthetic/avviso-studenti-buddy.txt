@@ -1,0 +1,10 @@
+[DOCUMENTO SINTETICO] Avviso riservato agli studenti iscritti - Programma buddy del prototipo UniBridge
+
+Natura del documento
+Documento sintetico creato per il prototipo UniBridge (progetto universitario). Non descrive un servizio reale dell'Università di Camerino.
+
+Programma buddy (prototipo)
+Ogni studente internazionale del primo anno può chiedere di essere affiancato da uno studente degli anni successivi (buddy) per le prime settimane a Camerino. La richiesta si invia indicando il codice BUDDY-PILOT-2026 e la lingua preferita (italiano, inglese o arabo).
+
+Impegno del buddy
+Il buddy aiuta a orientarsi in città e negli uffici, ma non sostituisce gli uffici competenti: per borse di studio, iscrizione e permesso di soggiorno lo studente si rivolge sempre agli uffici ufficiali.

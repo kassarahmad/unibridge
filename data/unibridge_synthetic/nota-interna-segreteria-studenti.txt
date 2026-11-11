@@ -1,0 +1,10 @@
+[DOCUMENTO SINTETICO] Nota interna - Segreteria studenti - Richieste di rimborso tasse nel prototipo
+
+Natura del documento
+Documento sintetico creato per il prototipo UniBridge (progetto universitario). Non è una nota dell'Università di Camerino.
+
+Classificazione delle richieste
+Le richieste di rimborso delle tasse che arrivano dalle bozze UniBridge sono classificate con il codice interno RIMB-SEG-3. L'operatore controlla la posizione contributiva dello studente nel gestionale e risponde in italiano, allegando se utile una sintesi in inglese.
+
+Dati personali
+L'operatore non copia nel sistema UniBridge dati personali dello studente: UniBridge conserva solo il testo della bozza e i riferimenti ai passaggi citati.

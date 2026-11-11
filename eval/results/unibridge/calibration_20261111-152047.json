@@ -1,0 +1,414 @@
+{
+  "split": "tuning",
+  "n_queries": 53,
+  "embedding_model": "intfloat/multilingual-e5-small",
+  "ie_min_dense": 0.847339,
+  "ie_min_bm25": 16.499721,
+  "dense": {
+    "threshold": 0.847339,
+    "balanced_accuracy": 0.7959,
+    "oos_flagged": 1.0,
+    "in_scope_answered": 0.5918
+  },
+  "bm25": {
+    "threshold": 16.499721,
+    "balanced_accuracy": 0.7143,
+    "oos_flagged": 1.0,
+    "in_scope_answered": 0.4286
+  },
+  "signal_ranges": {
+    "dense": {
+      "in": [
+        0.7857,
+        0.9494
+      ],
+      "out": [
+        0.7905,
+        0.8473
+      ]
+    },
+    "bm25": {
+      "in": [
+        0.0,
+        87.2964
+      ],
+      "out": [
+        0.0,
+        16.4701
+      ]
+    }
+  },
+  "per_query": [
+    {
+      "qid": "U005",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.9107022,
+      "top_bm25": 40.998145320590325
+    },
+    {
+      "qid": "U006",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.8407378,
+      "top_bm25": null
+    },
+    {
+      "qid": "U011",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.87347496,
+      "top_bm25": 15.414891031854761
+    },
+    {
+      "qid": "U012",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.87035155,
+      "top_bm25": 22.447598157070914
+    },
+    {
+      "qid": "U013",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.7864501,
+      "top_bm25": null
+    },
+    {
+      "qid": "U014",
+      "lang": "ar",
+      "type": "paraphrase",
+      "top_dense": 0.8052007,
+      "top_bm25": null
+    },
+    {
+      "qid": "U034",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.8752011,
+      "top_bm25": 18.870788851971696
+    },
+    {
+      "qid": "U035",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8591011,
+      "top_bm25": 22.200612646713125
+    },
+    {
+      "qid": "U036",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.78958184,
+      "top_bm25": null
+    },
+    {
+      "qid": "U037",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.89674306,
+      "top_bm25": 42.43415887054649
+    },
+    {
+      "qid": "U038",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.8055959,
+      "top_bm25": 3.241009053705294
+    },
+    {
+      "qid": "U039",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.863084,
+      "top_bm25": 12.102886478105049
+    },
+    {
+      "qid": "U040",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8396109,
+      "top_bm25": 11.32279415058806
+    },
+    {
+      "qid": "U041",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.81370205,
+      "top_bm25": null
+    },
+    {
+      "qid": "U042",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.9234147,
+      "top_bm25": 29.328294103119436
+    },
+    {
+      "qid": "U043",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.87165654,
+      "top_bm25": 16.529303698801947
+    },
+    {
+      "qid": "U044",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.81509256,
+      "top_bm25": null
+    },
+    {
+      "qid": "U045",
+      "lang": "ar",
+      "type": "paraphrase",
+      "top_dense": 0.82798266,
+      "top_bm25": null
+    },
+    {
+      "qid": "U046",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.8899701,
+      "top_bm25": 12.137392627830867
+    },
+    {
+      "qid": "U047",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8500246,
+      "top_bm25": 13.262416337148133
+    },
+    {
+      "qid": "U048",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.7924026,
+      "top_bm25": null
+    },
+    {
+      "qid": "U076",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.89460623,
+      "top_bm25": 35.11308206489446
+    },
+    {
+      "qid": "U077",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8380601,
+      "top_bm25": 20.762702316105774
+    },
+    {
+      "qid": "U078",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.7987288,
+      "top_bm25": null
+    },
+    {
+      "qid": "U079",
+      "lang": "ar",
+      "type": "paraphrase",
+      "top_dense": 0.7856946,
+      "top_bm25": null
+    },
+    {
+      "qid": "U082",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.91284645,
+      "top_bm25": 18.49329670618062
+    },
+    {
+      "qid": "U083",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8802769,
+      "top_bm25": 24.185148513084982
+    },
+    {
+      "qid": "U084",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.8282502,
+      "top_bm25": null
+    },
+    {
+      "qid": "U085",
+      "lang": "it",
+      "type": "paraphrase",
+      "top_dense": 0.8827232,
+      "top_bm25": 14.092655093126853
+    },
+    {
+      "qid": "U086",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.9494053,
+      "top_bm25": 87.2964068084661
+    },
+    {
+      "qid": "U087",
+      "lang": "en",
+      "type": "translation",
+      "top_dense": 0.8770318,
+      "top_bm25": 30.600482531955432
+    },
+    {
+      "qid": "U088",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.82634324,
+      "top_bm25": null
+    },
+    {
+      "qid": "U100",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.8730502,
+      "top_bm25": 24.89596470655232
+    },
+    {
+      "qid": "U102",
+      "lang": "it",
+      "type": "faq",
+      "top_dense": 0.910546,
+      "top_bm25": 48.71840712188686
+    },
+    {
+      "qid": "U114",
+      "lang": "en",
+      "type": "faq",
+      "top_dense": 0.8662528,
+      "top_bm25": 32.59234072910023
+    },
+    {
+      "qid": "U115",
+      "lang": "it",
+      "type": "translation",
+      "top_dense": 0.8647231,
+      "top_bm25": 9.803664820046203
+    },
+    {
+      "qid": "U116",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.80304354,
+      "top_bm25": null
+    },
+    {
+      "qid": "U120",
+      "lang": "en",
+      "type": "faq",
+      "top_dense": 0.8629676,
+      "top_bm25": 30.360694959678888
+    },
+    {
+      "qid": "U121",
+      "lang": "it",
+      "type": "translation",
+      "top_dense": 0.847344,
+      "top_bm25": 12.033361144900498
+    },
+    {
+      "qid": "U122",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.82323766,
+      "top_bm25": null
+    },
+    {
+      "qid": "U131",
+      "lang": "en",
+      "type": "faq",
+      "top_dense": 0.8952851,
+      "top_bm25": 34.15670218339452
+    },
+    {
+      "qid": "U132",
+      "lang": "it",
+      "type": "translation",
+      "top_dense": 0.84309566,
+      "top_bm25": 11.727571748992993
+    },
+    {
+      "qid": "U133",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.80159414,
+      "top_bm25": null
+    },
+    {
+      "qid": "U134",
+      "lang": "en",
+      "type": "faq",
+      "top_dense": 0.90371454,
+      "top_bm25": 44.80629877789971
+    },
+    {
+      "qid": "U135",
+      "lang": "it",
+      "type": "translation",
+      "top_dense": 0.8513039,
+      "top_bm25": 11.188222493341028
+    },
+    {
+      "qid": "U136",
+      "lang": "en",
+      "type": "faq",
+      "top_dense": 0.910201,
+      "top_bm25": 42.119446402983336
+    },
+    {
+      "qid": "U137",
+      "lang": "it",
+      "type": "translation",
+      "top_dense": 0.88642836,
+      "top_bm25": 17.554262462048356
+    },
+    {
+      "qid": "U138",
+      "lang": "ar",
+      "type": "translation",
+      "top_dense": 0.8736628,
+      "top_bm25": 8.396365973701332
+    },
+    {
+      "qid": "U142",
+      "lang": "ar",
+      "type": "paraphrase",
+      "top_dense": 0.84481174,
+      "top_bm25": null
+    },
+    {
+      "qid": "U143",
+      "lang": "it",
+      "type": "out_of_scope",
+      "top_dense": 0.8361561,
+      "top_bm25": 11.074023711134297
+    },
+    {
+      "qid": "U145",
+      "lang": "it",
+      "type": "out_of_scope",
+      "top_dense": 0.83281994,
+      "top_bm25": 16.267131235227893
+    },
+    {
+      "qid": "U148",
+      "lang": "en",
+      "type": "out_of_scope",
+      "top_dense": 0.84733355,
+      "top_bm25": 16.470139234194107
+    },
+    {
+      "qid": "U149",
+      "lang": "en",
+      "type": "out_of_scope",
+      "top_dense": 0.79048526,
+      "top_bm25": null
+    }
+  ]
+}

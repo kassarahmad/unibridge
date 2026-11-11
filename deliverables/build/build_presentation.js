@@ -186,18 +186,12 @@ pres.addSection({ title: "Architecture" });
   s.addNotes("Four steps: documents become passages, the search finds them with the user's permissions, the model answers only from them and a verifier checks every sentence, and the student gets the answer or a draft for the office. Without a key the system still works with extractive answers.");
 }
 {
-  const s = sheet("Architecture", "04", 120, "Architecture", "Components and contracts");
-  card(s, 1.65, 1.75, 11.05, 0.8, "Presentation", null, "Web demo · chat with roles and language selector · scholarship guide · e-mail draft download", "ink");
-  card(s, 1.65, 2.7, 11.05, 0.8, "Service API", null, "POST /v1/answer · POST /v1/handoff · POST /v1/procedure/scholarship · POST /v1/search · GET /v1/health");
-  [["Answer", "language detection, translation, answer, verifier, extractive fallback"], ["Handoff", "office rule table, Italian e-mail"],
-   ["Scholarship guide", "fixed rules, checklist, calendar; no language model"], ["Language model · optional", "OpenAI or Anthropic, cache, usage log, budget"]].forEach(([h, b], i) => {
-    card(s, 1.65 + i * 2.8, 3.65, 2.6, 1.3, h, null, b, "soft");
-  });
-  card(s, 1.65, 5.1, 5.45, 0.85, "Search", null, "keyword index + multilingual embeddings, rank fusion, permissions, citations");
-  card(s, 7.25, 5.1, 5.45, 0.85, "Storage", null, "SQLite (documents, passages, logs) · Qdrant (vectors) · Docker");
-  text(s, "Contracts frozen as OpenAPI and JSON Schema; every response names the index and model versions. Roles: visitor (public) · student (+ student-only notices) · office staff (+ own internal notes).",
-    { x: 1.65, y: 6.2, w: 11.05, h: 0.6, fontSize: 12, color: K.muted });
-  s.addNotes("The components: a web demo on top of one REST API; three services behind it; an optional language model with cache and budget; the search with permissions; and two stores. The contracts are frozen, so other clients can rely on them.");
+  const s = sheet("Architecture", "04", 120, "Architecture", "Five-layer structure", "Five layers · one deployable service · an optional language model");
+  const w = 9.6, h = w * 954 / 2019;
+  s.addImage({ path: path.join(IMG, "architecture.png"), x: 1.65 + (11.05 - w) / 2, y: 1.95, w, h, altText: "UniBridge architecture in five layers" });
+  text(s, "Solid arrows: calls and data flow · dashed: optional or assumed. Without a key the language model and the dashed links disappear and answers are extractive.",
+    { x: 1.65, y: 1.95 + h + 0.1, w: 11.05, h: 0.4, fontSize: 11, color: K.muted });
+  s.addNotes("The architecture in five layers. On top the web demo, and other clients through the same REST contract. The API maps the key to a role. The answer layer detects the language, translates the question, answers only from passages and verifies every sentence; next to it the handoff and the scholarship guide. Below, the search: keyword and dense, fused, with the permission filter and the evidence check. At the bottom the official documents, fetched with their hash, parsed into passages and stored in SQLite and Qdrant. The language model is external and optional.");
 }
 
 // 5 · Student journey --------------------------------------------------------------------

@@ -80,6 +80,26 @@ h2 { font-size: 52px; font-weight: 500; letter-spacing: -.02em; line-height: 1.0
 .compact .card h3 { font-size: 21px; margin: 6px 0 4px; }
 .compact .card p { font-size: 15.5px; }
 .compact .out { margin-top: 8px; }
+.arch .band { stroke: var(--line); }
+.arch .b1 { fill: var(--slate-soft); } .arch .b2 { fill: var(--card); } .arch .b3 { fill: var(--accent-soft); } .arch .b4 { fill: var(--amber-soft); } .arch .b5 { fill: var(--slate-soft); }
+.arch .node { fill: var(--card); stroke: var(--ink); stroke-width: 1.2; }
+.arch .node.dash { stroke-dasharray: 5 4; fill: var(--paper); }
+.arch .node.strong { fill: var(--ink); }
+.arch .node.hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.6; }
+.arch text { font-family: var(--body); fill: var(--ink); }
+.arch .ttl { font-size: 15px; font-weight: 700; }
+.arch .lay { font-size: 12px; font-weight: 700; fill: var(--slate); font-family: var(--mono); }
+.arch .n { font-size: 14px; font-weight: 700; } .arch .s { font-size: 11.5px; fill: var(--muted); }
+.arch .inv { fill: var(--paper); }
+.arch .lab { font-size: 11px; fill: var(--muted); font-family: var(--mono); } .arch .leg { font-size: 11px; fill: var(--muted); }
+.arch .ar { stroke: var(--ink); stroke-width: 1.3; marker-end: url(#ah); }
+.arch .ar.dash { stroke: var(--muted); stroke-dasharray: 5 4; marker-end: url(#ahd); }
+.enlarge { font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); background: var(--card); border: 1.5px solid var(--accent); border-radius: 4px; padding: 8px 14px; cursor: pointer; white-space: nowrap; }
+.enlarge:focus-visible { outline: 3px solid var(--slate); outline-offset: 2px; }
+.zoom { position: fixed; inset: 0; z-index: 50; background: var(--paper); display: flex; flex-direction: column; gap: 10px;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.zoom .wrap { flex: 1; min-height: 0; overflow: auto; }
+.zoom svg { width: 100%; height: 100%; min-width: 900px; }
 .media { grid-template-rows: minmax(0, 1fr); }
 .media > * { min-height: 0; }
 .figure { width: 100%; height: 100%; object-fit: contain; object-position: top left; border: 1px solid var(--line); background: #fff; }
@@ -188,7 +208,7 @@ td.hi { color: var(--accent); font-weight: 700; }
   </section>
 
   <!-- Architecture -->
-  <section class="slide" data-section="Architecture" data-seconds="120" data-kicker="Architecture" data-title="System flow and software architecture" data-sub="One service · four components · an optional language model">
+  <section class="slide" data-section="Architecture" data-seconds="120" data-kicker="Architecture" data-title="System flow and software architecture" data-sub="Five layers · one deployable service · an optional language model">
     <div class="main"><div class="body">
       <div class="build" data-step="Question to answer" style="display:flex;flex-direction:column;gap:28px">
         <div class="grid" style="grid-template-columns: repeat(4, 1fr)">
@@ -203,15 +223,80 @@ td.hi { color: var(--accent); font-weight: 700; }
           <div class="rule"><span class="num">Cost control</span><p>Temperature 0, cached responses, every call logged, hard stop at 5 USD.</p></div>
         </div>
       </div>
-      <div class="build" data-step="Components" hidden style="display:grid;grid-template-columns: repeat(4, 1fr);gap:16px;align-content:start">
-        <div class="card ink" style="grid-column: span 4"><div class="label">Presentation</div><p style="margin-top:6px">Web demo · chat with roles and language selector · scholarship guide · e-mail draft download</p></div>
-        <div class="card" style="grid-column: span 4"><div class="label">Service API</div><div class="chips" style="margin-top:10px"><span class="chip">POST /v1/answer</span><span class="chip">POST /v1/handoff</span><span class="chip">POST /v1/procedure/scholarship</span><span class="chip">POST /v1/search</span><span class="chip">GET /v1/health</span></div></div>
-        <div class="card soft"><div class="label" style="color:var(--slate)">Answer</div><p style="margin-top:6px">language detection, translation, answer, verifier, extractive fallback</p></div>
-        <div class="card soft"><div class="label" style="color:var(--slate)">Handoff</div><p style="margin-top:6px">office rule table, Italian e-mail</p></div>
-        <div class="card soft"><div class="label" style="color:var(--slate)">Scholarship guide</div><p style="margin-top:6px">fixed rules, checklist, calendar; no language model</p></div>
-        <div class="card soft"><div class="label" style="color:var(--slate)">Language model · optional</div><p style="margin-top:6px">OpenAI or Anthropic, disk cache, usage log, budget</p></div>
-        <div class="card" style="grid-column: span 2"><div class="label">Search</div><p style="margin-top:6px">keyword index + multilingual embeddings, rank fusion, permissions, citations</p></div>
-        <div class="card" style="grid-column: span 2"><div class="label">Storage</div><p style="margin-top:6px">SQLite (documents, passages, logs) · Qdrant (vectors) · Docker</p></div>
+      <div class="build" data-step="Five-layer structure" hidden style="display:flex;flex-direction:column;gap:10px">
+        <div class="card" style="padding:12px 14px;flex:1;min-height:0">
+          <svg id="arch" class="arch" viewBox="0 0 1300 610" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="UniBridge architecture in five layers">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker>
+              <marker id="ahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
+            </defs>
+            <text class="ttl" x="650" y="18" text-anchor="middle">UniBridge architecture (layered; the language model is optional)</text>
+            <!-- bands -->
+            <rect class="band b1" x="10" y="30" width="1280" height="84"/>
+            <rect class="band b2" x="10" y="122" width="1280" height="84"/>
+            <rect class="band b3" x="10" y="214" width="1280" height="128"/>
+            <rect class="band b4" x="10" y="350" width="1280" height="110"/>
+            <rect class="band b5" x="10" y="468" width="1280" height="120"/>
+            <text class="lay" x="22" y="50">Layer 1 · Presentation</text>
+            <text class="lay" x="22" y="142">Layer 2 · Service API</text>
+            <text class="lay" x="22" y="234">Layer 3 · Answer and guide</text>
+            <text class="lay" x="22" y="370">Layer 4 · Search</text>
+            <text class="lay" x="22" y="488">Layer 5 · Data and ingestion</text>
+            <!-- layer 1 -->
+            <rect class="node" x="470" y="48" width="330" height="54"/><text class="n" x="635" y="70" text-anchor="middle">Web demo</text><text class="s" x="635" y="89" text-anchor="middle">chat · roles · 17 languages · scholarship guide</text>
+            <rect class="node dash" x="1010" y="48" width="250" height="54"/><text class="n" x="1135" y="70" text-anchor="middle">Other clients</text><text class="s" x="1135" y="89" text-anchor="middle">same REST contract (assumed)</text>
+            <!-- layer 2 -->
+            <rect class="node strong" x="400" y="140" width="470" height="54"/><text class="n inv" x="635" y="162" text-anchor="middle">REST API /v1 · FastAPI · OpenAPI</text><text class="s inv" x="635" y="181" text-anchor="middle">/answer · /handoff · /procedure/scholarship · /search</text>
+            <rect class="node" x="900" y="140" width="190" height="54"/><text class="n" x="995" y="162" text-anchor="middle">API key → role</text><text class="s" x="995" y="181" text-anchor="middle">visitor · student · office</text>
+            <!-- layer 3 -->
+            <rect class="node" x="200" y="246" width="150" height="62"/><text class="n" x="275" y="270" text-anchor="middle">Language</text><text class="s" x="275" y="290" text-anchor="middle">lingua · offline</text>
+            <rect class="node" x="370" y="246" width="150" height="62"/><text class="n" x="445" y="270" text-anchor="middle">Translation</text><text class="s" x="445" y="290" text-anchor="middle">to Italian · LLM</text>
+            <rect class="node hi" x="540" y="246" width="160" height="62"/><text class="n" x="620" y="270" text-anchor="middle">Answer</text><text class="s" x="620" y="290" text-anchor="middle">only from passages</text>
+            <rect class="node hi" x="720" y="246" width="160" height="62"/><text class="n" x="800" y="270" text-anchor="middle">Verifier</text><text class="s" x="800" y="290" text-anchor="middle">citation + support</text>
+            <rect class="node" x="900" y="246" width="160" height="62"/><text class="n" x="980" y="270" text-anchor="middle">Handoff</text><text class="s" x="980" y="290" text-anchor="middle">office · Italian e-mail</text>
+            <rect class="node" x="1080" y="246" width="190" height="62"/><text class="n" x="1175" y="270" text-anchor="middle">Scholarship guide</text><text class="s" x="1175" y="290" text-anchor="middle">fixed rules · checklist · .ics</text>
+            <text class="s" x="22" y="262">no evidence →</text><text class="s" x="22" y="277">"I don't know" + handoff</text><text class="s" x="22" y="296">no key →</text><text class="s" x="22" y="311">extractive answer</text>
+            <!-- layer 4 -->
+            <rect class="node" x="200" y="378" width="170" height="58"/><text class="n" x="285" y="401" text-anchor="middle">Keyword · BM25</text><text class="s" x="285" y="420" text-anchor="middle">SQLite FTS5</text>
+            <rect class="node" x="390" y="378" width="190" height="58"/><text class="n" x="485" y="401" text-anchor="middle">Dense</text><text class="s" x="485" y="420" text-anchor="middle">multilingual-e5-small</text>
+            <rect class="node" x="600" y="378" width="150" height="58"/><text class="n" x="675" y="401" text-anchor="middle">Rank fusion</text><text class="s" x="675" y="420" text-anchor="middle">RRF · S2 / S3f</text>
+            <rect class="node" x="770" y="378" width="170" height="58"/><text class="n" x="855" y="401" text-anchor="middle">Permissions</text><text class="s" x="855" y="420" text-anchor="middle">inside the search</text>
+            <rect class="node" x="960" y="378" width="170" height="58"/><text class="n" x="1045" y="401" text-anchor="middle">Evidence check</text><text class="s" x="1045" y="420" text-anchor="middle">calibrated threshold</text>
+            <!-- layer 5 -->
+            <rect class="node" x="200" y="500" width="160" height="58"/><text class="n" x="280" y="523" text-anchor="middle">Official documents</text><text class="s" x="280" y="542" text-anchor="middle">PDF · HTML · 42 sources</text>
+            <rect class="node" x="380" y="500" width="150" height="58"/><text class="n" x="455" y="523" text-anchor="middle">Fetch + SHA-256</text><text class="s" x="455" y="542" text-anchor="middle">licence per source</text>
+            <rect class="node" x="550" y="500" width="160" height="58"/><text class="n" x="630" y="523" text-anchor="middle">Parse → passages</text><text class="s" x="630" y="542" text-anchor="middle">section · page · offsets</text>
+            <path class="node" d="M730 506 a70 9 0 0 0 140 0 v46 a70 9 0 0 1 -140 0 z"/><ellipse class="node" cx="800" cy="506" rx="70" ry="9"/><text class="n" x="800" y="533" text-anchor="middle">SQLite</text><text class="s" x="800" y="550" text-anchor="middle">passages · logs</text>
+            <path class="node" d="M890 506 a60 9 0 0 0 120 0 v46 a60 9 0 0 1 -120 0 z"/><ellipse class="node" cx="950" cy="506" rx="60" ry="9"/><text class="n" x="950" y="533" text-anchor="middle">Qdrant</text><text class="s" x="950" y="550" text-anchor="middle">vectors</text>
+            <rect class="node dash" x="1060" y="500" width="210" height="58"/><text class="n" x="1165" y="523" text-anchor="middle">LLM provider</text><text class="s" x="1165" y="542" text-anchor="middle">OpenAI / Anthropic · cached</text>
+            <!-- arrows -->
+            <line class="ar" x1="635" y1="102" x2="635" y2="140"/><text class="lab" x="642" y="125">requests</text>
+            <line class="ar dash" x1="1010" y1="80" x2="870" y2="150"/><text class="lab" x="905" y="105">REST calls</text>
+            <line class="ar" x1="560" y1="194" x2="275" y2="246"/>
+            <line class="ar" x1="635" y1="194" x2="620" y2="246"/>
+            <line class="ar" x1="740" y1="194" x2="980" y2="246"/>
+            <line class="ar" x1="830" y1="194" x2="1175" y2="246"/>
+            <line class="ar" x1="350" y1="277" x2="370" y2="277"/>
+            <line class="ar" x1="700" y1="277" x2="720" y2="277"/>
+            <line class="ar" x1="445" y1="308" x2="485" y2="378"/><text class="lab" x="455" y="340" text-anchor="end">search (original + Italian)</text>
+            <line class="ar" x1="675" y1="378" x2="620" y2="308"/><text class="lab" x="690" y="352">passages</text>
+            <line class="ar" x1="370" y1="407" x2="390" y2="407" style="marker-end:none"/>
+            <line class="ar" x1="580" y1="407" x2="600" y2="407"/>
+            <line class="ar" x1="750" y1="407" x2="770" y2="407"/>
+            <line class="ar" x1="940" y1="407" x2="960" y2="407"/>
+            <line class="ar" x1="285" y1="436" x2="770" y2="510"/>
+            <line class="ar" x1="485" y1="436" x2="910" y2="502"/>
+            <line class="ar" x1="360" y1="529" x2="380" y2="529"/>
+            <line class="ar" x1="530" y1="529" x2="550" y2="529"/>
+            <line class="ar" x1="710" y1="529" x2="730" y2="529"/>
+            <path class="ar dash" d="M1165 500 V332 H800 V308" fill="none"/><text class="lab" x="905" y="326">translate · answer · verify</text>
+            <text class="leg" x="650" y="604" text-anchor="middle">Solid arrows = calls and data flow · dashed = optional or assumed · cylinders = data stores · highlighted = the language-model answer step</text>
+          </svg>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+          <p class="note">One deployable service (FastAPI + Docker for Qdrant). Without a key the language model and the dashed links disappear and answers are extractive.</p>
+          <button class="enlarge" id="enlarge" type="button">Enlarge diagram</button>
+        </div>
       </div>
       <div class="build" data-step="Exchange contracts" hidden style="display:flex;flex-direction:column;gap:26px">
         <div class="rule"><span class="num">Request · POST /v1/answer</span><div class="chips" style="margin-top:12px"><span class="chip">query</span><span class="chip">language (optional)</span><span class="chip">mode</span><span class="chip">top_k</span><span class="chip">with_handoff</span></div></div>
@@ -424,6 +509,20 @@ td.hi { color: var(--accent); font-weight: 700; }
   bars("chart1", D.c1.groups, [{ values: D.c1.B0, color: "var(--bar-a)" }, { values: D.c1.S1, color: "var(--bar-c)" }, { values: D.c1.S2, color: "var(--bar-b)" }], 760, 420);
   bars("chart2", D.c2.groups, [{ values: D.c2.S2, color: "var(--bar-a)" }, { values: D.c2.S3, color: "var(--bar-c)" }, { values: D.c2.S3f, color: "var(--bar-b)" }], 760, 420);
   bars("chart3", D.c3.groups, [{ values: D.c3.S2, color: "var(--bar-a)", labels: false }, { values: D.c3.S3f, color: "var(--bar-b)", labels: false }], 860, 420);
+  // Enlarge diagram: the same SVG in a full-window layer (Escape or the button closes it).
+  const enlarge = document.getElementById("enlarge");
+  if (enlarge) enlarge.onclick = () => {
+    const layer = document.createElement("div");
+    layer.className = "zoom";
+    layer.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><span class="kicker">Architecture · five layers</span><button class="enlarge" type="button">Close</button></div><div class="wrap"></div>';
+    layer.querySelector(".wrap").append(document.getElementById("arch").cloneNode(true));
+    const close = () => { layer.remove(); document.removeEventListener("keydown", esc, true); };
+    const esc = (e) => { if (e.key === "Escape") { e.stopPropagation(); close(); } };
+    layer.querySelector("button").onclick = close;
+    document.addEventListener("keydown", esc, true);
+    document.body.append(layer);
+    layer.querySelector("button").focus();
+  };
   show(cur);
 })();
 </script>

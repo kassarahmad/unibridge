@@ -1,0 +1,11 @@
+{
+  "source": "logs/llm_usage.jsonl (not committed); estimated with the price table in src/p14_search/answer/llm.py",
+  "updated_at": "20261111-172151",
+  "non_cached_calls": 1116,
+  "input_tokens": 561806,
+  "output_tokens": 25006,
+  "estimated_cost_usd": 0.099274,
+  "models": [
+    "openai:gpt-4o-mini"
+  ]
+}

@@ -10,12 +10,16 @@ Metrics (definitions in docs/REPORT_UNIBRIDGE.md, section Evaluation):
 - citation_precision: shown sentences whose cited passages include a relevant passage (qrels grade >= 1)
 - uncited_sentence_rate: shown sentences without a valid citation
 - judge_unsupported_rate: shown sentences that the LLM judge (same model, support prompt) says are NOT supported
-  by their cited passage. Biased (same model as the generator) - see the human review sample.
+  by their cited passage. Biased (same model as the generator) - see the human review sample. The judge call is
+  identical to the verifier's support check (same prompt, model and cache key): for llm it measures what the
+  verifier would drop, for llm_verified it is 0 by construction. It is NOT an independent faithfulness measure.
 - idk_correct_oos: out-of-scope questions answered "I don't know"; idk_false_in_scope: in-scope questions
   answered "I don't know"
 - answer_language_correct: non-empty answers whose detected language equals the question language
 - source_recall@k: share of relevant (grade 2) passages among the passages given to the answer step
-- cost per answer (estimated USD, non-cached calls) and latency
+- cost per answer (estimated USD, non-cached calls) and latency. Each configuration has its own response cache
+  (data/processed/llm_cache/eval_<config>): the first run measures a cold start; a re-run gives the same answers
+  from the cache at zero cost, so cost and latency must be read from the first run's timestamped file.
 
 Usage:
     python eval/unibridge/eval_answers.py [--configs extractive,llm,llm_verified,llm_verified_noqt] [--limit N]
@@ -40,7 +44,7 @@ from freeze_test import verify  # noqa: E402  (eval/ is on sys.path via ub_commo
 
 from p14_search.answer import prompts
 from p14_search.answer.language import detect
-from p14_search.answer.llm import LLMError
+from p14_search.answer.llm import LLMClient, LLMError
 from p14_search.answer.service import AnswerService
 from p14_search.answer.verifier import is_yes
 from p14_search.evaluation.metrics import percentile
@@ -89,9 +93,16 @@ def main() -> int:
     qrels = load_qrels()
     usage_start = settings.llm_usage_log.stat().st_size if settings.llm_usage_log.exists() else 0
 
-    services_by_config = {
-        "llm_verified_noqt": AnswerService(services.search, llm, services.handoff, settings.model_copy(update={"answer_query_translation": False})),
-    }
+    # Each LLM configuration has its own response cache, so that one configuration never reuses the calls of
+    # another (llm and llm_verified send the same answer prompt): cost and latency of a first run are those of a
+    # cold start. The judge uses the shared cache.
+    services_by_config = {}
+    for config in configs:
+        if config == "extractive":
+            continue
+        client = LLMClient(llm.provider, settings.llm_cache_dir / f"eval_{config}", settings.llm_usage_log, settings.llm_budget_usd, llm.price)
+        cfg = settings.model_copy(update={"answer_query_translation": False}) if config == "llm_verified_noqt" else settings
+        services_by_config[config] = AnswerService(services.search, client, services.handoff, cfg)
     rows, per_config = [], {}
     for config in configs:
         svc = services_by_config.get(config, services.answer)

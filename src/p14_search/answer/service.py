@@ -41,6 +41,12 @@ log = logging.getLogger("p14.answer")
 SYSTEM = "S2"
 
 
+def translate_query(llm: LLMClient, query: str) -> LLMResult:
+    """Italian translation of a question for retrieval. The single place that builds this call, so the answer
+    service and the S3 retrieval evaluation (eval/unibridge/eval_translation.py) share prompt and cache."""
+    return llm.complete(prompts.TRANSLATE_SYSTEM, query, 200, "query_translation")
+
+
 @dataclass
 class _Usage:
     results: list[LLMResult] = field(default_factory=list)
@@ -76,7 +82,7 @@ class AnswerService:
         italian = None
         if use_llm and lang != "it" and self.settings.answer_query_translation:
             try:
-                italian = usage.add(self.llm.complete(prompts.TRANSLATE_SYSTEM, query, 200, "query_translation")).text.strip()
+                italian = usage.add(translate_query(self.llm, query)).text.strip()
             except LLMError:
                 italian = None
         if not italian:

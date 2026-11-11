@@ -1,0 +1,36 @@
+%% POST /v1/answer in mode llm_verified (the API default when an LLM is configured).
+sequenceDiagram
+    autonumber
+    actor S as Student
+    participant UI as Streamlit UI
+    participant A as AnswerService
+    participant R as SearchService (S2 + ACL)
+    participant L as LLMClient (cache, log)
+    participant V as Verifier
+    participant H as HandoffService
+    S->>UI: question (it / en / ar)
+    UI->>A: POST /v1/answer + X-API-Key (role)
+    A->>A: detect language
+    A->>R: S2 on the original question
+    opt language is not Italian
+        A->>L: translate_query (temperature 0, cached)
+        A->>R: S2 on the Italian translation
+        A->>A: RRF fusion of both rankings (S3f)
+    end
+    alt no passage or evidence below the calibrated threshold
+        A->>H: office + Italian e-mail draft
+        A-->>UI: I don't know (student's language) + draft
+    else evidence found
+        A->>L: answer ONLY from passages P1..Pk, one claim per sentence, each ends with [Pn]
+        A->>V: drop sentences without a valid [Pn]
+        loop each remaining sentence
+            V->>L: does the cited passage support it? (yes / no, cached)
+        end
+        alt nothing survives
+            A->>H: office + draft
+            A-->>UI: I don't know + draft
+        else
+            A-->>UI: sentences + citations + Italian original of each passage
+        end
+    end
+    UI-->>S: answer and the button "Draft an e-mail to the office"

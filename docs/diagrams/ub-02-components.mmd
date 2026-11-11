@@ -1,0 +1,40 @@
+%% UniBridge components. Reused from P14 unchanged: ingestion, store, BM25, dense, RRF, ACL, citations.
+flowchart TB
+    ui[frontend/unibridge_app.py<br/>Ask page, Scholarship guide]
+    subgraph api[FastAPI - p14_search.unibridge_main]
+        ans["POST /v1/answer"]
+        hand["POST /v1/handoff"]
+        proc["POST /v1/procedure/scholarship"]
+        search["POST /v1/search"]
+    end
+    subgraph answer[p14_search.answer]
+        lang[language.py<br/>it / en / ar detection]
+        svc[service.py<br/>translate_query, modes]
+        prompts[prompts.py<br/>passages are data]
+        ver[verifier.py<br/>citation + support check]
+        llmc[llm.py<br/>providers, disk cache,<br/>usage log, budget]
+    end
+    subgraph handoff[p14_search.handoff]
+        route[office rule table]
+        draft[Italian e-mail draft]
+    end
+    subgraph procedure[p14_search.procedure]
+        model[model.py<br/>single source of BPMN + PNML]
+        rules[deterministic rules<br/>credits, ISEE, year, dates]
+        sm[state machine, checklist, .ics]
+    end
+    subgraph p14[P14 retrieval engine]
+        ret[SearchService<br/>B0 BM25, S1 dense, S2 RRF<br/>ACL inside retrieval]
+        store[(SQLite<br/>unibridge.sqlite)]
+        qd[(Qdrant<br/>unibridge_passages)]
+    end
+    ui --> ans & hand & proc
+    ans --> svc
+    svc --> lang & ret & prompts & ver & llmc
+    svc -- "insufficient evidence" --> route
+    hand --> route --> draft
+    draft -. "translation of the question" .-> llmc
+    proc --> rules --> sm
+    model --> sm
+    search --> ret
+    ret --> store & qd

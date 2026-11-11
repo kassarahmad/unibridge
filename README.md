@@ -1,3 +1,45 @@
+# UniBridge - multilingual assistant for international students (branch `unibridge`)
+
+Students ask in **Italian, English or Arabic**. UniBridge finds the exact passage in official Italian documents
+(University of Camerino, ERDIS Marche, MUR), answers in the student's language with a **citation for every
+sentence and the Italian original next to it**, guides the student through the **ERDIS scholarship procedure**
+(modelled in BPMN, verified sound as a Petri net, eligibility checked by deterministic rules), and when the
+evidence is weak says **"I don't know"** and drafts an Italian e-mail to the right office (never sent
+automatically). It runs on the P14 search engine documented below.
+
+| | |
+|---|---|
+| **Report** | [docs/REPORT_UNIBRIDGE.md](docs/REPORT_UNIBRIDGE.md) - data [DATA_UNIBRIDGE.md](docs/DATA_UNIBRIDGE.md), procedure [PROCEDURE.md](docs/PROCEDURE.md) |
+| **Corpus** | 42 real public documents + 6 synthetic restricted ones (labelled), 2,330 passages |
+| **Test set** | 102 frozen questions: 42 Italian (official FAQ), 30 English, 30 Arabic (LLM translations, to be reviewed) |
+| **Key finding** | Keyword search finds nothing relevant for every Arabic test question; translating the question into Italian and fusing both rankings (S3f) raises nDCG@10 from 0.4123 to 0.5082 overall (p = 0.0012) |
+| **Answers** | Citation precision 0.4058 extractive, 0.801 LLM, 0.8157 LLM + verifier; out-of-scope questions answered "I don't know": all 9 |
+| **Procedure** | Workflow net sound (own check + pm4py WOFLAN); 15 of 15 test scenarios correct |
+| **Cost** | gpt-4o-mini, 0.000313 USD per verified answer; whole project 0.099274 USD |
+| **Evidence** | Screenshots and API session in [docs/evidence/unibridge/](docs/evidence/unibridge/) |
+
+![UniBridge answer in Arabic with the Italian source](docs/evidence/unibridge/ub_02_answer_ar.png)
+
+### Run UniBridge
+```powershell
+docker compose up -d                                                   # Qdrant
+.venv\Scripts\python.exe scripts\fetch_corpus_unibridge.py              # official documents (not committed)
+.venv\Scripts\python.exe scripts\ingest_unibridge.py                    # own SQLite file + Qdrant collection
+# optional, for LLM answers: LLM_PROVIDER=openai|anthropic, LLM_MODEL, LLM_API_KEY in .env (without them: extractive answers)
+.venv\Scripts\python.exe -m uvicorn p14_search.unibridge_main:app --port 8001
+.venv\Scripts\streamlit.exe run frontend\unibridge_app.py                # demo UI
+```
+Evaluation (frozen test split): `eval\unibridge\run_eval.py` (retrieval B0/S1/S2), `eval_translation.py` (S3),
+`eval_answers.py` (answers), `eval_procedure.py`, `eval_handoff.py`; `eval\check_doc_numbers.py` checks the
+numbers in the reports against `eval/results/`.
+
+**Use of AI tools (UniBridge)**: an AI coding assistant (Claude Code) was used for code, documentation and the
+synthetic documents; an LLM (gpt-4o-mini) produced the English/Arabic questions, paraphrases, query translations
+and the answers under evaluation. All LLM-produced data is flagged `llm_generated: true`; details in section 10
+of the report. Arabic and LLM-drafted items still need human review (`eval/review/`).
+
+---
+
 # P14 - Intelligent Search Across Organizational Knowledge
 
 **Complex Systems Design** - MSc in Computer Science (AI curriculum), University of Camerino - Prof. Flavio Corradini

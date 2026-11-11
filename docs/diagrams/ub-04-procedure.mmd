@@ -1,0 +1,25 @@
+%% Scholarship procedure (ERDIS Marche 2026/27), simplified view of src/p14_search/procedure/model.py.
+%% Full BPMN: docs/bpmn/scholarship.bpmn; workflow net: docs/bpmn/scholarship.pnml (sound, see PROCEDURE.md).
+flowchart LR
+    start((Call published<br/>ART. 1)) --> and1{{"and"}}
+    and1 --> econ{family income<br/>in Italy?}
+    econ -- yes --> dsu[Sign DSU, ISEE<br/>ART. 8]
+    econ -- no --> par[ISEE parificato documents<br/>ART. 11, by 28/8/2026]
+    dsu --> m1{"xor"}
+    par --> m1
+    m1 --> apply[Submit online application<br/>Art. 10, by 28/8/2026]
+    and1 --> enrol[Enrol at the university<br/>ART. 3]
+    apply --> and2{{"and"}}
+    enrol --> and2
+    and2 --> check[ERDIS checks requirements<br/>ART. 14]
+    check --> prov[Provisional ranking<br/>ART. 15, ~15/9/2026]
+    prov --> rev{request for<br/>review?}
+    rev -- yes --> req[Request review, 5 days] --> dec[Decision] --> m2{"xor"}
+    rev -- no --> m2
+    m2 --> fin[Final ranking<br/>ART. 15, first half Oct 2026]
+    fin --> out{awarded?}
+    out -- no --> nope(("Not awarded /<br/>excluded, ART. 20"))
+    out -- yes --> pay1["First instalment(s)<br/>ART. 17"]
+    pay1 --> merit{merit for<br/>the balance?}
+    merit -- yes --> bal((Balance paid<br/>ART. 17))
+    merit -- no --> revk((Revocation<br/>ART. 21))

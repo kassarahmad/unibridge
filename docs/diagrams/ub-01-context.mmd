@@ -1,0 +1,15 @@
+%% UniBridge system context: students, offices and sources around the assistant (P14 engine underneath).
+flowchart LR
+    student([International student<br/>Italian / English / Arabic])
+    office([University / ERDIS office staff])
+    llm[LLM provider, optional<br/>OpenAI or Anthropic via LLM_PROVIDER]
+    ub[[UniBridge<br/>FastAPI :8001 + Streamlit demo<br/>P14 retrieval engine]]
+    src[("Official sources: UNICAM regulations and FAQ,<br/>ERDIS Marche call 2026/27, MUR circular,<br/>synthetic restricted notes (labelled)")]
+    mail[/E-mail client of the student/]
+
+    student -- "question, role, facts for the guide" --> ub
+    ub -- "answer + citations with Italian original,<br/>checklist + .ics, or I don't know + draft" --> student
+    src -- "scripts/fetch_corpus_unibridge.py,<br/>scripts/ingest_unibridge.py" --> ub
+    ub -. "question + retrieved passages only<br/>(no personal data); cached, temperature 0" .-> llm
+    student -. "sends the draft themselves;<br/>never sent automatically" .-> mail
+    mail -.-> office

@@ -1,0 +1,82 @@
+{
+  "generated_at": "20261111-153034",
+  "n_test_queries": 102,
+  "role": "visitor",
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "price_usd_per_mtok": [
+      0.15,
+      0.6
+    ]
+  },
+  "skipped_configs": {},
+  "configs": {
+    "extractive": {
+      "n": 102,
+      "answered": 69,
+      "citation_precision": 0.4058,
+      "uncited_sentence_rate": 0.0,
+      "judge_unsupported_rate": null,
+      "answer_language_correct": 0.9275,
+      "idk_false_in_scope": 0.2581,
+      "source_recall": 0.4265,
+      "idk_correct_oos": 1.0,
+      "n_out_of_scope": 9,
+      "oos_handoff": {
+        "out_of_scope": 9
+      },
+      "cost_usd_total": 0,
+      "cost_usd_per_answer": 0.0,
+      "llm_calls_per_answer": 0.0,
+      "cached_call_share": 0.0,
+      "latency_ms_p50": 34.5,
+      "latency_ms_p95": 176.3,
+      "by_lang": {
+        "it": {
+          "n": 42,
+          "answered": 39,
+          "citation_precision": 0.5128,
+          "uncited_sentence_rate": 0.0,
+          "judge_unsupported_rate": null,
+          "answer_language_correct": 1.0,
+          "idk_false_in_scope": 0.0,
+          "source_recall": 0.5855
+        },
+        "en": {
+          "n": 30,
+          "answered": 25,
+          "citation_precision": 0.24,
+          "uncited_sentence_rate": 0.0,
+          "judge_unsupported_rate": null,
+          "answer_language_correct": 1.0,
+          "idk_false_in_scope": 0.1071,
+          "source_recall": 0.378
+        },
+        "ar": {
+          "n": 30,
+          "answered": 5,
+          "citation_precision": 0.4,
+          "uncited_sentence_rate": 0.0,
+          "judge_unsupported_rate": null,
+          "answer_language_correct": 0.0,
+          "idk_false_in_scope": 0.8077,
+          "source_recall": 0.2404
+        }
+      },
+      "answered_share": 0.6765
+    }
+  },
+  "run_llm_usage": {
+    "calls": 0,
+    "non_cached_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0,
+    "by_purpose": {}
+  },
+  "calibration": {
+    "ie_min_dense": 0.847339,
+    "ie_min_bm25": 16.499721
+  }
+}

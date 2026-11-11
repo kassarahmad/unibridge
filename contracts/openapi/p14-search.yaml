@@ -100,6 +100,149 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /v1/answer:
+    post:
+      tags:
+      - answer
+      summary: Answer
+      description: 'Answer in the student''s language (it, en, ar); every sentence
+        cites a passage, shown with its Italian original.
+
+        Without a configured LLM the answer is extractive. Weak evidence -> ''I don''t
+        know'' + a draft for the right office.'
+      operationId: answer_v1_answer_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Forbidden
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '413':
+          description: Request Entity Too Large
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '415':
+          description: Unsupported Media Type
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Service Unavailable
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/handoff:
+    post:
+      tags:
+      - answer
+      summary: Handoff
+      description: Draft (never send) a formal Italian message to the office responsible
+        for the question.
+      operationId: handoff_v1_handoff_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandoffRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HandoffResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Forbidden
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '413':
+          description: Request Entity Too Large
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '415':
+          description: Unsupported Media Type
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Service Unavailable
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /v1/documents:
     post:
       tags:
@@ -463,6 +606,166 @@ components:
       - internal
       - restricted
       title: AccessLevel
+    AnswerRequest:
+      properties:
+        query:
+          type: string
+          maxLength: 1000
+          minLength: 1
+          title: Query
+        language:
+          anyOf:
+          - type: string
+            enum:
+            - it
+            - en
+            - ar
+          - type: 'null'
+          title: Language
+          description: Answer language; null = detected from the query (it, en, ar).
+        mode:
+          type: string
+          enum:
+          - auto
+          - extractive
+          - llm
+          - llm_verified
+          title: Mode
+          description: auto = llm_verified when an LLM is configured, else extractive.
+            'llm' skips the verifier (evaluation only).
+          default: auto
+        top_k:
+          anyOf:
+          - type: integer
+            maximum: 20.0
+            minimum: 1.0
+          - type: 'null'
+          title: Top K
+          description: Passages given to the answer step; null = server default.
+        with_handoff:
+          type: boolean
+          title: With Handoff
+          description: Draft an e-mail to the responsible office when the answer is
+            'I don't know'.
+          default: true
+      additionalProperties: false
+      type: object
+      required:
+      - query
+      title: AnswerRequest
+    AnswerResponse:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        query:
+          type: string
+          title: Query
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          - ar
+          title: Language
+        mode:
+          type: string
+          enum:
+          - llm_verified
+          - llm
+          - extractive
+          - insufficient_evidence
+          title: Mode
+        answer_text:
+          type: string
+          title: Answer Text
+          description: Sentences joined, without citation markers; empty for 'I don't
+            know'.
+        sentences:
+          items:
+            $ref: '#/components/schemas/AnswerSentence'
+          type: array
+          title: Sentences
+        sources:
+          items:
+            $ref: '#/components/schemas/SourcePassage'
+          type: array
+          title: Sources
+          description: Passages given to the answer step, in rank order, with citations.
+        insufficient_evidence:
+          type: boolean
+          title: Insufficient Evidence
+          description: True when the answer is 'I don't know'.
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          description: Note in the user's language ('I don't know', extractive note,
+            fallback).
+        handoff:
+          anyOf:
+          - $ref: '#/components/schemas/HandoffResponse'
+          - type: 'null'
+        verification:
+          anyOf:
+          - $ref: '#/components/schemas/VerificationReport'
+          - type: 'null'
+        llm:
+          anyOf:
+          - $ref: '#/components/schemas/LLMUsage'
+          - type: 'null'
+        retrieval_system:
+          type: string
+          title: Retrieval System
+        query_italian:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query Italian
+          description: LLM translation of the query used as a second retrieval query.
+        latency_ms:
+          type: number
+          title: Latency Ms
+        versions:
+          $ref: '#/components/schemas/Versions'
+      type: object
+      required:
+      - request_id
+      - query
+      - language
+      - mode
+      - answer_text
+      - sentences
+      - sources
+      - insufficient_evidence
+      - retrieval_system
+      - latency_ms
+      - versions
+      title: AnswerResponse
+    AnswerSentence:
+      properties:
+        text:
+          type: string
+          title: Text
+        passage_ids:
+          items:
+            type: string
+          type: array
+          title: Passage Ids
+          description: Passages cited by this sentence (empty = uncited, shown only
+            in mode 'llm').
+        supported:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Supported
+          description: Result of the support check (null = not checked).
+      type: object
+      required:
+      - text
+      - passage_ids
+      title: AnswerSentence
     ApproveRequest:
       properties:
         note:
@@ -736,6 +1039,191 @@ components:
       - media_type
       - content_base64
       title: FileContent
+    HandoffDraft:
+      properties:
+        office_id:
+          type: string
+          enum:
+          - scholarship
+          - student_office
+          - international
+          title: Office Id
+        office_name:
+          type: string
+          title: Office Name
+        channel:
+          type: string
+          enum:
+          - email
+          - srm_ticket
+          - desk
+          title: Channel
+        to:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: To
+          description: Recipient address, only when published in the corpus; null
+            otherwise.
+        how_to_send:
+          type: string
+          title: How To Send
+          description: How the student can contact the office (from the official documents).
+        contact_source:
+          type: string
+          title: Contact Source
+          description: Document that publishes the contact channel.
+        rule:
+          type: string
+          title: Rule
+          description: Why this office was chosen (rule table config/handoff_offices.json).
+        subject:
+          type: string
+          title: Subject
+        body:
+          type: string
+          title: Body
+          description: Formal Italian text. Placeholders [..] are for the student;
+            nothing personal is filled in.
+        question_original:
+          type: string
+          title: Question Original
+        question_italian:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Question Italian
+          description: Italian translation of the question (LLM), null if not available.
+        translated_by_llm:
+          type: boolean
+          title: Translated By Llm
+        sources:
+          items:
+            $ref: '#/components/schemas/HandoffSource'
+          type: array
+          title: Sources
+        sent:
+          type: boolean
+          title: Sent
+          description: 'Always false: UniBridge never sends messages, the student
+            does.'
+          default: false
+      type: object
+      required:
+      - office_id
+      - office_name
+      - channel
+      - to
+      - how_to_send
+      - contact_source
+      - rule
+      - subject
+      - body
+      - question_original
+      - question_italian
+      - translated_by_llm
+      - sources
+      title: HandoffDraft
+    HandoffRequest:
+      properties:
+        query:
+          type: string
+          maxLength: 1000
+          minLength: 1
+          title: Query
+        language:
+          anyOf:
+          - type: string
+            enum:
+            - it
+            - en
+            - ar
+          - type: 'null'
+          title: Language
+        passage_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 10
+          title: Passage Ids
+          description: Passages to mention (ACL-checked).
+        office_id:
+          anyOf:
+          - type: string
+            enum:
+            - scholarship
+            - student_office
+            - international
+          - type: 'null'
+          title: Office Id
+          description: Override the rule table.
+      additionalProperties: false
+      type: object
+      required:
+      - query
+      title: HandoffRequest
+    HandoffResponse:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          - ar
+          title: Language
+        out_of_scope:
+          type: boolean
+          title: Out Of Scope
+          description: 'True when no office matches the question: no draft is produced.'
+        message:
+          type: string
+          title: Message
+        draft:
+          anyOf:
+          - $ref: '#/components/schemas/HandoffDraft'
+          - type: 'null'
+      type: object
+      required:
+      - request_id
+      - language
+      - out_of_scope
+      - message
+      - draft
+      title: HandoffResponse
+    HandoffSource:
+      properties:
+        passage_id:
+          type: string
+          title: Passage Id
+        title:
+          type: string
+          title: Title
+        section:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Section
+        page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page
+        source_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Url
+      type: object
+      required:
+      - passage_id
+      - title
+      - section
+      - page
+      - source_url
+      title: HandoffSource
     HealthResponse:
       properties:
         status:
@@ -844,6 +1332,42 @@ components:
       - status
       - passages
       title: IngestResult
+    LLMUsage:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        model:
+          type: string
+          title: Model
+        calls:
+          type: integer
+          title: Calls
+        cached_calls:
+          type: integer
+          title: Cached Calls
+        input_tokens:
+          type: integer
+          title: Input Tokens
+        output_tokens:
+          type: integer
+          title: Output Tokens
+        cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cost Usd
+          description: Estimated cost of the non-cached calls (price table in answer/llm.py).
+      type: object
+      required:
+      - provider
+      - model
+      - calls
+      - cached_calls
+      - input_tokens
+      - output_tokens
+      - cost_usd
+      title: LLMUsage
     Passage:
       properties:
         passage_id:
@@ -1047,6 +1571,34 @@ components:
       - summary
       - versions
       title: SearchResponse
+    SourcePassage:
+      properties:
+        passage_id:
+          type: string
+          title: Passage Id
+        alias:
+          type: string
+          title: Alias
+          description: Short id used in the prompt (P1, P2, ...).
+        rank:
+          type: integer
+          minimum: 1.0
+          title: Rank
+        text:
+          type: string
+          title: Text
+          description: Original passage text (usually Italian), shown next to the
+            answer.
+        citation:
+          $ref: '#/components/schemas/Citation'
+      type: object
+      required:
+      - passage_id
+      - alias
+      - rank
+      - text
+      - citation
+      title: SourcePassage
     Summary:
       properties:
         method:
@@ -1081,6 +1633,31 @@ components:
       - text
       - passage_id
       title: SummarySentence
+    VerificationReport:
+      properties:
+        generated_sentences:
+          type: integer
+          title: Generated Sentences
+        dropped_uncited:
+          type: integer
+          title: Dropped Uncited
+        dropped_invalid_citation:
+          type: integer
+          title: Dropped Invalid Citation
+        dropped_unsupported:
+          type: integer
+          title: Dropped Unsupported
+        support_checked:
+          type: boolean
+          title: Support Checked
+      type: object
+      required:
+      - generated_sentences
+      - dropped_uncited
+      - dropped_invalid_citation
+      - dropped_unsupported
+      - support_checked
+      title: VerificationReport
     Versions:
       properties:
         pipeline_version:

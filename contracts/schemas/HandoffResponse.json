@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p14.example/contracts/v1/HandoffResponse.json",
+  "$defs": {
+    "HandoffDraft": {
+      "properties": {
+        "office_id": {
+          "enum": [
+            "scholarship",
+            "student_office",
+            "international"
+          ],
+          "title": "Office Id",
+          "type": "string"
+        },
+        "office_name": {
+          "title": "Office Name",
+          "type": "string"
+        },
+        "channel": {
+          "enum": [
+            "email",
+            "srm_ticket",
+            "desk"
+          ],
+          "title": "Channel",
+          "type": "string"
+        },
+        "to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Recipient address, only when published in the corpus; null otherwise.",
+          "title": "To"
+        },
+        "how_to_send": {
+          "description": "How the student can contact the office (from the official documents).",
+          "title": "How To Send",
+          "type": "string"
+        },
+        "contact_source": {
+          "description": "Document that publishes the contact channel.",
+          "title": "Contact Source",
+          "type": "string"
+        },
+        "rule": {
+          "description": "Why this office was chosen (rule table config/handoff_offices.json).",
+          "title": "Rule",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "body": {
+          "description": "Formal Italian text. Placeholders [..] are for the student; nothing personal is filled in.",
+          "title": "Body",
+          "type": "string"
+        },
+        "question_original": {
+          "title": "Question Original",
+          "type": "string"
+        },
+        "question_italian": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Italian translation of the question (LLM), null if not available.",
+          "title": "Question Italian"
+        },
+        "translated_by_llm": {
+          "title": "Translated By Llm",
+          "type": "boolean"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/HandoffSource"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "sent": {
+          "default": false,
+          "description": "Always false: UniBridge never sends messages, the student does.",
+          "title": "Sent",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "office_id",
+        "office_name",
+        "channel",
+        "to",
+        "how_to_send",
+        "contact_source",
+        "rule",
+        "subject",
+        "body",
+        "question_original",
+        "question_italian",
+        "translated_by_llm",
+        "sources"
+      ],
+      "title": "HandoffDraft",
+      "type": "object"
+    },
+    "HandoffSource": {
+      "properties": {
+        "passage_id": {
+          "title": "Passage Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Section"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Page"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Url"
+        }
+      },
+      "required": [
+        "passage_id",
+        "title",
+        "section",
+        "page",
+        "source_url"
+      ],
+      "title": "HandoffSource",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "it",
+        "en",
+        "ar"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "out_of_scope": {
+      "description": "True when no office matches the question: no draft is produced.",
+      "title": "Out Of Scope",
+      "type": "boolean"
+    },
+    "message": {
+      "title": "Message",
+      "type": "string"
+    },
+    "draft": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/HandoffDraft"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "request_id",
+    "language",
+    "out_of_scope",
+    "message",
+    "draft"
+  ],
+  "title": "HandoffResponse",
+  "type": "object"
+}

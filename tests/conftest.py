@@ -47,9 +47,16 @@ def ingest_payload(external_id: str, access: str, office: str, title: str, text:
     }
 
 
+@pytest.fixture(autouse=True)
+def no_real_llm(monkeypatch):
+    """Tests never call a real LLM API: drop any LLM configuration coming from the environment."""
+    for var in ("LLM_PROVIDER", "LLM_MODEL", "LLM_API_KEY"):
+        monkeypatch.delenv(var, raising=False)
+
+
 @pytest.fixture
 def services():
-    settings = Settings(_env_file=None, display_system="S2", shadow_system="B0")
+    settings = Settings(_env_file=None, display_system="S2", shadow_system="B0", llm_provider="")
     return build_services(
         settings,
         store=Store(":memory:"),

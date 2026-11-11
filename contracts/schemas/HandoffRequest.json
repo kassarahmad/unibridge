@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p14.example/contracts/v1/HandoffRequest.json",
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "enum": [
+            "it",
+            "en",
+            "ar"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Language"
+    },
+    "passage_ids": {
+      "description": "Passages to mention (ACL-checked).",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Passage Ids",
+      "type": "array"
+    },
+    "office_id": {
+      "anyOf": [
+        {
+          "enum": [
+            "scholarship",
+            "student_office",
+            "international"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Override the rule table.",
+      "title": "Office Id"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "HandoffRequest",
+  "type": "object"
+}

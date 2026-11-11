@@ -18,11 +18,16 @@ from p14_search.config import Settings, get_settings
 from p14_search.ingestion.parser import ParseError
 from p14_search.ingestion.service import NotAllowed, NotFound
 from p14_search.models import (
+    AnswerRequest,
+    AnswerResponse,
     Citation,
     DocumentInfo,
     DocumentMetadata,
     FeedbackRequest,
     FeedbackResult,
+    HandoffRequest,
+    HandoffResponse,
+    HandoffSource,
     IngestDocument,
     IngestResult,
     PassageInfo,
@@ -186,6 +191,39 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
         services: Services = Depends(get_services),
     ) -> SearchResponse:
         return services.search.search(body, principal, request.state.request_id)
+
+    # --- UniBridge: answers and handoff ------------------------------------------------------
+    @app.post("/v1/answer", tags=["answer"], response_model=AnswerResponse, responses=ERRORS)
+    def answer(
+        request: Request,
+        body: AnswerRequest,
+        principal: Principal = Depends(get_principal),
+        services: Services = Depends(get_services),
+    ) -> AnswerResponse:
+        """Answer in the student's language (it, en, ar); every sentence cites a passage, shown with its Italian original.
+        Without a configured LLM the answer is extractive. Weak evidence -> 'I don't know' + a draft for the right office."""
+        return services.answer.answer(body, principal, request.state.request_id)
+
+    @app.post("/v1/handoff", tags=["answer"], response_model=HandoffResponse, responses=ERRORS)
+    def handoff(
+        request: Request,
+        body: HandoffRequest,
+        principal: Principal = Depends(get_principal),
+        services: Services = Depends(get_services),
+    ) -> HandoffResponse:
+        """Draft (never send) a formal Italian message to the office responsible for the question."""
+        sources = []
+        for pid in body.passage_ids:
+            rows = services.store.query(
+                """SELECT p.passage_id, p.section, p.page, d.title, d.source_url, d.access_level, d.office
+                   FROM passages p JOIN documents d ON d.document_id = p.document_id WHERE p.passage_id = ? AND p.indexed = 1""",
+                (pid,),
+            )
+            if not rows or not acl.allows(principal, rows[0]["access_level"], rows[0]["office"]):
+                raise NotFound(pid)
+            r = rows[0]
+            sources.append(HandoffSource(passage_id=pid, title=r["title"], section=r["section"], page=r["page"], source_url=r["source_url"]))
+        return services.handoff.draft(body.query, body.language, sources, request.state.request_id, office_id=body.office_id)
 
     # --- documents ---------------------------------------------------------------------------
     @app.post("/v1/documents", tags=["documents"], response_model=IngestResult, status_code=202, responses=ERRORS)

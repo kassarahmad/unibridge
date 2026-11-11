@@ -18,6 +18,11 @@ CONTRACT_MODELS: dict[str, type[BaseModel]] = {
     "PassageInfo": models.PassageInfo,
     "FeedbackRequest": models.FeedbackRequest,
     "Problem": models.Problem,
+    # UniBridge
+    "AnswerRequest": models.AnswerRequest,
+    "AnswerResponse": models.AnswerResponse,
+    "HandoffRequest": models.HandoffRequest,
+    "HandoffResponse": models.HandoffResponse,
 }
 
 SCHEMA_ID_BASE = "https://p14.example/contracts/v1/"

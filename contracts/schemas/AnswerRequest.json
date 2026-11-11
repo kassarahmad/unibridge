@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p14.example/contracts/v1/AnswerRequest.json",
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "enum": [
+            "it",
+            "en",
+            "ar"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Answer language; null = detected from the query (it, en, ar).",
+      "title": "Language"
+    },
+    "mode": {
+      "default": "auto",
+      "description": "auto = llm_verified when an LLM is configured, else extractive. 'llm' skips the verifier (evaluation only).",
+      "enum": [
+        "auto",
+        "extractive",
+        "llm",
+        "llm_verified"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "top_k": {
+      "anyOf": [
+        {
+          "maximum": 20,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Passages given to the answer step; null = server default.",
+      "title": "Top K"
+    },
+    "with_handoff": {
+      "default": true,
+      "description": "Draft an e-mail to the responsible office when the answer is 'I don't know'.",
+      "title": "With Handoff",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "AnswerRequest",
+  "type": "object"
+}

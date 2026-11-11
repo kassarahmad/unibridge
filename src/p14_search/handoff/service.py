@@ -10,6 +10,7 @@ data is never filled in: the draft has placeholders.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from p14_search.answer.language import HANDOFF_NOTE, OUT_OF_SCOPE_NOTE, detect
@@ -19,6 +20,16 @@ from p14_search.models import HandoffDraft, HandoffResponse, HandoffSource, Lang
 
 CONFIG = Path(__file__).resolve().parents[3] / "config" / "handoff_offices.json"
 LANG_IT = {"it": "italiano", "en": "inglese", "ar": "arabo"}
+_ARABIC = re.compile(r"[؀-ۿ]")
+
+
+def _matches(keyword: str, question: str) -> bool:
+    """Latin keywords must start a word ("visto" must not match "previsto"; stems like "iscrizion" still match).
+    Arabic keywords match anywhere: proclitics (و، ب، ل...) are written attached to the word."""
+    k = keyword.lower()
+    if _ARABIC.search(k):
+        return k in question
+    return re.search(r"(?<!\w)" + re.escape(k), question) is not None
 
 
 class HandoffService:
@@ -31,7 +42,7 @@ class HandoffService:
     # --- office choice -----------------------------------------------------------------------
     def choose_office(self, question: str, top_office: str | None = None) -> tuple[str | None, str]:
         q = question.lower()
-        scores = {r["office"]: sorted({k for k in r["keywords"] if k.lower() in q}) for r in self.rules}
+        scores = {r["office"]: sorted({k for k in r["keywords"] if _matches(k, q)}) for r in self.rules}
         best = max((len(v) for v in scores.values()), default=0)
         if best == 0:
             return None, "no keyword of the rule table matches the question"

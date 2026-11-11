@@ -1,0 +1,840 @@
+{
+  "generated_at": "20261111-154232",
+  "n": 102,
+  "in_scope_office_accuracy": 0.6882,
+  "in_scope_no_office_share": 0.2366,
+  "out_of_scope_no_draft": 1.0,
+  "by_lang": {
+    "it": 0.7179,
+    "en": 0.6786,
+    "ar": 0.6538
+  },
+  "confusion": {
+    "international->international": 13,
+    "international->student_office": 4,
+    "international->None": 5,
+    "scholarship->scholarship": 48,
+    "scholarship->student_office": 3,
+    "scholarship->None": 17,
+    "student_office->student_office": 3,
+    "None->None": 9
+  },
+  "per_query": [
+    {
+      "qid": "U001",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U002",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U003",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U004",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U007",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U008",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U009",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U010",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U015",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U016",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U017",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U018",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U019",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U020",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U021",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U022",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U023",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U024",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U025",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U026",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U027",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U028",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U029",
+      "lang": "ar",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U030",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U031",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U032",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U033",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U049",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U050",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U051",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U052",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U053",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U054",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U055",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U056",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U057",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U058",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U059",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U060",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U061",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U062",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U063",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U064",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U065",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U066",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U067",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U068",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U069",
+      "lang": "ar",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U070",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U071",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U072",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U073",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U074",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U075",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U080",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U081",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U089",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U090",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U091",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U092",
+      "lang": "en",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U093",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U094",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U095",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U096",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U097",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U098",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U099",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U101",
+      "lang": "it",
+      "type": "faq",
+      "expected": "scholarship",
+      "chosen": "scholarship",
+      "correct": true
+    },
+    {
+      "qid": "U103",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U104",
+      "lang": "it",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U105",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U106",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U107",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U108",
+      "lang": "it",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U109",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U110",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U111",
+      "lang": "it",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U112",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U113",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "student_office",
+      "correct": false
+    },
+    {
+      "qid": "U117",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U118",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U119",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "international",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U123",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U124",
+      "lang": "it",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U125",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U126",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U127",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U128",
+      "lang": "it",
+      "type": "translation",
+      "expected": "international",
+      "chosen": "international",
+      "correct": true
+    },
+    {
+      "qid": "U129",
+      "lang": "ar",
+      "type": "translation",
+      "expected": "international",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U130",
+      "lang": "en",
+      "type": "faq",
+      "expected": "international",
+      "chosen": null,
+      "correct": false
+    },
+    {
+      "qid": "U139",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "student_office",
+      "chosen": "student_office",
+      "correct": true
+    },
+    {
+      "qid": "U140",
+      "lang": "en",
+      "type": "paraphrase",
+      "expected": "student_office",
+      "chosen": "student_office",
+      "correct": true
+    },
+    {
+      "qid": "U141",
+      "lang": "it",
+      "type": "paraphrase",
+      "expected": "student_office",
+      "chosen": "student_office",
+      "correct": true
+    },
+    {
+      "qid": "U144",
+      "lang": "it",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U146",
+      "lang": "it",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U147",
+      "lang": "it",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U150",
+      "lang": "en",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U151",
+      "lang": "en",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U152",
+      "lang": "ar",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U153",
+      "lang": "ar",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U154",
+      "lang": "ar",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    },
+    {
+      "qid": "U155",
+      "lang": "ar",
+      "type": "out_of_scope",
+      "expected": null,
+      "chosen": null,
+      "correct": true
+    }
+  ]
+}

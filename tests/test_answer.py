@@ -166,3 +166,12 @@ def test_cache_usage_log_and_budget(tmp_path, fake):
 
 def test_llm_is_off_without_configuration():
     assert build_llm(Settings(_env_file=None, llm_provider="", llm_model="", llm_api_key="")) is None
+
+
+def test_office_keywords_match_word_starts_only():
+    from p14_search.handoff.service import HandoffService
+
+    service = HandoffService(llm=None)
+    assert service.choose_office("Come è previsto il calendario delle lezioni?")[0] is None  # "visto" inside "previsto"
+    assert service.choose_office("Serve il visto per studiare?")[0] == "international"
+    assert service.choose_office("Quando apre l'iscrizione?")[0] == "student_office"  # stem "iscrizion"

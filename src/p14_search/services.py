@@ -14,6 +14,7 @@ from p14_search.indexing.embedder import Embedder, SentenceTransformerEmbedder
 from p14_search.indexing.store import Store
 from p14_search.indexing.vector_index import VectorIndex
 from p14_search.ingestion.service import IngestionService
+from p14_search.procedure.guide import ScholarshipGuide
 from p14_search.retrieval.retrievers import BM25Retriever, DenseRetriever
 from p14_search.retrieval.service import SearchService
 from p14_search.security.principals import PrincipalRegistry
@@ -32,6 +33,7 @@ class Services:
     llm: LLMClient | None = None
     handoff: HandoffService | None = None
     answer: AnswerService | None = None
+    procedure: ScholarshipGuide | None = None
 
 
 def build_services(
@@ -65,4 +67,5 @@ def build_services(
         llm=llm,
         handoff=handoff,
         answer=AnswerService(search, llm, handoff, settings),
+        procedure=ScholarshipGuide(store),
     )

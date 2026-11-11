@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p14.example/contracts/v1/ProcedureRequest.json",
+  "additionalProperties": false,
+  "description": "Facts about the student, used only by deterministic rules (never sent to an LLM, never stored).",
+  "properties": {
+    "language": {
+      "default": "en",
+      "enum": [
+        "it",
+        "en",
+        "ar"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "today": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Reference date (ISO); null = server date.",
+      "title": "Today"
+    },
+    "level": {
+      "description": "L bachelor, LM master, LMCU5/6 single-cycle master (5 or 6 years).",
+      "enum": [
+        "L",
+        "LM",
+        "LMCU5",
+        "LMCU6"
+      ],
+      "title": "Level",
+      "type": "string"
+    },
+    "year": {
+      "description": "Year of course in 2026/2027, counted from the first enrolment ever.",
+      "maximum": 6,
+      "minimum": 1,
+      "title": "Year",
+      "type": "integer"
+    },
+    "extra_semester": {
+      "default": false,
+      "description": "Enrolled for the 'ulteriore semestre' after the last year.",
+      "title": "Extra Semester",
+      "type": "boolean"
+    },
+    "part_time": {
+      "default": false,
+      "title": "Part Time",
+      "type": "boolean"
+    },
+    "credits": {
+      "anyOf": [
+        {
+          "maximum": 400,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Credits (CFU) earned by 10/8/2026.",
+      "title": "Credits"
+    },
+    "bonus_credits": {
+      "default": 0,
+      "description": "Bonus credits the student wants to use (Art. 7.15).",
+      "maximum": 15,
+      "minimum": 0,
+      "title": "Bonus Credits",
+      "type": "integer"
+    },
+    "isee": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "ISEE for university study (EUR); null = not known yet / parificato.",
+      "title": "Isee"
+    },
+    "ispe": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ispe"
+    },
+    "family_abroad": {
+      "default": false,
+      "description": "Family (household) resident outside Italy: ISEE parificato.",
+      "title": "Family Abroad",
+      "type": "boolean"
+    },
+    "non_eu": {
+      "default": false,
+      "title": "Non Eu",
+      "type": "boolean"
+    },
+    "has_residence_permit": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Has Residence Permit"
+    },
+    "prior_degree_same_level": {
+      "default": false,
+      "title": "Prior Degree Same Level",
+      "type": "boolean"
+    },
+    "disability_66": {
+      "default": false,
+      "title": "Disability 66",
+      "type": "boolean"
+    },
+    "differentiated_merit_course": {
+      "default": false,
+      "description": "Course listed in Art. 7.6 (proportional requirements, Annexes A-C).",
+      "title": "Differentiated Merit Course",
+      "type": "boolean"
+    },
+    "residence": {
+      "anyOf": [
+        {
+          "enum": [
+            "fuori_sede",
+            "pendolare",
+            "in_sede"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Residence"
+    },
+    "application_submitted": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Application Submitted"
+    },
+    "enrolled": {
+      "default": true,
+      "title": "Enrolled",
+      "type": "boolean"
+    },
+    "review_requested": {
+      "default": false,
+      "title": "Review Requested",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "level",
+    "year"
+  ],
+  "title": "ProcedureRequest",
+  "type": "object"
+}

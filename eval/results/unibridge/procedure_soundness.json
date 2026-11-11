@@ -1,0 +1,40 @@
+{
+  "model": "src/p14_search/procedure/model.py",
+  "places": 18,
+  "transitions": 20,
+  "arcs": 42,
+  "bpmn": {
+    "nodes": 24,
+    "flows": 26,
+    "file": "docs/bpmn/scholarship.bpmn"
+  },
+  "soundness_in_code": {
+    "workflow_net": {
+      "sources": [
+        "i"
+      ],
+      "sinks": [
+        "o"
+      ],
+      "single_source_i": true,
+      "single_sink_o": true,
+      "nodes_not_on_i_o_path": [],
+      "ok": true
+    },
+    "reachable_markings": 19,
+    "bounded": true,
+    "option_to_complete": true,
+    "proper_completion": true,
+    "no_dead_transitions": true,
+    "dead_transitions": [],
+    "markings_that_cannot_complete": [],
+    "sound": true
+  },
+  "pm4py_woflan_on_pnml": {
+    "available": true,
+    "version": "2.7.23.12",
+    "is_sound": true,
+    "places": 18,
+    "transitions": 20
+  }
+}

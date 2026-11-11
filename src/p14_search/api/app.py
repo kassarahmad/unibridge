@@ -32,6 +32,8 @@ from p14_search.models import (
     IngestResult,
     PassageInfo,
     Problem,
+    ProcedureRequest,
+    ProcedureResponse,
     SearchRequest,
     SearchResponse,
     Versions,
@@ -224,6 +226,17 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
             r = rows[0]
             sources.append(HandoffSource(passage_id=pid, title=r["title"], section=r["section"], page=r["page"], source_url=r["source_url"]))
         return services.handoff.draft(body.query, body.language, sources, request.state.request_id, office_id=body.office_id)
+
+    @app.post("/v1/procedure/scholarship", tags=["procedure"], response_model=ProcedureResponse, responses=ERRORS)
+    def scholarship_guide(
+        request: Request,
+        body: ProcedureRequest,
+        principal: Principal = Depends(get_principal),
+        services: Services = Depends(get_services),
+    ) -> ProcedureResponse:
+        """ERDIS scholarship 2026/2027 guide: deterministic eligibility rules (each with its article), position in the
+        BPMN/workflow-net procedure, personal checklist and .ics deadlines. No LLM; the facts are not stored."""
+        return services.procedure.guide(body, request.state.request_id)
 
     # --- documents ---------------------------------------------------------------------------
     @app.post("/v1/documents", tags=["documents"], response_model=IngestResult, status_code=202, responses=ERRORS)

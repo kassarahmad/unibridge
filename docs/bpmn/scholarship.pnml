@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="scholarship" type="http://www.informatik.hu-berlin.de/top/pntd/ptNetb">
+    <name><text>ERDIS scholarship 2026/2027 - workflow net</text></name>
+    <place id="i"><name><text>i</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="60" y="80"/><dimension x="40" y="40"/></graphics><initialMarking><text>1</text></initialMarking></place>
+    <place id="p_call"><name><text>p_call</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="280" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_econ"><name><text>p_econ</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="500" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_enrol"><name><text>p_enrol</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="500" y="190"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_econ_ready"><name><text>p_econ_ready</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="720" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_applied"><name><text>p_applied</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="940" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_enrolled"><name><text>p_enrolled</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="720" y="190"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_closed"><name><text>p_closed</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1160" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_checked"><name><text>p_checked</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1380" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_prov"><name><text>p_prov</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1600" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_review"><name><text>p_review</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1820" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_ready_final"><name><text>p_ready_final</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2040" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_final"><name><text>p_final</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2260" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="o"><name><text>o</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="3250" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_awarded"><name><text>p_awarded</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2480" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_paid_first"><name><text>p_paid_first</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2700" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_merit_ok"><name><text>p_merit_ok</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2920" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_merit_fail"><name><text>p_merit_fail</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2920" y="190"/><dimension x="40" y="40"/></graphics></place>
+    <transition id="t_call"><name><text>Call for applications published</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="170" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_split"><name><text>Start parallel preparation</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="390" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_dsu"><name><text>Sign the DSU and obtain the ISEE for the right to university study</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="610" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_parificato"><name><text>Submit legalised and translated documents for the ISEE parificato</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="610" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_apply"><name><text>Submit and confirm the online application</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="830" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_enrol"><name><text>Enrol at the university for 2026/2027</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="610" y="300"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_join"><name><text>Applications closed</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1050" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_check"><name><text>Check merit and economic requirements</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1270" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_provisional"><name><text>Publish provisional ranking</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1490" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_review_request"><name><text>Submit a request for review (within 5 days)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1710" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_review_decision"><name><text>Decide on the request for review</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1930" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_no_review"><name><text>No request for review</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1710" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_final"><name><text>Publish final ranking</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2150" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_not_awarded"><name><text>Not awarded or excluded</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2370" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_awarded"><name><text>Scholarship awarded</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2370" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_pay_first"><name><text>Pay the first instalment(s)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2590" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_merit_ok"><name><text>Merit requirement for the balance met</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2810" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_merit_fail"><name><text>Merit requirement not met by the last deadline</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2810" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_pay_balance"><name><text>Pay the balance</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="3030" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_revoke"><name><text>Revoke the scholarship and recover the amounts</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="3030" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <arc id="a1" source="i" target="t_call"><inscription><text>1</text></inscription></arc>
+    <arc id="a2" source="t_call" target="p_call"><inscription><text>1</text></inscription></arc>
+    <arc id="a3" source="p_call" target="t_split"><inscription><text>1</text></inscription></arc>
+    <arc id="a4" source="t_split" target="p_econ"><inscription><text>1</text></inscription></arc>
+    <arc id="a5" source="t_split" target="p_enrol"><inscription><text>1</text></inscription></arc>
+    <arc id="a6" source="p_econ" target="t_dsu"><inscription><text>1</text></inscription></arc>
+    <arc id="a7" source="t_dsu" target="p_econ_ready"><inscription><text>1</text></inscription></arc>
+    <arc id="a8" source="p_econ" target="t_parificato"><inscription><text>1</text></inscription></arc>
+    <arc id="a9" source="t_parificato" target="p_econ_ready"><inscription><text>1</text></inscription></arc>
+    <arc id="a10" source="p_econ_ready" target="t_apply"><inscription><text>1</text></inscription></arc>
+    <arc id="a11" source="t_apply" target="p_applied"><inscription><text>1</text></inscription></arc>
+    <arc id="a12" source="p_enrol" target="t_enrol"><inscription><text>1</text></inscription></arc>
+    <arc id="a13" source="t_enrol" target="p_enrolled"><inscription><text>1</text></inscription></arc>
+    <arc id="a14" source="p_applied" target="t_join"><inscription><text>1</text></inscription></arc>
+    <arc id="a15" source="p_enrolled" target="t_join"><inscription><text>1</text></inscription></arc>
+    <arc id="a16" source="t_join" target="p_closed"><inscription><text>1</text></inscription></arc>
+    <arc id="a17" source="p_closed" target="t_check"><inscription><text>1</text></inscription></arc>
+    <arc id="a18" source="t_check" target="p_checked"><inscription><text>1</text></inscription></arc>
+    <arc id="a19" source="p_checked" target="t_provisional"><inscription><text>1</text></inscription></arc>
+    <arc id="a20" source="t_provisional" target="p_prov"><inscription><text>1</text></inscription></arc>
+    <arc id="a21" source="p_prov" target="t_review_request"><inscription><text>1</text></inscription></arc>
+    <arc id="a22" source="t_review_request" target="p_review"><inscription><text>1</text></inscription></arc>
+    <arc id="a23" source="p_review" target="t_review_decision"><inscription><text>1</text></inscription></arc>
+    <arc id="a24" source="t_review_decision" target="p_ready_final"><inscription><text>1</text></inscription></arc>
+    <arc id="a25" source="p_prov" target="t_no_review"><inscription><text>1</text></inscription></arc>
+    <arc id="a26" source="t_no_review" target="p_ready_final"><inscription><text>1</text></inscription></arc>
+    <arc id="a27" source="p_ready_final" target="t_final"><inscription><text>1</text></inscription></arc>
+    <arc id="a28" source="t_final" target="p_final"><inscription><text>1</text></inscription></arc>
+    <arc id="a29" source="p_final" target="t_not_awarded"><inscription><text>1</text></inscription></arc>
+    <arc id="a30" source="t_not_awarded" target="o"><inscription><text>1</text></inscription></arc>
+    <arc id="a31" source="p_final" target="t_awarded"><inscription><text>1</text></inscription></arc>
+    <arc id="a32" source="t_awarded" target="p_awarded"><inscription><text>1</text></inscription></arc>
+    <arc id="a33" source="p_awarded" target="t_pay_first"><inscription><text>1</text></inscription></arc>
+    <arc id="a34" source="t_pay_first" target="p_paid_first"><inscription><text>1</text></inscription></arc>
+    <arc id="a35" source="p_paid_first" target="t_merit_ok"><inscription><text>1</text></inscription></arc>
+    <arc id="a36" source="t_merit_ok" target="p_merit_ok"><inscription><text>1</text></inscription></arc>
+    <arc id="a37" source="p_paid_first" target="t_merit_fail"><inscription><text>1</text></inscription></arc>
+    <arc id="a38" source="t_merit_fail" target="p_merit_fail"><inscription><text>1</text></inscription></arc>
+    <arc id="a39" source="p_merit_ok" target="t_pay_balance"><inscription><text>1</text></inscription></arc>
+    <arc id="a40" source="t_pay_balance" target="o"><inscription><text>1</text></inscription></arc>
+    <arc id="a41" source="p_merit_fail" target="t_revoke"><inscription><text>1</text></inscription></arc>
+    <arc id="a42" source="t_revoke" target="o"><inscription><text>1</text></inscription></arc>
+  </net>
+</pnml>

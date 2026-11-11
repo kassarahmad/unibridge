@@ -308,3 +308,90 @@ class AnswerResponse(BaseModel):
     query_italian: str | None = Field(None, description="LLM translation of the query used as a second retrieval query.")
     latency_ms: float
     versions: Versions
+
+
+# --- UniBridge: scholarship guide ------------------------------------------------------------
+
+class ProcedureRequest(_Strict):
+    """Facts about the student, used only by deterministic rules (never sent to an LLM, never stored)."""
+
+    language: Lang = "en"
+    today: str | None = Field(None, pattern=r"^\d{4}-\d{2}-\d{2}$", description="Reference date (ISO); null = server date.")
+    level: Literal["L", "LM", "LMCU5", "LMCU6"] = Field(..., description="L bachelor, LM master, LMCU5/6 single-cycle master (5 or 6 years).")
+    year: int = Field(..., ge=1, le=6, description="Year of course in 2026/2027, counted from the first enrolment ever.")
+    extra_semester: bool = Field(False, description="Enrolled for the 'ulteriore semestre' after the last year.")
+    part_time: bool = False
+    credits: int | None = Field(None, ge=0, le=400, description="Credits (CFU) earned by 10/8/2026.")
+    bonus_credits: int = Field(0, ge=0, le=15, description="Bonus credits the student wants to use (Art. 7.15).")
+    isee: float | None = Field(None, ge=0, description="ISEE for university study (EUR); null = not known yet / parificato.")
+    ispe: float | None = Field(None, ge=0)
+    family_abroad: bool = Field(False, description="Family (household) resident outside Italy: ISEE parificato.")
+    non_eu: bool = False
+    has_residence_permit: bool | None = None
+    prior_degree_same_level: bool = False
+    disability_66: bool = False
+    differentiated_merit_course: bool = Field(False, description="Course listed in Art. 7.6 (proportional requirements, Annexes A-C).")
+    residence: Literal["fuori_sede", "pendolare", "in_sede"] | None = None
+    application_submitted: bool | None = None
+    enrolled: bool = True
+    review_requested: bool = False
+
+
+class RuleCitation(BaseModel):
+    document_id: str
+    section: str
+    quote: str
+    passage_id: str | None = Field(..., description="Indexed passage containing the quote (null if not found).")
+
+
+class RuleResult(BaseModel):
+    id: str
+    title: str
+    outcome: Literal["pass", "fail", "check", "info", "not_applicable"]
+    detail: str
+    citation: RuleCitation
+
+
+class ChecklistItem(BaseModel):
+    id: str
+    text: str
+    due: str | None
+    status: Literal["done", "todo", "overdue", "info"]
+    citation: RuleCitation
+
+
+class Deadline(BaseModel):
+    date: str
+    title: str
+    indicative: bool
+    citation: RuleCitation
+
+
+class ProcedureStep(BaseModel):
+    id: str = Field(..., description="Transition id = BPMN element (docs/bpmn/scholarship.bpmn).")
+    name: str
+    lane: str
+    article: str | None
+
+
+class ProcedureStatus(BaseModel):
+    reference_date: str
+    marking: list[str] = Field(..., description="Places of the workflow net that hold a token.")
+    done: list[ProcedureStep]
+    next: list[ProcedureStep] = Field(..., description="Enabled transitions: what can happen next.")
+    finished: bool
+
+
+class ProcedureResponse(BaseModel):
+    request_id: str
+    language: Lang
+    verdict: Literal["eligible", "not_eligible", "check_with_office"]
+    verdict_text: str
+    rules: list[RuleResult]
+    amount_category: str | None
+    amount_full_eur: float | None = Field(..., description="Full amount for the category (Art. 12.2); reduced by ISEE bands.")
+    status: ProcedureStatus
+    checklist: list[ChecklistItem]
+    deadlines: list[Deadline]
+    ics: str = Field(..., description="iCalendar (RFC 5545) with the deadlines.")
+    disclaimer: str

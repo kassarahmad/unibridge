@@ -1,0 +1,92 @@
+{
+  "generated_at": "20261111-153819",
+  "n_scenarios": 15,
+  "scenarios_fully_correct": 15,
+  "accuracy": 1.0,
+  "field_accuracy": {
+    "verdict": 1.0,
+    "rules": 1.0,
+    "checklist": 1.0,
+    "marking": 1.0,
+    "next": 1.0
+  },
+  "rule_citations": 28,
+  "rule_citations_unresolved": [],
+  "per_scenario": [
+    {
+      "id": "S01",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S02",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S03",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S04",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S05",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S06",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S07",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S08",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S09",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S10",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S11",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S12",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S13",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S14",
+      "correct": true,
+      "diffs": {}
+    },
+    {
+      "id": "S15",
+      "correct": true,
+      "diffs": {}
+    }
+  ]
+}

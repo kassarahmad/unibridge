@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="defs_scholarship" targetNamespace="https://unibridge.example/bpmn" exporter="scripts/build_scholarship_model.py">
+  <collaboration id="collab">
+    <participant id="pool" name="ERDIS scholarship procedure a.y. 2026/2027" processRef="scholarship"/>
+  </collaboration>
+  <process id="scholarship" name="ERDIS scholarship 2026/2027" isExecutable="false">
+    <laneSet id="lanes">
+      <lane id="lane_student" name="Student">
+        <flowNodeRef>g_and_split</flowNodeRef>
+        <flowNodeRef>g_econ_split</flowNodeRef>
+        <flowNodeRef>t_dsu</flowNodeRef>
+        <flowNodeRef>t_parificato</flowNodeRef>
+        <flowNodeRef>g_econ_merge</flowNodeRef>
+        <flowNodeRef>t_apply</flowNodeRef>
+        <flowNodeRef>t_enrol</flowNodeRef>
+        <flowNodeRef>t_review_request</flowNodeRef>
+      </lane>
+      <lane id="lane_erdis" name="ERDIS Marche">
+        <flowNodeRef>start</flowNodeRef>
+        <flowNodeRef>g_and_join</flowNodeRef>
+        <flowNodeRef>t_check</flowNodeRef>
+        <flowNodeRef>t_provisional</flowNodeRef>
+        <flowNodeRef>g_review_split</flowNodeRef>
+        <flowNodeRef>t_review_decision</flowNodeRef>
+        <flowNodeRef>g_review_merge</flowNodeRef>
+        <flowNodeRef>t_final</flowNodeRef>
+        <flowNodeRef>g_outcome</flowNodeRef>
+        <flowNodeRef>end_not_awarded</flowNodeRef>
+        <flowNodeRef>t_pay_first</flowNodeRef>
+        <flowNodeRef>g_merit</flowNodeRef>
+        <flowNodeRef>t_pay_balance</flowNodeRef>
+        <flowNodeRef>end_completed</flowNodeRef>
+        <flowNodeRef>t_revoke</flowNodeRef>
+        <flowNodeRef>end_revoked</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="start" name="Call for applications 2026/2027 published (Art. 1)">
+      <outgoing>f1</outgoing>
+    </startEvent>
+    <parallelGateway id="g_and_split" name="">
+      <incoming>f1</incoming>
+      <outgoing>f2</outgoing>
+      <outgoing>f3</outgoing>
+    </parallelGateway>
+    <exclusiveGateway id="g_econ_split" name="Family income in Italy?">
+      <incoming>f2</incoming>
+      <outgoing>f4</outgoing>
+      <outgoing>f5</outgoing>
+    </exclusiveGateway>
+    <userTask id="t_dsu" name="Sign DSU, obtain ISEE for university study (Art. 8)">
+      <incoming>f4</incoming>
+      <outgoing>f6</outgoing>
+    </userTask>
+    <userTask id="t_parificato" name="Submit legalised documents for ISEE parificato by 28/8/2026 (Art. 8.8, 11)">
+      <incoming>f5</incoming>
+      <outgoing>f7</outgoing>
+    </userTask>
+    <exclusiveGateway id="g_econ_merge" name="">
+      <incoming>f6</incoming>
+      <incoming>f7</incoming>
+      <outgoing>f8</outgoing>
+    </exclusiveGateway>
+    <userTask id="t_apply" name="Submit and confirm online application by 28/8/2026 (Art. 10)">
+      <incoming>f8</incoming>
+      <outgoing>f9</outgoing>
+    </userTask>
+    <userTask id="t_enrol" name="Enrol at the university (Art. 3)">
+      <incoming>f3</incoming>
+      <outgoing>f10</outgoing>
+    </userTask>
+    <parallelGateway id="g_and_join" name="Applications closed">
+      <incoming>f9</incoming>
+      <incoming>f10</incoming>
+      <outgoing>f11</outgoing>
+    </parallelGateway>
+    <task id="t_check" name="Check merit and economic requirements (Art. 7, 8, 14)">
+      <incoming>f11</incoming>
+      <outgoing>f12</outgoing>
+    </task>
+    <task id="t_provisional" name="Publish provisional ranking, ~15/9/2026 (Art. 15.1)">
+      <incoming>f12</incoming>
+      <outgoing>f13</outgoing>
+    </task>
+    <exclusiveGateway id="g_review_split" name="Request for review?">
+      <incoming>f13</incoming>
+      <outgoing>f14</outgoing>
+      <outgoing>f17</outgoing>
+    </exclusiveGateway>
+    <userTask id="t_review_request" name="Submit request for review within 5 days (Art. 15.2)">
+      <incoming>f14</incoming>
+      <outgoing>f15</outgoing>
+    </userTask>
+    <task id="t_review_decision" name="Decide on the request for review (Art. 15.2)">
+      <incoming>f15</incoming>
+      <outgoing>f16</outgoing>
+    </task>
+    <exclusiveGateway id="g_review_merge" name="">
+      <incoming>f16</incoming>
+      <incoming>f17</incoming>
+      <outgoing>f18</outgoing>
+    </exclusiveGateway>
+    <task id="t_final" name="Publish final ranking, first half of October 2026 (Art. 15.3)">
+      <incoming>f18</incoming>
+      <outgoing>f19</outgoing>
+    </task>
+    <exclusiveGateway id="g_outcome" name="Awarded?">
+      <incoming>f19</incoming>
+      <outgoing>f20</outgoing>
+      <outgoing>f21</outgoing>
+    </exclusiveGateway>
+    <endEvent id="end_not_awarded" name="Not awarded or excluded (Art. 20)">
+      <incoming>f20</incoming>
+    </endEvent>
+    <task id="t_pay_first" name="Pay first instalment(s) (Art. 17.3)">
+      <incoming>f21</incoming>
+      <outgoing>f22</outgoing>
+    </task>
+    <exclusiveGateway id="g_merit" name="Merit for the balance?">
+      <incoming>f22</incoming>
+      <outgoing>f23</outgoing>
+      <outgoing>f24</outgoing>
+    </exclusiveGateway>
+    <task id="t_pay_balance" name="Pay the balance (Art. 17.3)">
+      <incoming>f23</incoming>
+      <outgoing>f25</outgoing>
+    </task>
+    <endEvent id="end_completed" name="Scholarship paid">
+      <incoming>f25</incoming>
+    </endEvent>
+    <task id="t_revoke" name="Revoke and recover amounts (Art. 21)">
+      <incoming>f24</incoming>
+      <outgoing>f26</outgoing>
+    </task>
+    <endEvent id="end_revoked" name="Scholarship revoked">
+      <incoming>f26</incoming>
+    </endEvent>
+    <sequenceFlow id="f1" sourceRef="start" targetRef="g_and_split"/>
+    <sequenceFlow id="f2" sourceRef="g_and_split" targetRef="g_econ_split"/>
+    <sequenceFlow id="f3" sourceRef="g_and_split" targetRef="t_enrol"/>
+    <sequenceFlow id="f4" sourceRef="g_econ_split" targetRef="t_dsu" name="yes"/>
+    <sequenceFlow id="f5" sourceRef="g_econ_split" targetRef="t_parificato" name="no (family abroad)"/>
+    <sequenceFlow id="f6" sourceRef="t_dsu" targetRef="g_econ_merge"/>
+    <sequenceFlow id="f7" sourceRef="t_parificato" targetRef="g_econ_merge"/>
+    <sequenceFlow id="f8" sourceRef="g_econ_merge" targetRef="t_apply"/>
+    <sequenceFlow id="f9" sourceRef="t_apply" targetRef="g_and_join"/>
+    <sequenceFlow id="f10" sourceRef="t_enrol" targetRef="g_and_join"/>
+    <sequenceFlow id="f11" sourceRef="g_and_join" targetRef="t_check"/>
+    <sequenceFlow id="f12" sourceRef="t_check" targetRef="t_provisional"/>
+    <sequenceFlow id="f13" sourceRef="t_provisional" targetRef="g_review_split"/>
+    <sequenceFlow id="f14" sourceRef="g_review_split" targetRef="t_review_request" name="yes"/>
+    <sequenceFlow id="f15" sourceRef="t_review_request" targetRef="t_review_decision"/>
+    <sequenceFlow id="f16" sourceRef="t_review_decision" targetRef="g_review_merge"/>
+    <sequenceFlow id="f17" sourceRef="g_review_split" targetRef="g_review_merge" name="no"/>
+    <sequenceFlow id="f18" sourceRef="g_review_merge" targetRef="t_final"/>
+    <sequenceFlow id="f19" sourceRef="t_final" targetRef="g_outcome"/>
+    <sequenceFlow id="f20" sourceRef="g_outcome" targetRef="end_not_awarded" name="no"/>
+    <sequenceFlow id="f21" sourceRef="g_outcome" targetRef="t_pay_first" name="yes"/>
+    <sequenceFlow id="f22" sourceRef="t_pay_first" targetRef="g_merit"/>
+    <sequenceFlow id="f23" sourceRef="g_merit" targetRef="t_pay_balance" name="met"/>
+    <sequenceFlow id="f24" sourceRef="g_merit" targetRef="t_revoke" name="not met by 30/11/2027"/>
+    <sequenceFlow id="f25" sourceRef="t_pay_balance" targetRef="end_completed"/>
+    <sequenceFlow id="f26" sourceRef="t_revoke" targetRef="end_revoked"/>
+  </process>
+  <bpmndi:BPMNDiagram id="diagram">
+    <bpmndi:BPMNPlane id="plane" bpmnElement="collab">
+      <bpmndi:BPMNShape id="pool_di" bpmnElement="pool" isHorizontal="true"><dc:Bounds x="30" y="0" width="2170" height="540"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_student_di" bpmnElement="lane_student" isHorizontal="true"><dc:Bounds x="60" y="0" width="2140" height="240"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_erdis_di" bpmnElement="lane_erdis" isHorizontal="true"><dc:Bounds x="60" y="240" width="2140" height="300"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start"><dc:Bounds x="82" y="357" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_and_split_di" bpmnElement="g_and_split"><dc:Bounds x="160" y="100" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_econ_split_di" bpmnElement="g_econ_split" isMarkerVisible="true"><dc:Bounds x="250" y="50" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_dsu_di" bpmnElement="t_dsu"><dc:Bounds x="340" y="10" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_parificato_di" bpmnElement="t_parificato"><dc:Bounds x="340" y="95" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_econ_merge_di" bpmnElement="g_econ_merge" isMarkerVisible="true"><dc:Bounds x="480" y="50" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_apply_di" bpmnElement="t_apply"><dc:Bounds x="560" y="45" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_enrol_di" bpmnElement="t_enrol"><dc:Bounds x="340" y="170" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_and_join_di" bpmnElement="g_and_join"><dc:Bounds x="700" y="350" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_check_di" bpmnElement="t_check"><dc:Bounds x="790" y="345" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_provisional_di" bpmnElement="t_provisional"><dc:Bounds x="930" y="345" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_review_split_di" bpmnElement="g_review_split" isMarkerVisible="true"><dc:Bounds x="1070" y="350" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_review_request_di" bpmnElement="t_review_request"><dc:Bounds x="1150" y="95" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_review_decision_di" bpmnElement="t_review_decision"><dc:Bounds x="1290" y="290" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_review_merge_di" bpmnElement="g_review_merge" isMarkerVisible="true"><dc:Bounds x="1430" y="350" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_final_di" bpmnElement="t_final"><dc:Bounds x="1510" y="345" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_outcome_di" bpmnElement="g_outcome" isMarkerVisible="true"><dc:Bounds x="1650" y="350" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_not_awarded_di" bpmnElement="end_not_awarded"><dc:Bounds x="1757" y="445" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_pay_first_di" bpmnElement="t_pay_first"><dc:Bounds x="1740" y="345" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_merit_di" bpmnElement="g_merit" isMarkerVisible="true"><dc:Bounds x="1880" y="350" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_pay_balance_di" bpmnElement="t_pay_balance"><dc:Bounds x="1970" y="290" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_completed_di" bpmnElement="end_completed"><dc:Bounds x="2117" y="302" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_revoke_di" bpmnElement="t_revoke"><dc:Bounds x="1970" y="400" width="100" height="60"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_revoked_di" bpmnElement="end_revoked"><dc:Bounds x="2117" y="412" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f1_di" bpmnElement="f1"><di:waypoint x="118" y="375"/><di:waypoint x="160" y="125"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2"><di:waypoint x="210" y="125"/><di:waypoint x="250" y="75"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3"><di:waypoint x="210" y="125"/><di:waypoint x="340" y="200"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f4_di" bpmnElement="f4"><di:waypoint x="300" y="75"/><di:waypoint x="340" y="40"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f5_di" bpmnElement="f5"><di:waypoint x="300" y="75"/><di:waypoint x="340" y="125"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f6_di" bpmnElement="f6"><di:waypoint x="440" y="40"/><di:waypoint x="480" y="75"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f7_di" bpmnElement="f7"><di:waypoint x="440" y="125"/><di:waypoint x="480" y="75"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f8_di" bpmnElement="f8"><di:waypoint x="530" y="75"/><di:waypoint x="560" y="75"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f9_di" bpmnElement="f9"><di:waypoint x="660" y="75"/><di:waypoint x="700" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f10_di" bpmnElement="f10"><di:waypoint x="440" y="200"/><di:waypoint x="700" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f11_di" bpmnElement="f11"><di:waypoint x="750" y="375"/><di:waypoint x="790" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f12_di" bpmnElement="f12"><di:waypoint x="890" y="375"/><di:waypoint x="930" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f13_di" bpmnElement="f13"><di:waypoint x="1030" y="375"/><di:waypoint x="1070" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f14_di" bpmnElement="f14"><di:waypoint x="1120" y="375"/><di:waypoint x="1150" y="125"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f15_di" bpmnElement="f15"><di:waypoint x="1250" y="125"/><di:waypoint x="1290" y="320"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f16_di" bpmnElement="f16"><di:waypoint x="1390" y="320"/><di:waypoint x="1430" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f17_di" bpmnElement="f17"><di:waypoint x="1120" y="375"/><di:waypoint x="1430" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f18_di" bpmnElement="f18"><di:waypoint x="1480" y="375"/><di:waypoint x="1510" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f19_di" bpmnElement="f19"><di:waypoint x="1610" y="375"/><di:waypoint x="1650" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f20_di" bpmnElement="f20"><di:waypoint x="1700" y="375"/><di:waypoint x="1757" y="463"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f21_di" bpmnElement="f21"><di:waypoint x="1700" y="375"/><di:waypoint x="1740" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f22_di" bpmnElement="f22"><di:waypoint x="1840" y="375"/><di:waypoint x="1880" y="375"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f23_di" bpmnElement="f23"><di:waypoint x="1930" y="375"/><di:waypoint x="1970" y="320"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f24_di" bpmnElement="f24"><di:waypoint x="1930" y="375"/><di:waypoint x="1970" y="430"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f25_di" bpmnElement="f25"><di:waypoint x="2070" y="320"/><di:waypoint x="2117" y="320"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f26_di" bpmnElement="f26"><di:waypoint x="2070" y="430"/><di:waypoint x="2117" y="430"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p14.example/contracts/v1/ProcedureResponse.json",
+  "$defs": {
+    "ChecklistItem": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "due": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Due"
+        },
+        "status": {
+          "enum": [
+            "done",
+            "todo",
+            "overdue",
+            "info"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "citation": {
+          "$ref": "#/$defs/RuleCitation"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "due",
+        "status",
+        "citation"
+      ],
+      "title": "ChecklistItem",
+      "type": "object"
+    },
+    "Deadline": {
+      "properties": {
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "indicative": {
+          "title": "Indicative",
+          "type": "boolean"
+        },
+        "citation": {
+          "$ref": "#/$defs/RuleCitation"
+        }
+      },
+      "required": [
+        "date",
+        "title",
+        "indicative",
+        "citation"
+      ],
+      "title": "Deadline",
+      "type": "object"
+    },
+    "ProcedureStatus": {
+      "properties": {
+        "reference_date": {
+          "title": "Reference Date",
+          "type": "string"
+        },
+        "marking": {
+          "description": "Places of the workflow net that hold a token.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Marking",
+          "type": "array"
+        },
+        "done": {
+          "items": {
+            "$ref": "#/$defs/ProcedureStep"
+          },
+          "title": "Done",
+          "type": "array"
+        },
+        "next": {
+          "description": "Enabled transitions: what can happen next.",
+          "items": {
+            "$ref": "#/$defs/ProcedureStep"
+          },
+          "title": "Next",
+          "type": "array"
+        },
+        "finished": {
+          "title": "Finished",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "reference_date",
+        "marking",
+        "done",
+        "next",
+        "finished"
+      ],
+      "title": "ProcedureStatus",
+      "type": "object"
+    },
+    "ProcedureStep": {
+      "properties": {
+        "id": {
+          "description": "Transition id = BPMN element (docs/bpmn/scholarship.bpmn).",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "lane": {
+          "title": "Lane",
+          "type": "string"
+        },
+        "article": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Article"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "lane",
+        "article"
+      ],
+      "title": "ProcedureStep",
+      "type": "object"
+    },
+    "RuleCitation": {
+      "properties": {
+        "document_id": {
+          "title": "Document Id",
+          "type": "string"
+        },
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "quote": {
+          "title": "Quote",
+          "type": "string"
+        },
+        "passage_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Indexed passage containing the quote (null if not found).",
+          "title": "Passage Id"
+        }
+      },
+      "required": [
+        "document_id",
+        "section",
+        "quote",
+        "passage_id"
+      ],
+      "title": "RuleCitation",
+      "type": "object"
+    },
+    "RuleResult": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "pass",
+            "fail",
+            "check",
+            "info",
+            "not_applicable"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "citation": {
+          "$ref": "#/$defs/RuleCitation"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "outcome",
+        "detail",
+        "citation"
+      ],
+      "title": "RuleResult",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "it",
+        "en",
+        "ar"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "eligible",
+        "not_eligible",
+        "check_with_office"
+      ],
+      "title": "Verdict",
+      "type": "string"
+    },
+    "verdict_text": {
+      "title": "Verdict Text",
+      "type": "string"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/RuleResult"
+      },
+      "title": "Rules",
+      "type": "array"
+    },
+    "amount_category": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Amount Category"
+    },
+    "amount_full_eur": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Full amount for the category (Art. 12.2); reduced by ISEE bands.",
+      "title": "Amount Full Eur"
+    },
+    "status": {
+      "$ref": "#/$defs/ProcedureStatus"
+    },
+    "checklist": {
+      "items": {
+        "$ref": "#/$defs/ChecklistItem"
+      },
+      "title": "Checklist",
+      "type": "array"
+    },
+    "deadlines": {
+      "items": {
+        "$ref": "#/$defs/Deadline"
+      },
+      "title": "Deadlines",
+      "type": "array"
+    },
+    "ics": {
+      "description": "iCalendar (RFC 5545) with the deadlines.",
+      "title": "Ics",
+      "type": "string"
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "language",
+    "verdict",
+    "verdict_text",
+    "rules",
+    "amount_category",
+    "amount_full_eur",
+    "status",
+    "checklist",
+    "deadlines",
+    "ics",
+    "disclaimer"
+  ],
+  "title": "ProcedureResponse",
+  "type": "object"
+}

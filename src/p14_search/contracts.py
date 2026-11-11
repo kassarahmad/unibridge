@@ -23,6 +23,8 @@ CONTRACT_MODELS: dict[str, type[BaseModel]] = {
     "AnswerResponse": models.AnswerResponse,
     "HandoffRequest": models.HandoffRequest,
     "HandoffResponse": models.HandoffResponse,
+    "ProcedureRequest": models.ProcedureRequest,
+    "ProcedureResponse": models.ProcedureResponse,
 }
 
 SCHEMA_ID_BASE = "https://p14.example/contracts/v1/"

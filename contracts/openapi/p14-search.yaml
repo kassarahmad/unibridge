@@ -243,6 +243,79 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /v1/procedure/scholarship:
+    post:
+      tags:
+      - procedure
+      summary: Scholarship Guide
+      description: 'ERDIS scholarship 2026/2027 guide: deterministic eligibility rules
+        (each with its article), position in the
+
+        BPMN/workflow-net procedure, personal checklist and .ics deadlines. No LLM;
+        the facts are not stored.'
+      operationId: scholarship_guide_v1_procedure_scholarship_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcedureRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcedureResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: Forbidden
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '413':
+          description: Request Entity Too Large
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '415':
+          description: Unsupported Media Type
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: Service Unavailable
+          content:
+            application/problem+json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /v1/documents:
     post:
       tags:
@@ -777,6 +850,37 @@ components:
           description: Why the owner approves (stored in approval_log).
       type: object
       title: ApproveRequest
+    ChecklistItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        text:
+          type: string
+          title: Text
+        due:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Due
+        status:
+          type: string
+          enum:
+          - done
+          - todo
+          - overdue
+          - info
+          title: Status
+        citation:
+          $ref: '#/components/schemas/RuleCitation'
+      type: object
+      required:
+      - id
+      - text
+      - due
+      - status
+      - citation
+      title: ChecklistItem
     Citation:
       properties:
         document_id:
@@ -820,6 +924,26 @@ components:
       - char_start
       - char_end
       title: Citation
+    Deadline:
+      properties:
+        date:
+          type: string
+          title: Date
+        title:
+          type: string
+          title: Title
+        indicative:
+          type: boolean
+          title: Indicative
+        citation:
+          $ref: '#/components/schemas/RuleCitation'
+      type: object
+      required:
+      - date
+      - title
+      - indicative
+      - citation
+      title: Deadline
     DocumentInfo:
       properties:
         document_id:
@@ -1436,6 +1560,264 @@ components:
       - status
       title: Problem
       description: RFC 9457 problem details.
+    ProcedureRequest:
+      properties:
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          - ar
+          title: Language
+          default: en
+        today:
+          anyOf:
+          - type: string
+            pattern: ^\d{4}-\d{2}-\d{2}$
+          - type: 'null'
+          title: Today
+          description: Reference date (ISO); null = server date.
+        level:
+          type: string
+          enum:
+          - L
+          - LM
+          - LMCU5
+          - LMCU6
+          title: Level
+          description: L bachelor, LM master, LMCU5/6 single-cycle master (5 or 6
+            years).
+        year:
+          type: integer
+          maximum: 6.0
+          minimum: 1.0
+          title: Year
+          description: Year of course in 2026/2027, counted from the first enrolment
+            ever.
+        extra_semester:
+          type: boolean
+          title: Extra Semester
+          description: Enrolled for the 'ulteriore semestre' after the last year.
+          default: false
+        part_time:
+          type: boolean
+          title: Part Time
+          default: false
+        credits:
+          anyOf:
+          - type: integer
+            maximum: 400.0
+            minimum: 0.0
+          - type: 'null'
+          title: Credits
+          description: Credits (CFU) earned by 10/8/2026.
+        bonus_credits:
+          type: integer
+          maximum: 15.0
+          minimum: 0.0
+          title: Bonus Credits
+          description: Bonus credits the student wants to use (Art. 7.15).
+          default: 0
+        isee:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Isee
+          description: ISEE for university study (EUR); null = not known yet / parificato.
+        ispe:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Ispe
+        family_abroad:
+          type: boolean
+          title: Family Abroad
+          description: 'Family (household) resident outside Italy: ISEE parificato.'
+          default: false
+        non_eu:
+          type: boolean
+          title: Non Eu
+          default: false
+        has_residence_permit:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Has Residence Permit
+        prior_degree_same_level:
+          type: boolean
+          title: Prior Degree Same Level
+          default: false
+        disability_66:
+          type: boolean
+          title: Disability 66
+          default: false
+        differentiated_merit_course:
+          type: boolean
+          title: Differentiated Merit Course
+          description: Course listed in Art. 7.6 (proportional requirements, Annexes
+            A-C).
+          default: false
+        residence:
+          anyOf:
+          - type: string
+            enum:
+            - fuori_sede
+            - pendolare
+            - in_sede
+          - type: 'null'
+          title: Residence
+        application_submitted:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Application Submitted
+        enrolled:
+          type: boolean
+          title: Enrolled
+          default: true
+        review_requested:
+          type: boolean
+          title: Review Requested
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - level
+      - year
+      title: ProcedureRequest
+      description: Facts about the student, used only by deterministic rules (never
+        sent to an LLM, never stored).
+    ProcedureResponse:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          - ar
+          title: Language
+        verdict:
+          type: string
+          enum:
+          - eligible
+          - not_eligible
+          - check_with_office
+          title: Verdict
+        verdict_text:
+          type: string
+          title: Verdict Text
+        rules:
+          items:
+            $ref: '#/components/schemas/RuleResult'
+          type: array
+          title: Rules
+        amount_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Amount Category
+        amount_full_eur:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Amount Full Eur
+          description: Full amount for the category (Art. 12.2); reduced by ISEE bands.
+        status:
+          $ref: '#/components/schemas/ProcedureStatus'
+        checklist:
+          items:
+            $ref: '#/components/schemas/ChecklistItem'
+          type: array
+          title: Checklist
+        deadlines:
+          items:
+            $ref: '#/components/schemas/Deadline'
+          type: array
+          title: Deadlines
+        ics:
+          type: string
+          title: Ics
+          description: iCalendar (RFC 5545) with the deadlines.
+        disclaimer:
+          type: string
+          title: Disclaimer
+      type: object
+      required:
+      - request_id
+      - language
+      - verdict
+      - verdict_text
+      - rules
+      - amount_category
+      - amount_full_eur
+      - status
+      - checklist
+      - deadlines
+      - ics
+      - disclaimer
+      title: ProcedureResponse
+    ProcedureStatus:
+      properties:
+        reference_date:
+          type: string
+          title: Reference Date
+        marking:
+          items:
+            type: string
+          type: array
+          title: Marking
+          description: Places of the workflow net that hold a token.
+        done:
+          items:
+            $ref: '#/components/schemas/ProcedureStep'
+          type: array
+          title: Done
+        next:
+          items:
+            $ref: '#/components/schemas/ProcedureStep'
+          type: array
+          title: Next
+          description: 'Enabled transitions: what can happen next.'
+        finished:
+          type: boolean
+          title: Finished
+      type: object
+      required:
+      - reference_date
+      - marking
+      - done
+      - next
+      - finished
+      title: ProcedureStatus
+    ProcedureStep:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Transition id = BPMN element (docs/bpmn/scholarship.bpmn).
+        name:
+          type: string
+          title: Name
+        lane:
+          type: string
+          title: Lane
+        article:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Article
+      type: object
+      required:
+      - id
+      - name
+      - lane
+      - article
+      title: ProcedureStep
     ResultDocument:
       properties:
         document_id:
@@ -1481,6 +1863,60 @@ components:
       - best_rank
       - passages
       title: ResultDocument
+    RuleCitation:
+      properties:
+        document_id:
+          type: string
+          title: Document Id
+        section:
+          type: string
+          title: Section
+        quote:
+          type: string
+          title: Quote
+        passage_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Passage Id
+          description: Indexed passage containing the quote (null if not found).
+      type: object
+      required:
+      - document_id
+      - section
+      - quote
+      - passage_id
+      title: RuleCitation
+    RuleResult:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        outcome:
+          type: string
+          enum:
+          - pass
+          - fail
+          - check
+          - info
+          - not_applicable
+          title: Outcome
+        detail:
+          type: string
+          title: Detail
+        citation:
+          $ref: '#/components/schemas/RuleCitation'
+      type: object
+      required:
+      - id
+      - title
+      - outcome
+      - detail
+      - citation
+      title: RuleResult
     SearchFilters:
       properties:
         office:

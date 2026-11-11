@@ -1,0 +1,41 @@
+Captured 2026-11-11T17:06:20 against http://127.0.0.1:8001
+
+GET /v1/health
+{
+  "status": "ok",
+  "components": {
+    "sqlite": "ok",
+    "qdrant": "ok"
+  }
+}
+
+POST /v1/answer  role=visitor  query='How much is the ERDIS scholarship for a student living away from home?'  -> HTTP 200, request_id=68992ca598b146979e8355301fc44c00
+  language=en  mode=llm_verified  insufficient_evidence=False  query_italian="Qual è l'importo della borsa di studio ERDIS per uno studente che vive lontano da casa?"  latency_ms=64.7
+  llm=openai:gpt-4o-mini calls=6 cached=6 cost_usd=0.0
+  - The cash component of the ERDIS scholarship for students living away from home is no less than Euro 839.00.  ['p_a13d3768ca54a59c7f9d76d6f66ce3b2']
+  - For part-time enrollment, the cash component is Euro 419.50.  ['p_a13d3768ca54a59c7f9d76d6f66ce3b2']
+  - The total scholarship amount may vary based on the ISEE value.  ['p_34345c5b5fa84b7a991837936d8d01ed']
+
+POST /v1/answer  role=visitor  query='ما هو الموعد النهائي لتقديم طلب المنحة الدراسية؟'  -> HTTP 200, request_id=fcd96969c6b54edf8ecc873bb3513d4a
+  language=ar  mode=llm_verified  insufficient_evidence=False  query_italian='Qual è la scadenza per presentare la domanda di borsa di studio?'  latency_ms=58.5
+  llm=openai:gpt-4o-mini calls=3 cached=3 cost_usd=0.0
+  - الموعد النهائي لتقديم طلب المنحة الدراسية هو 28 أغسطس 2026.  ['p_a25ed6e172dd692c2432317def8f726b']
+
+POST /v1/answer  role=visitor  query='Entro quando devo pagare le tasse universitarie?'  -> HTTP 200, request_id=132f5c64fe2f4aa59f8ccb5cda765a56
+  language=it  mode=llm_verified  insufficient_evidence=False  query_italian=None  latency_ms=42.7
+  llm=openai:gpt-4o-mini calls=2 cached=2 cost_usd=0.0
+  - I pagamenti effettuati oltre le scadenze comportano una mora di 50,00 euro.  ['p_0248b47bbd62f8ee3f730c83ab301624']
+
+POST /v1/answer  role=visitor  query='Is there a buddy programme for international students?'  -> HTTP 200, request_id=aa1a119a5d174bd5b47e5a25d255b0dd
+  language=en  mode=insufficient_evidence  insufficient_evidence=True  query_italian='Esiste un programma di affiancamento per studenti internazionali?'  latency_ms=59.9
+  llm=openai:gpt-4o-mini calls=2 cached=2 cost_usd=0.0
+  handoff -> international: Richiesta di informazioni - Esiste un programma di affiancamento per studenti internazionali
+
+POST /v1/answer  role=student  query='Is there a buddy programme for international students?'  -> HTTP 200, request_id=d0955851bf534ff9b1289e47cad21e3f
+  language=en  mode=llm_verified  insufficient_evidence=False  query_italian='Esiste un programma di affiancamento per studenti internazionali?'  latency_ms=59.1
+  llm=openai:gpt-4o-mini calls=3 cached=3 cost_usd=0.0
+  - Yes, every first-year international student can request to be paired with a buddy from higher years for the first weeks in Camerino.  ['p_83392070f4e8e631f52920d079e1c168']
+
+POST /v1/answer  role=visitor  query='Which football team won the Italian league last year?'  -> HTTP 200, request_id=724a35fcf685464a838ba9b7cfe58f9e
+  language=en  mode=insufficient_evidence  insufficient_evidence=True  query_italian="Quale squadra di calcio ha vinto il campionato italiano l'anno scorso?"  latency_ms=58.4
+  llm=openai:gpt-4o-mini calls=1 cached=1 cost_usd=0.0

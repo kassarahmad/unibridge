@@ -38,6 +38,10 @@ ui = [
     "streamlit>=1.38",
     "requests>=2.32",
 ]
+# scripts/capture_evidence*.py: screenshots with the locally installed Microsoft Edge
+evidence = [
+    "playwright>=1.45",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

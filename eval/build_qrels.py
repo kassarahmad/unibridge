@@ -1,11 +1,13 @@
 """Derive passage-level graded qrels from the annotated targets (docs/ANNOTATION_PROTOCOL.md section 2).
 
 Usage:
-    python eval/build_qrels.py   -> eval/qrels/d1_qrels.json
+    python eval/build_qrels.py                        -> eval/qrels/d1_qrels.json
+    python eval/build_qrels.py --dataset unibridge    -> eval/qrels/unibridge_qrels.json (UniBridge profile)
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import sys
@@ -65,11 +67,22 @@ def build(store: Store, queries: list[dict]) -> tuple[dict, list[str]]:
 
 
 def main() -> int:
-    store = Store(get_settings().sqlite_path)
-    queries = load_queries()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", choices=("d1", "unibridge"), default="d1")
+    args = parser.parse_args()
+    out = OUT
+    if args.dataset == "unibridge":
+        from p14_search.unibridge_profile import unibridge_settings
+
+        store = Store(unibridge_settings().sqlite_path)
+        queries = load_queries(ROOT / "eval" / "queries" / "unibridge_queries.jsonl")
+        out = ROOT / "eval" / "qrels" / "unibridge_qrels.json"
+    else:
+        store = Store(get_settings().sqlite_path)
+        queries = load_queries()
     qrels, errors = build(store, queries)
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps({"index_snapshot_id": store.get_meta("index_snapshot_id"), "qrels": qrels}, indent=1) + "\n",
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"index_snapshot_id": store.get_meta("index_snapshot_id"), "qrels": qrels}, indent=1) + "\n",
                    encoding="utf-8", newline="\n")
     in_scope = [q for q in queries if q["type"] != "out_of_scope"]
     print(f"{len(queries)} queries ({len(in_scope)} in scope); "

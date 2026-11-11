@@ -28,6 +28,20 @@ PRICES = {"gpt-4o-mini": (0.15, 0.60)}
 TEMPERATURE = 0.0
 
 
+def read_usage(path: Path) -> list[dict]:
+    """Rows of the usage log. Several processes (API, evaluations) append to it at the same time, so a line that is
+    still being written can be incomplete: it is skipped, not fatal."""
+    if not path.exists():
+        return []
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            rows.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return rows
+
+
 class LLMError(RuntimeError):
     pass
 
@@ -126,14 +140,9 @@ class LLMClient:
         return round((input_tokens * self.price[0] + output_tokens * self.price[1]) / 1e6, 8)
 
     def spent_usd(self) -> float:
-        if not self.usage_log or not self.usage_log.exists():
+        if not self.usage_log:
             return 0.0
-        total = 0.0
-        for line in self.usage_log.read_text(encoding="utf-8").splitlines():
-            row = json.loads(line)
-            if not row["cached"] and row["cost_usd"]:
-                total += row["cost_usd"]
-        return total
+        return sum(row["cost_usd"] for row in read_usage(self.usage_log) if not row["cached"] and row["cost_usd"])
 
     def complete(self, system: str, prompt: str, max_tokens: int, purpose: str) -> LLMResult:
         key = hashlib.sha256(json.dumps([self.provider.name, self.provider.model, max_tokens, TEMPERATURE, system, prompt],

@@ -23,6 +23,7 @@ dependencies = [
     "beautifulsoup4>=4.12",
     "defusedxml>=0.7",
     "pyyaml>=6.0",
+    "lingua-language-detector>=2.0",
 ]
 
 [project.optional-dependencies]
@@ -45,6 +46,9 @@ evidence = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+p14_search = ["i18n_llm.json"]
 
 [tool.uv]
 # RTX 5070 (Blackwell, sm_120) needs a CUDA 12.8 build of PyTorch.

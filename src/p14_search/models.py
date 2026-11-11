@@ -207,12 +207,13 @@ class Problem(BaseModel):
 
 # --- UniBridge: answers and handoff ---------------------------------------------------------
 
-Lang = Literal["it", "en", "ar"]
+# The languages of p14_search.i18n.LANGS (a Literal needs them written out; tests check that the two agree).
+Lang = Literal["it", "en", "ar", "fr", "es", "pt", "de", "ro", "sq", "uk", "ru", "tr", "fa", "ur", "hi", "bn", "zh"]
 
 
 class AnswerRequest(_Strict):
     query: str = Field(..., min_length=1, max_length=1000)
-    language: Lang | None = Field(None, description="Answer language; null = detected from the query (it, en, ar).")
+    language: Lang | None = Field(None, description="Answer language (ISO 639-1); null = detected from the query.")
     mode: Literal["auto", "extractive", "llm", "llm_verified"] = Field(
         "auto", description="auto = llm_verified when an LLM is configured, else extractive. 'llm' skips the verifier (evaluation only).")
     top_k: int | None = Field(None, ge=1, le=20, description="Passages given to the answer step; null = server default.")

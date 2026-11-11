@@ -202,7 +202,7 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
         principal: Principal = Depends(get_principal),
         services: Services = Depends(get_services),
     ) -> AnswerResponse:
-        """Answer in the student's language (it, en, ar); every sentence cites a passage, shown with its Italian original.
+        """Answer in the student's language (17 languages, see p14_search.i18n); every sentence cites a passage, shown with its Italian original.
         Without a configured LLM the answer is extractive. Weak evidence -> 'I don't know' + a draft for the right office."""
         return services.answer.answer(body, principal, request.state.request_id)
 

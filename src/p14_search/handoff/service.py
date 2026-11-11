@@ -17,9 +17,10 @@ from p14_search.answer.language import HANDOFF_NOTE, OUT_OF_SCOPE_NOTE, detect
 from p14_search.answer.llm import LLMClient, LLMError
 from p14_search.answer.prompts import TRANSLATE_SYSTEM
 from p14_search.models import HandoffDraft, HandoffResponse, HandoffSource, Lang
+from p14_search.i18n import NAMES_IT
 
 CONFIG = Path(__file__).resolve().parents[3] / "config" / "handoff_offices.json"
-LANG_IT = {"it": "italiano", "en": "inglese", "ar": "arabo"}
+LANG_IT = NAMES_IT
 _ARABIC = re.compile(r"[؀-ۿ]")
 
 

@@ -124,3 +124,14 @@ def test_procedure_facts_are_not_logged_or_sent_to_an_llm(client, services):
     assert services.llm is None  # the guide has no LLM dependency at all
     rows = services.store.query("SELECT query FROM query_log")
     assert all("12345" not in r["query"] for r in rows)
+
+
+def test_guide_texts_follow_the_language(guide):
+    from p14_search.procedure.guide import DISCLAIMER, VERDICT
+
+    zh = guide.guide(ProcedureRequest(**{**BASE, "language": "zh"}), "t")
+    it = guide.guide(ProcedureRequest(**{**BASE, "language": "it"}), "t")
+    assert zh.verdict_text == VERDICT[zh.verdict]["zh"] and zh.disclaimer == DISCLAIMER["zh"]
+    assert zh.checklist[0].text != it.checklist[0].text
+    assert any(r.title.startswith("Domanda entro") for r in it.rules)
+    assert any(d.title.startswith("Scadenza della domanda") for d in it.deadlines)

@@ -5,6 +5,8 @@ from __future__ import annotations
 import streamlit as st
 from unibridge_common import post, show_text, t
 
+from p14_search.answer.language import detect
+
 st.title(t("ask_title"))
 st.caption(t("ask_caption"))
 
@@ -18,8 +20,8 @@ def show_draft(handoff: dict, key: str) -> None:
     with st.container(border=True):
         st.markdown(f"**{t('draft')}** · {draft['office_name']}")
         st.caption(f"{draft['how_to_send']} (source: {draft['contact_source']})")
-        st.text_input("Subject", draft["subject"], key=f"subj_{key}", disabled=True)
-        st.text_area("Text", draft["body"], height=280, key=f"body_{key}")
+        st.text_input(t("subject"), draft["subject"], key=f"subj_{key}", disabled=True)
+        st.text_area(t("text"), draft["body"], height=280, key=f"body_{key}")
         st.download_button(t("download_draft"), f"{draft['subject']}\n\n{draft['body']}", file_name="unibridge_draft.txt",
                            icon=":material/download:", key=f"dl_{key}")
 
@@ -66,7 +68,7 @@ for i, msg in enumerate(st.session_state.messages):
             show_answer(msg, i)
 
 if prompt := st.chat_input(t("placeholder"), submit_mode="disable", key="prompt"):
-    st.session_state.messages.append({"role": "user", "text": prompt, "lang": "ar" if any("؀" <= c <= "ۿ" for c in prompt) else "en"})
+    st.session_state.messages.append({"role": "user", "text": prompt, "lang": detect(prompt)})
     with st.chat_message("user"):
         show_text(prompt, st.session_state.messages[-1]["lang"])
     with st.chat_message("assistant"):

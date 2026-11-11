@@ -1,0 +1,6622 @@
+{
+  "langs": [
+    "hi",
+    "bn",
+    "zh"
+  ],
+  "retrieval_translation_cost_usd": 0.002284,
+  "rows": [
+    {
+      "qid": "M-hi-U001",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U001",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0002259,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2713.5,
+      "wall_ms": 2715.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U007",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U007",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00029145,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2661.0,
+      "wall_ms": 2684.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.42031110791481435,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "छात्रवृत्ति के लिए आवेदन करने की समय सीमा अनिवार्य और अपरिवर्तनीय है, इसलिए उस तारीख के बाद आवेदन स्वीकार नहीं किए जा सकते।"
+    },
+    {
+      "qid": "M-hi-U015",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U015",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00032745,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3735.5,
+      "wall_ms": 3738.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.08173846094567896,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.08173846094567896,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.376525516282656,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आप छात्रवृत्ति के लिए निम्नलिखित समयावधियों के लिए आवेदन कर सकते हैं: स्नातक पाठ्यक्रमों के लिए, सात सेमेस्टर के लिए; एकल-चक्र स्नातकोत्तर पाठ्यक्रमों के लिए, पाठ्यक्रम की निर्धारित अवधि के बराबर और एक सेमेस्टर; और स्नातकोत्तर पाठ्यक्रमों के लिए, पांच सेमेस्टर के लिए।"
+    },
+    {
+      "qid": "M-hi-U018",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U018",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0002694,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2585.0,
+      "wall_ms": 2587.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "हाँ, छात्रवृत्ति के लिए आवेदन एक शैक्षणिक वर्ष के लिए मान्य होता है, इसलिए इसे हर वर्ष फिर से प्रस्तुत करना होगा।"
+    },
+    {
+      "qid": "M-hi-U022",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U022",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00036525,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 4183.9,
+      "wall_ms": 4190.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आप केवल प्रत्येक अध्ययन स्तर के लिए पहले डिग्री के अधिग्रहण के लिए छात्रवृत्ति के लिए आवेदन कर सकते हैं। उदाहरण के लिए, यदि आपने पहले स्तर के पाठ्यक्रम (स्नातक डिग्री) में स्नातक किया है, तो आप केवल दूसरे स्तर के पाठ्यक्रम (स्नातकोत्तर डिग्री) के लिए आवेदन कर सकते हैं। यदि आपने दूसरे स्तर के पाठ्यक्रम (स्नातकोत्तर डिग्री) में स्नातक किया है, तो आप केवल तीसरे स्तर के पाठ्यक्रम (डॉक्टरेट या विशेषीकरण) के लिए आवेदन कर सकते हैं।"
+    },
+    {
+      "qid": "M-hi-U025",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U025",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 0.6,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00060165,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 6849.9,
+      "wall_ms": 7001.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.125,
+          "recall@10": 0.125,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.09321388745456412,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.125,
+          "recall@10": 0.125,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.09321388745456412,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.125,
+          "recall@5": 0.125,
+          "recall@10": 0.25,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.32678409395001157,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "1° वर्ष के पाठ्यक्रम के लिए छात्रवृत्ति के लिए आर्थिक आवश्यकता है कि छात्र के पास ISEE होना चाहिए जो कि छात्रवृत्ति के बांड की समय सीमा के भीतर निर्धारित ISEE और ISPE सीमाओं से नीचे हो। दूसरी किस्त के भुगतान के लिए, छात्र को अगले वर्ष की 10/08 तक निर्धारित क्रेडिट की संख्या प्राप्त करनी होगी। यदि पाठ्यक्रम कई शैक्षणिक अवधियों में आयोजित किए जाते हैं, तो कम से कम 20 क्रेडिट (आंशिक पंजीकरण के मामले में 10 क्रेडिट) प्राप्त करने होंगे। अन्य पाठ्यक्रमों के लिए कम से कम 10 क्रेडिट प्राप्त करने होंगे। छात्रों के लिए जो मान्यता प्राप्त विकलांगता की स्थिति में हैं, यह प्रावधान लागू नहीं होते हैं।"
+    },
+    {
+      "qid": "M-hi-U030",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U030",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 0.5,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0005466,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 5927.6,
+      "wall_ms": 5930.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.2,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.2581560620430167,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "दूसरे वर्ष के स्नातक या एकल-चक्र मास्टर डिग्री में नामांकित छात्रों को छात्रवृत्ति के लिए पात्र होने के लिए निर्दिष्ट क्रेडिट अर्जित करने होंगे। इसके अलावा, उन्हें 10 अगस्त 2026 तक पाठ्यक्रम में प्रवेश के समय किसी भी शैक्षणिक आवश्यकताओं को पूरा करना होगा। छात्र को यह सुनिश्चित करना होगा कि उन्होंने तालिका में निर्दिष्ट क्रेडिट अर्जित किए हैं। यदि कोई शैक्षणिक आवश्यकताएँ लागू हैं, तो उन्हें भी पूरा करना आवश्यक है।"
+    },
+    {
+      "qid": "M-hi-U049",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U049",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.47e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 940.2,
+      "wall_ms": 946.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U050",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U050",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0005658,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 8362.4,
+      "wall_ms": 8368.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आप अध्ययन के अधिकार कार्यालय से लाभों के बारे में जानकारी प्राप्त करने के लिए नए SRM – छात्र संबंध प्रबंधन फॉर्म का उपयोग कर सकते हैं। ऑनलाइन काउंटर पर जाकर, SRM टिकट फॉर्म खोलें और एक ऑनलाइन टिकट बनाएं। आपको एक ऑपरेटर के साथ संवाद करने के लिए संबंधित कार्यालय और श्रेणी का चयन करना होगा। टिकट में समस्या को बताने के साथ-साथ आवश्यक दस्तावेज भी संलग्न किए जा सकते हैं। टिकट भेजने के बाद, आप अपने आरक्षित क्षेत्र में खोले गए टिकटों को देख सकते हैं और उनके प्रगति की निगरानी कर सकते हैं।"
+    },
+    {
+      "qid": "M-hi-U052",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U052",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.32e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 640.1,
+      "wall_ms": 641.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U055",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U055",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0003993,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 5414.3,
+      "wall_ms": 5417.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.2960819109658653,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "यदि आपकी छात्रवृत्ति अंतिम सूची के साथ रद्द कर दी जाती है, तो आपको प्राप्त की गई धनराशि लौटानी होगी। आपको उपयोग किए गए सेवाओं का मौद्रिक मूल्य भी वापस करना होगा। इसमें उन भोजन का भी रिफंड शामिल है जो आपने कैंटीन में खाए हैं।"
+    },
+    {
+      "qid": "M-hi-U056",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U056",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 0.25,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00046395,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 7091.0,
+      "wall_ms": 7094.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.14891380939438262,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.14891380939438262,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.515157140670655,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "यदि आप अध्ययन छोड़ते हैं या किसी अन्य राज्य के विश्वविद्यालय में स्थानांतरित होते हैं, तो आपकी छात्रवृत्ति रद्द कर दी जाएगी। यदि आप 31 अगस्त से पहले अध्ययन छोड़ते हैं या स्थानांतरित होते हैं, तो आपको छात्रवृत्ति के लिए आवश्यक क्रेडिट प्राप्त करने के बावजूद छात्रवृत्ति से वंचित कर दिया जाएगा। इसके परिणामस्वरूप, आपको प्राप्त की गई धनराशि लौटानी होगी। आपको उन सेवाओं का भी मुआवजा देना होगा जिनका आपने वास्तव में उपयोग किया है, जैसे कि भोजन और आवास।"
+    },
+    {
+      "qid": "M-hi-U058",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U058",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00040605,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3900.5,
+      "wall_ms": 3908.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.21495732275579915,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.21495732275579915,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.14673120006323176,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "ग्रेडुएटरी अस्थायी: ग्रेडुएटरी अस्थायी छात्रों द्वारा आवेदन के दौरान घोषित किए गए डेटा के आधार पर तैयार की जाती हैं। सामान्यतः, आधे सितंबर तक, प्राधिकृत अधिकारी द्वारा अस्थायी ग्रेडुएटरी और संबंधित छात्रों की अस्वीकृति सूची को मंजूरी दी जाती है। इसके तुरंत बाद, आवास आवंटन किया जा सकता है। ग्रेडुएटरी अंतिम: विभिन्न विश्वविद्यालयों में नामांकन की तिथियों के अनुसार, अंतिम ग्रेडुएटरी आमतौर पर अक्टूबर के पहले आधे में मंजूर की जाती हैं।"
+    },
+    {
+      "qid": "M-hi-U062",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U062",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0004407,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 7241.9,
+      "wall_ms": 7248.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.25,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.1416865487734953,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.25,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.1416865487734953,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.75,
+          "precision@1": 0.0,
+          "precision@5": 0.4,
+          "precision@10": 0.3,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.3434220428640602,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "आप पुनरीक्षण का अनुरोध भेजने के लिए, अस्थायी विजेताओं की सूची के प्रकाशन की तारीख के बाद अगले पांच दिनों के भीतर, www.erdis.it पर उपलब्ध ऑनलाइन फॉर्म का उपयोग करके आवेदन कर सकते हैं। आपको अपने व्यक्तिगत क्षेत्र में लॉग इन करके फॉर्म को भरना होगा, और इसे उचित रूप से तर्कित और/या प्रलेखित करना होगा। पुनरीक्षण के अनुरोध को स्वीकार या अस्वीकार किया जाएगा, जो कि संबंधित प्रबंधक द्वारा निर्धारित किया जाएगा। यदि पुनरीक्षण का अनुरोध स्वीकार किया जाता है, तो स्थिति को छात्रवृत्ति की अंतिम सूची की स्वीकृति के साथ निर्धारित किया जाएगा।"
+    },
+    {
+      "qid": "M-hi-U066",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U066",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0003021,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2635.4,
+      "wall_ms": 2638.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.22843129573946425,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "विभिन्न लाभों के लिए आवेदन प्रस्तुत करने की अंतिम तिथि 28 अगस्त 2026 है।"
+    },
+    {
+      "qid": "M-hi-U070",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U070",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0002919,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3335.6,
+      "wall_ms": 3336.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41378859623267444,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41378859623267444,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.25,
+          "recall@5": 0.5,
+          "recall@10": 0.75,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.3,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6095922490214949,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "दस्तावेज़ विदेशी भाषा में लिखे जा सकते हैं, लेकिन उनके साथ एक इतालवी अनुवाद होना चाहिए जो विदेशी पाठ के अनुसार हो और इसे संबंधित इतालवी राजनयिक या कांसुलर प्राधिकरण द्वारा प्रमाणित किया जाना चाहिए।"
+    },
+    {
+      "qid": "M-hi-U073",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U073",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.41e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 839.8,
+      "wall_ms": 842.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U080",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U080",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00028425,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2860.6,
+      "wall_ms": 2863.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "हाँ, यदि आपकी आय \"शून्य\" है या आपके पास अन्य संपत्तियों का स्वामित्व नहीं है, तो परिवार के सभी वयस्क सदस्यों के लिए प्रमाण पत्र प्रस्तुत करना आवश्यक है।"
+    },
+    {
+      "qid": "M-hi-U089",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U089",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 0.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0002763,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2693.3,
+      "wall_ms": 2696.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "कोई और समय सीमा निर्धारित नहीं की गई है। सभी छात्रों के लिए आवेदन की समय सीमा 28 अगस्त 2026 है।"
+    },
+    {
+      "qid": "M-hi-U091",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U091",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 0.5,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00058545,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 8081.6,
+      "wall_ms": 8087.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "यदि मैं छात्रवृत्ति का विजेता हूं और मैं बाहर के छात्र की स्थिति में हूं, तो मुझे मुफ्त आवास का अधिकार है। बाहर के छात्र की स्थिति उस समय की यात्रा के आधार पर निर्धारित होती है, जो मेरे निवास स्थान से पाठ्यक्रम की जगह तक सार्वजनिक परिवहन से 60 मिनट से अधिक होनी चाहिए। यदि मैं छात्रवृत्ति के दौरान अपनी डिग्री प्राप्त करता हूं, तो मैं छात्रवृत्ति की मौद्रिक राशि का अधिकार बनाए रखता हूं लेकिन संबंधित सेवाओं (जैसे कि आवास) का अधिकार खो देता हूं। छात्रवृत्ति के विजेताओं के लिए आवास सेवा 10 महीने के लिए दी जाएगी, जो सामान्यतः विश्वविद्यालय की कक्षाओं की शुरुआत से लेकर 16 जुलाई 2027 तक होगी।"
+    },
+    {
+      "qid": "M-hi-U094",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U094",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0003426,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 4403.6,
+      "wall_ms": 4446.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.4306765580733931,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आपको आवास स्वीकार करने की पुष्टि पांच दिनों के भीतर करनी होगी। यह अवधि अस्थायी सूची की स्वीकृति की सूचना के प्रकाशन के बाद शुरू होती है। आपको आवास स्वीकार करने के लिए एक ऑनलाइन फॉर्म भरकर भेजना होगा। यदि आपने पहले से जमा राशि नहीं दी है, तो आपको 150,00 यूरो की जमा राशि का भुगतान प्रमाण भी प्रस्तुत करना होगा। भुगतान के तरीके की जानकारी ERDIS की वेबसाइट पर उपलब्ध होगी।"
+    },
+    {
+      "qid": "M-hi-U096",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U096",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00052275,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 6213.7,
+      "wall_ms": 6215.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.576628077726984,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.576628077726984,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6236726147710057,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आप मुफ्त आवास का लाभ दस महीने तक उठा सकते हैं, जो कि शैक्षणिक गतिविधियों की शुरुआत से लेकर अगले वर्ष के मध्य जुलाई तक है, जब तक कि संस्था द्वारा अन्य सूचनाएँ नहीं दी जाती हैं। अंतिम सेमेस्टर के छात्रवृत्ति विजेताओं को मुफ्त आवास का लाभ छह महीने तक मिलेगा, जो कि शैक्षणिक गतिविधियों की शुरुआत से लेकर 31 मार्च 2026 तक है। इसके बाद, छात्र को भुगतान सेवा पर जाना होगा। आवास सेवा का खुलने का समय विश्वविद्यालय की कक्षाओं की शुरुआत की तारीख से शुरू होता है।"
+    },
+    {
+      "qid": "M-hi-U097",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U097",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0002439,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2449.0,
+      "wall_ms": 2455.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "नहीं, आप आवास के प्रकार का चयन नहीं कर सकते।"
+    },
+    {
+      "qid": "M-hi-U098",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U098",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 0.4,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0005055,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 9004.0,
+      "wall_ms": 9010.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "आवंटन के समय, आपको एक पहचान पत्र के अलावा, एक चिकित्सा प्रमाण पत्र प्रस्तुत करना होगा, जो कि प्रवेश की तारीख से 15 दिन से अधिक पुराना न हो, और यह पुष्टि करता हो कि छात्र में संक्रामक या सहवास के लिए खतरनाक बीमारियों के लक्षण नहीं हैं। आवंटन के समय, आपको एक जमा राशि का भुगतान भी करना होगा, जो कि बांड में निर्धारित की जाएगी। चिकित्सा प्रमाण पत्र के बिना छात्र को आवासीय संरचना में प्रवेश नहीं दिया जाएगा। छात्र को यह प्रमाण पत्र चाबियों के वितरण के साथ प्रस्तुत करना होगा। चिकित्सा प्रमाण पत्र की लागत पूरी तरह से छात्र के जिम्मे होगी।"
+    },
+    {
+      "qid": "M-hi-U099",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U099",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 0.6667,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00046515,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 5733.5,
+      "wall_ms": 5774.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.1808693641297731,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.1808693641297731,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3406992958233561,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "यदि जगहें सभी विजेताओं की मांगों को पूरा करने के लिए पर्याप्त नहीं हैं और आप बिना आवास के रह जाते हैं, तो संस्था केवल तभी आवास शुल्क की वापसी करेगी जब 19/10/2026 की तारीख तक वह आपको अपने आवासीय संरचनाओं में आवास प्रदान करने में असमर्थ हो। आपको यह दिखाना होगा कि आपने निजी तौर पर कम से कम 10 महीनों के लिए आवास लिया है (अंतिम सेमेस्टर के विजेताओं के लिए 5 महीने)। आवास शुल्क की वापसी के लिए आवश्यक शर्त यह है कि आपने ऑनलाइन आवेदन के समय आवास सेवा के लिए अनुरोध किया हो और अनुबंध प्रस्तुत किया हो।"
+    },
+    {
+      "qid": "M-hi-U101",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U101",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.000312,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3646.2,
+      "wall_ms": 3651.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "नहीं। भुगतान वाले बिस्तर का स्थान जीतने वाले छात्रों को मुफ्त भोजन का अधिकार नहीं है। छात्रों को रियायती दर पर भोजन सेवा का उपयोग करने के लिए क्षेत्रीय विश्वविद्यालय अध्ययन के अधिकार के लिए शुल्क का भुगतान करना आवश्यक है।"
+    },
+    {
+      "qid": "M-hi-U103",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U103",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00031845,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3574.1,
+      "wall_ms": 3576.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "अंतरराष्ट्रीय छात्रों को UNICAM में प्रवेश के लिए प्री-एडमिशन के लिए आवेदन करना चाहिए। दस्तावेजों, समय सीमाओं और अन्य जानकारी के लिए अंतरराष्ट्रीय.unicam.it पर जाएं। यदि पाठ्यक्रम की सकारात्मक मूल्यांकन प्राप्त होती है, तो उम्मीदवार को सूचित किया जाएगा। इसके बाद, वह UNIVERSIATLY पोर्टल के माध्यम से प्री-एनरोलमेंट की प्रक्रिया शुरू कर सकता है।"
+    },
+    {
+      "qid": "M-hi-U106",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U106",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00027765,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3113.6,
+      "wall_ms": 3120.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "सभी अंतरराष्ट्रीय छात्रों, चाहे वे EU हों या गैर-EU, को पूर्व-प्रवेश प्रक्रिया में भाग लेने के लिए आमंत्रित किया जाता है। यह एकमात्र तरीका है जिससे पाठ्यक्रम का मूल्यांकन किया जा सकता है।"
+    },
+    {
+      "qid": "M-hi-U107",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U107",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0004545,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7673.4,
+      "wall_ms": 7675.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.3154648767857287,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "इटली में पहुँचने पर आपको इटालियन टैक्स ऑफिस से फिस्कल कोड (टैक्स कोड) के लिए आवेदन करना होगा। फिस्कल कोड एक अल्फा-न्यूमेरिक कोड है, जो नागरिक को सार्वजनिक प्राधिकरणों और प्रशासनिक इकाइयों के साथ सभी लेन-देन में पहचानता है। यूनिवर्सिटी ऑफ़ कैमरिनो का वेलकम ऑफिस इसे प्राप्त करने में सहायता प्रदान करता है। यह सुझाव दिया जाता है कि आप इसे वीज़ा आवेदन के दौरान ही प्राप्त करने के लिए आवेदन करें। आधिकारिक फिस्कल कोड के साथ आना एक अच्छी प्रथा है ताकि आप प्रशासनिक समस्याओं से बच सकें और समय बचा सकें।"
+    },
+    {
+      "qid": "M-hi-U110",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U110",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0003036,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2963.7,
+      "wall_ms": 2966.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.7977228895450267,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.7977228895450267,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.26406812257259094,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "आपको इटालियन भाषा में कम से कम B2 स्तर की दक्षता साबित करनी होगी, हालांकि B1 स्तर भी स्वीकार किया जा सकता है।"
+    },
+    {
+      "qid": "M-hi-U113",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U113",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00035235,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 4995.3,
+      "wall_ms": 5003.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "अंग्रेजी भाषा की दक्षता का प्रमाणपत्र स्तर B2 प्रदान करना अत्यधिक अनुशंसित है लेकिन यह अनिवार्य नहीं है। आप बिना निम्नलिखित प्रमाणपत्रों में से किसी एक के, जैसे कि Cambridge, IELTS, TOEFL, पूर्व-प्रवेश के लिए आवेदन कर सकते हैं। किसी अन्य प्रमाणन पर विचार नहीं किया जाएगा।"
+    },
+    {
+      "qid": "M-hi-U117",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U117",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0003147,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3547.0,
+      "wall_ms": 3551.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "स्कॉलरशिप के बिना, प्रति छात्र औसत जीवन व्यय €500 से €800 के बीच होता है। स्कॉलरशिप के साथ, जीवन व्यय €200 से €400 के बीच होता है।"
+    },
+    {
+      "qid": "M-hi-U123",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U123",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.00037875,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 5799.6,
+      "wall_ms": 5802.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.4306765580733931,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "आप निवास परमिट आवेदन के लिए किट को मुफ्त में पोस्ट ऑफिस से प्राप्त कर सकते हैं। निवास परमिट के लिए आवेदन पत्र को इमीग्रेशन ऑफिस में पोस्ट द्वारा भेजना होगा। आवेदन पत्र भरने के लिए एक ट्यूटोरियल उपलब्ध है। यदि आवश्यकता हो, तो वेलकम ऑफिस दस्तावेजों की जांच करने और प्रक्रिया के बारे में जानकारी प्रदान करने में सहायता करता है।"
+    },
+    {
+      "qid": "M-hi-U127",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U127",
+      "detected": "hi",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "hi",
+      "cost_usd": 0.0002361,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2502.7,
+      "wall_ms": 2508.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "यूरोपीय संघ/ईईए के नागरिकों को निवास परमिट के लिए आवेदन करने की आवश्यकता नहीं है।"
+    },
+    {
+      "qid": "M-hi-U130",
+      "lang": "hi",
+      "type": "translation",
+      "translation_of": "U130",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.00025575,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1554.4,
+      "wall_ms": 1557.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.14285714285714285,
+          "ndcg@10": 0.3333333333333333,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U144",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U144",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.515e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 1144.8,
+      "wall_ms": 1149.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U146",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U146",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.23e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 806.2,
+      "wall_ms": 808.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U147",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U147",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.485e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 782.0,
+      "wall_ms": 788.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U150",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U150",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.455e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 828.6,
+      "wall_ms": 834.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U151",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U151",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0002448,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1321.8,
+      "wall_ms": 1328.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "abstained": false
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U152",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U152",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.62e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 1037.5,
+      "wall_ms": 1038.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U153",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U153",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.545e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 934.4,
+      "wall_ms": 937.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U154",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U154",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.665e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 969.4,
+      "wall_ms": 972.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-hi-U155",
+      "lang": "hi",
+      "type": "out_of_scope",
+      "translation_of": "U155",
+      "detected": "hi",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.395e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 830.5,
+      "wall_ms": 833.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U001",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U001",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 0.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0002463,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2524.7,
+      "wall_ms": 2564.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.1441241011289089,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.1441241011289089,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনি সুবিধার জন্য আবেদন করতে পারেন অনলাইন আবেদনপত্র পূরণের সময়।"
+    },
+    {
+      "qid": "M-bn-U007",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U007",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00035745,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 4533.0,
+      "wall_ms": 4534.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.2882482022578178,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "বৃত্তির জন্য আবেদন জমা দেওয়ার সময়সীমা কঠোর এবং অদলবদলযোগ্য, তাই নির্ধারিত সময়সীমার পরে আবেদন গ্রহণ করা সম্ভব নয়। আবেদনগুলি শুধুমাত্র অনলাইনে পূরণ করতে হবে, অন্য কোনো পদ্ধতিতে জমা দেওয়া আবেদন বিবেচনায় নেওয়া হবে না।"
+    },
+    {
+      "qid": "M-bn-U015",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U015",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00029925,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3336.0,
+      "wall_ms": 3338.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.16247683196219595,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.16247683196219595,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4502072140556621,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনি বৃত্তির জন্য আবেদন করতে পারেন: প্রথম স্তরের কোর্সের জন্য সাত সেমিস্টার; একক সাইকেল মাস্টার কোর্সের জন্য নির্ধারিত সময়ের সাথে এক সেমিস্টার যোগ করে; এবং দ্বিতীয় স্তরের মাস্টার কোর্সের জন্য পাঁচ সেমিস্টার।"
+    },
+    {
+      "qid": "M-bn-U018",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U018",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00026865,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2681.0,
+      "wall_ms": 2683.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "হ্যাঁ, বৃত্তির আবেদন প্রতি একাডেমিক বছরের জন্য পুনরায় জমা দিতে হবে।"
+    },
+    {
+      "qid": "M-bn-U022",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U022",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00041175,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 6045.2,
+      "wall_ms": 6047.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনি শুধুমাত্র প্রতিটি স্তরের শিক্ষার জন্য প্রথম শিরোনামের অর্জনের জন্য বৃত্তির জন্য আবেদন করতে পারেন। উদাহরণস্বরূপ, যদি আপনি ইতিমধ্যে একটি প্রথম স্তরের কোর্সে স্নাতক হন (স্নাতক ডিগ্রি), তবে আপনি শুধুমাত্র দ্বিতীয় স্তরের ডিগ্রির জন্য (মাস্টার ডিগ্রি) আবেদন করতে পারেন। যদি আপনি ইতিমধ্যে দ্বিতীয় স্তরের কোর্সে স্নাতক হন (মাস্টার ডিগ্রি), তবে আপনি শুধুমাত্র তৃতীয় স্তরের কোর্সের জন্য (ডক্টরেট বা বিশেষীকরণ) আবেদন করতে পারেন।"
+    },
+    {
+      "qid": "M-bn-U025",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U025",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 0.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0005415,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7673.7,
+      "wall_ms": 7679.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "(iii) নতুন প্রথম বর্ষে ভর্তি হলে পূর্ববর্তী কোর্সের ক্রেডিটগুলি বৃত্তির জন্য বিবেচিত হবে না। (iv) বিশ্ববিদ্যালয়ের বয়স একবারই শূন্য করা যেতে পারে। (v) শিক্ষার্থীদের অবশ্যই 150 ক্রেডিট অর্জন করতে হবে।"
+    },
+    {
+      "qid": "M-bn-U030",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U030",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 0.5,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0006582,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7362.8,
+      "wall_ms": 7365.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.16552983252263884,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.25,
+          "ndcg@10": 0.16552983252263884,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.5330346140547638,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "দ্বিতীয় বর্ষের কোর্সের জন্য বৃত্তির প্রবেশের শর্তগুলি হলো: শিক্ষার্থীকে টেবিলে উল্লেখিত ক্রেডিটগুলি অর্জন করতে হবে। শিক্ষার্থীকে 10/8/2026 তারিখের মধ্যে যে কোনো প্রয়োজনীয় শিক্ষাগত বাধ্যবাধকতা পূরণ করতে হবে। শিক্ষার্থীকে পূর্ববর্তী বছরগুলোর জন্য প্রাপ্ত বৃত্তি ফেরত দিতে হবে যদি তারা একই বছরের কোর্সে পুনরায় ভর্তি হয়। বিশ্ববিদ্যালয়ে ভর্তি হওয়ার সময় পুরানো কোর্সের ক্রেডিটগুলি নতুন ভর্তি হওয়ার জন্য বিবেচিত হবে না।"
+    },
+    {
+      "qid": "M-bn-U049",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U049",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.365e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 844.1,
+      "wall_ms": 846.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U050",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U050",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0004968,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 6005.1,
+      "wall_ms": 6007.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "Ufficio Diritto allo studio-এর সাথে যোগাযোগ করতে, শিক্ষার্থীদের নতুন SRM – Student Relationship Management ফর্ম ব্যবহার করতে হবে। অনলাইনে Sportello Online-এ SRM TICKET ফর্মে একটি টিকেট খুলতে হবে এবং ERDIS-এর একজন অপারেটরের সাথে যোগাযোগ করতে হবে। টিকেটে সমস্যা বর্ণনা করার পাশাপাশি প্রয়োজনীয় নথি সংযুক্ত করা যেতে পারে। টিকেট পাঠানোর পর, শিক্ষার্থীরা তাদের ব্যক্তিগত এলাকায় খোলা টিকেট দেখতে এবং তাদের অগ্রগতি পর্যবেক্ষণ করতে পারবেন।"
+    },
+    {
+      "qid": "M-bn-U052",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U052",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.29e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 702.5,
+      "wall_ms": 703.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.14285714285714285,
+          "ndcg@10": 0.13304322780482453,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.14285714285714285,
+          "ndcg@10": 0.13304322780482453,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.04739095394012834,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U055",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U055",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00028395,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3331.5,
+      "wall_ms": 3332.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4692787260227565,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনাকে যে পরিণতির সম্মুখীন হতে হবে তা হলো: আপনি যে পরিমাণ অর্থ পেয়েছেন তা ফেরত দিতে হবে; আপনি যে পরিষেবাগুলি ব্যবহার করেছেন তার অর্থমূল্য ফেরত দিতে হবে। এর মধ্যে আপনার খাওয়া খাবারের জন্য এবং থাকার পরিষেবার জন্য অর্থ ফেরত দিতে হবে।"
+    },
+    {
+      "qid": "M-bn-U056",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U056",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0002964,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3409.4,
+      "wall_ms": 3412.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.325027967813913,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "যদি আমি পড়াশোনা ছেড়ে দিই বা অন্য রাজ্যের বিশ্ববিদ্যালয়ে স্থানান্তরিত হই, তাহলে ৩১ আগস্টের আগে এই সিদ্ধান্ত নিলে, আমার বৃত্তি বাতিল হবে।"
+    },
+    {
+      "qid": "M-bn-U058",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U058",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 0.8,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0005412,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7420.9,
+      "wall_ms": 7423.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3406992958233561,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "গ্র্যাজুয়েটরি প্রোভিজোরি সাধারণত সেপ্টেম্বরের মাঝামাঝি সময়ে প্রকাশিত হয়। গ্র্যাজুয়েটরি ডেফিনিটিভ সাধারণত অক্টোবরের প্রথমার্ধে অনুমোদিত হয়। ছাত্ররা তাদের ফলাফল জানতে পারবে www.erdis.it ওয়েবসাইটে প্রকাশিত বিজ্ঞপ্তির মাধ্যমে। ফলাফল তাদের ব্যক্তিগত এলাকায় \"ESITI GRADUATORIE\" শিরোনামের অধীনে দেখা যাবে। কোনও ব্যক্তিগত যোগাযোগ পাঠানো হবে না ফলাফলের বিষয়ে।"
+    },
+    {
+      "qid": "M-bn-U062",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U062",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0003231,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3479.1,
+      "wall_ms": 3537.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.25,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.08970879652674049,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.25,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.08970879652674049,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.10344714905816861,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "যদি একজন ছাত্র ISEE এর জন্য আবেদন জমা দেওয়ার সময়সীমার মধ্যে আবেদন করে এবং প্রাথমিক তালিকা থেকে বাদ পড়ে, তবে তিনি পুনর্বিবেচনার জন্য আবেদন করতে পারেন। আবেদনটি করতে হলে, ছাত্রকে নিশ্চিত করতে হবে যে তথ্যের অভাব তার দোষ নয়। যদি কর্তৃপক্ষ নিশ্চিত করে যে তথ্যের অভাব ছাত্রের দোষ নয়, তবে তারা আবেদন করার শেষ দিনের মধ্যে ডেটাবেসে যাচাই করবে।"
+    },
+    {
+      "qid": "M-bn-U066",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U066",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00030135,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2618.1,
+      "wall_ms": 2619.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.2882482022578178,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "অবশ্যই, বিভিন্ন সুবিধার জন্য আবেদন জমা দেওয়ার শেষ তারিখ 28 আগস্ট 2026।"
+    },
+    {
+      "qid": "M-bn-U070",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U070",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00031275,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2745.4,
+      "wall_ms": 2747.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.25,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3103414471745058,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.25,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3103414471745058,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.25,
+          "recall@5": 0.5,
+          "recall@10": 0.75,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.3,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.5474453825293063,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "না, বিদেশী ভাষায় লেখা ডকুমেন্টগুলোর সাথে একটি ইতালীয় ভাষায় অনুবাদ সংযুক্ত করতে হবে যা সংশ্লিষ্ট ইতালীয় কূটনৈতিক বা কনস্যুলার কর্তৃপক্ষ দ্বারা প্রত্যয়িত।"
+    },
+    {
+      "qid": "M-bn-U073",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U073",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 0.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00052785,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 8289.5,
+      "wall_ms": 8290.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "আপনি আত্মপ্রমাণীকরণের সুবিধা নিতে পারেন যদি আপনার কাছে SPID (স্তর 2 বা 3), Carta di Identità Elettronica (CIE), Carta nazionale servizi (CNS), বা Carta nazionale servizi/tessera sanitaria (CNS/TS) থাকে। SPID এর জন্য, আপনাকে www.spid.gov.it সাইটে যেতে হবে যেখানে সমস্ত কার্যকরী তথ্য এবং অনুমোদিত প্রদানকারীদের তালিকা পাওয়া যাবে। CIE ব্যবহার করে আপনি স্মার্টফোন বা ট্যাবলেটের মাধ্যমে অ্যাপ CieID ব্যবহার করে প্রবেশ করতে পারেন। আন্তর্জাতিক ছাত্রদের জন্য, যারা ইতালির কোনও পরিচয়পত্র নেই এবং অপ্রাপ্তবয়স্ক, তাদের জন্য একটি বিশেষ প্রক্রিয়া রয়েছে যা তাদের অনলাইনে আবেদন করার জন্য প্রমাণীকরণের সুবিধা দেয়।"
+    },
+    {
+      "qid": "M-bn-U080",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U080",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00037575,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 4980.6,
+      "wall_ms": 4987.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.3010299956639812,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.3010299956639812,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "হ্যাঁ, যদি আপনার কোনো আয় না থাকে বা আপনার মালিকানাধীন কোনো সম্পত্তি না থাকে, তাহলে আপনাকে সার্টিফিকেট জমা দিতে হবে। বিশেষ করে, যদি আপনার আয় \"শূন্য\" হয় বা অন্য কোনো সম্পত্তি না থাকে, তাহলে ১৮ বছরের বেশি বয়সী পরিবারের সদস্যদের জন্যও সার্টিফিকেট জমা দেওয়া প্রয়োজন।"
+    },
+    {
+      "qid": "M-bn-U089",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U089",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 0.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.000243,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2763.5,
+      "wall_ms": 2819.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.141266972859829,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "প্রথম সময়সীমা 10 আগস্ট 2027 এবং দ্বিতীয় সময়সীমা 30 নভেম্বর 2027।"
+    },
+    {
+      "qid": "M-bn-U091",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U091",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 0.6667,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00051285,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 6504.0,
+      "wall_ms": 6511.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "যদি আমি বৃত্তির বিজয়ী হই এবং আমি বাইরে থেকে পড়াশোনা করি, তাহলে আমার বিনামূল্যে আবাসনের অধিকার আছে। আবাসনের অধিকার পাওয়ার জন্য, আমার বাড়ির স্থান থেকে বিশ্ববিদ্যালয়ের অবস্থানে পৌঁছানোর সময় 60 মিনিটের বেশি হতে হবে। আবাসন পরিষেবা 10 মাসের জন্য দেওয়া হবে, সাধারণত বিশ্ববিদ্যালয়ের পাঠ্যক্রম শুরু হওয়ার সময় থেকে 16 জুলাই 2027 পর্যন্ত।"
+    },
+    {
+      "qid": "M-bn-U094",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U094",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0003045,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3080.0,
+      "wall_ms": 3086.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনাকে প্রাথমিক তালিকার অনুমোদনের বিজ্ঞপ্তি প্রকাশের পাঁচ দিনের মধ্যে আবাসন গ্রহণের জন্য আপনার সম্মতি জানাতে হবে।"
+    },
+    {
+      "qid": "M-bn-U096",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U096",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.000519,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 5390.5,
+      "wall_ms": 5392.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41578174318067046,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41578174318067046,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.2,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.5638861883699272,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনি বিনামূল্যে আবাসনের সুবিধা নিতে পারেন দশ মাসের জন্য, যা শিক্ষামূলক কার্যক্রম শুরু হওয়ার পর থেকে শুরু হয় এবং পরবর্তী বছরের জুলাই মাসের মাঝামাঝি পর্যন্ত চলে। শেষ সেমিস্টারের বৃত্তি বিজয়ীরা ছয় মাসের জন্য বিনামূল্যে আবাসনের সুবিধা নিতে পারবেন। এই সময়ের পরে, ছাত্রকে অর্থ প্রদানের পরিষেবায় চলে যেতে হবে। আবাসনের পরিষেবার খোলার সময়সূচী বিশ্ববিদ্যালয়ের পাঠ্যক্রমের শুরু থেকে নির্ধারিত হবে।"
+    },
+    {
+      "qid": "M-bn-U097",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U097",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0002475,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2495.7,
+      "wall_ms": 2497.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "না, আবাসনের ধরন নির্বাচন করা সম্ভব নয়।"
+    },
+    {
+      "qid": "M-bn-U098",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U098",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 0.5,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00035085,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3792.4,
+      "wall_ms": 3798.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "বরাদ্দের সময় একটি পরিচয়পত্রের পাশাপাশি একটি মেডিকেল সার্টিফিকেট জমা দিতে হবে, যা প্রবেশের তারিখের 15 দিনের মধ্যে হওয়া উচিত এবং যা নিশ্চিত করবে যে ছাত্রের মধ্যে সংক্রামক বা বিপজ্জনক রোগের লক্ষণ নেই। মেডিকেল সার্টিফিকেট ছাড়া ছাত্রকে আবাসিক স্থানে প্রবেশ করতে দেওয়া হবে না।"
+    },
+    {
+      "qid": "M-bn-U099",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U099",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00047685,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 5648.1,
+      "wall_ms": 5650.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.07165244091859972,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.07165244091859972,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.2717405387263585,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনি যদি আবাস ছাড়া থেকে যান এবং আসনগুলি বিজয়ীদের সমস্ত আবেদনের জন্য যথেষ্ট না হয়, তবে 19/10/2026 তারিখে যদি প্রতিষ্ঠান আপনাকে আবাসে রাখতে অক্ষম হয়, তবে তারা আপনাকে আবাসের খরচের ফেরত দেবে। তবে, আপনাকে প্রমাণ করতে হবে যে আপনি বেসরকারি আবাসে 10 মাসের জন্য (শেষ সেমিস্টারের বিজয়ীদের জন্য 5 মাস) আবাস গ্রহণ করেছেন।"
+    },
+    {
+      "qid": "M-bn-U101",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U101",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00027735,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2501.8,
+      "wall_ms": 2504.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "না। যারা বৃত্তি পাননি তারা খাবারের পরিষেবায় সুবিধা পেতে পারেন, তবে তাদের বিশ্ববিদ্যালয় স্টাডি রাইটের জন্য আঞ্চলিক ট্যাক্সের অর্থ প্রদান করতে হবে।"
+    },
+    {
+      "qid": "M-bn-U103",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U103",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0003048,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2797.8,
+      "wall_ms": 2804.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.2890648263178878,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.2890648263178878,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U106",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U106",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0002901,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3618.4,
+      "wall_ms": 3619.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "সমস্ত আন্তর্জাতিক ছাত্রদের, ইইউ বা অইইউ, প্রাক-ভর্তি প্রক্রিয়ায় অংশগ্রহণের জন্য আমন্ত্রণ জানানো হয়। এটি একমাত্র উপায় যা পাঠ্যক্রম মূল্যায়ন করা হয়।"
+    },
+    {
+      "qid": "M-bn-U107",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U107",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00045555,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7231.7,
+      "wall_ms": 7233.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.3562071871080222,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "ইতালিতে পৌঁছানোর পর আপনাকে ইতালির ট্যাক্স অফিসে ফিসকাল কোড (ট্যাক্স কোড) পাওয়ার জন্য আবেদন করতে হবে। ফিসকাল কোড একটি অক্ষর-সংখ্যার কোড, যা একজন নাগরিককে পাবলিক অথরিটি এবং প্রশাসনিক ইউনিটগুলির সাথে সমস্ত লেনদেনে চিহ্নিত করে। ইউনিক্যাম-এর ওয়েলকাম অফিস এটি পাওয়ার জন্য সহায়তা প্রদান করে। এটি দূতাবাস থেকেও ইস্যু করা যেতে পারে। ভিসা আবেদন করার সময় এটি পাওয়ার জন্য আবেদন করা সুপারিশ করা হয়।"
+    },
+    {
+      "qid": "M-bn-U110",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U110",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0003009,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3584.0,
+      "wall_ms": 3585.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6131471927654584,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6131471927654584,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.3065735963827292,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "আপনাকে ইতালীয় ভাষায় আপনার দক্ষতা প্রমাণ করতে হবে। আইন অনুযায়ী, ন্যূনতম B2 স্তরের দক্ষতা প্রয়োজন, যদিও B1 স্তরও গ্রহণযোগ্য হতে পারে।"
+    },
+    {
+      "qid": "M-bn-U113",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U113",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0003339,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 4973.8,
+      "wall_ms": 4976.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "একটি সার্টিফাইড ইংরেজি দক্ষতা স্তর B2 প্রদান করা উষ্ণভাবে সুপারিশ করা হয় কিন্তু এটি বাধ্যতামূলক নয়। আবেদন করার সময়, Cambridge, IELTS, TOEFL এর মধ্যে কোন একটি সার্টিফিকেট ছাড়াও প্রি-অ্যাডমিশনের জন্য আবেদন করা সম্ভব। অন্য কোন সার্টিফিকেশন বিবেচনায় নেওয়া হবে না।"
+    },
+    {
+      "qid": "M-bn-U117",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U117",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.0002976,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 4289.1,
+      "wall_ms": 4292.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "বৃত্তি ছাড়া, একজন ছাত্রের গড় জীবনযাত্রার খরচ €500 থেকে €800 এর মধ্যে। বৃত্তি থাকলে, জীবনযাত্রার খরচ €200 থেকে €400 এর মধ্যে।"
+    },
+    {
+      "qid": "M-bn-U123",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U123",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 0.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00030885,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3938.7,
+      "wall_ms": 3940.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.2890648263178878,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "আপনি আবাসন পারমিটের আবেদনপত্র বিনামূল্যে সংগ্রহ করার জন্য ডাকঘরে যেতে হবে।"
+    },
+    {
+      "qid": "M-bn-U127",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U127",
+      "detected": "bn",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "bn",
+      "cost_usd": 0.00023505,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2628.4,
+      "wall_ms": 2629.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "ইউরোপীয় ইউনিয়ন/ইইএ নাগরিকদের আবাসন অনুমতির জন্য আবেদন করতে হবে না।"
+    },
+    {
+      "qid": "M-bn-U130",
+      "lang": "bn",
+      "type": "translation",
+      "translation_of": "U130",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0002622,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1555.4,
+      "wall_ms": 1558.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.3154648767857287,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U144",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U144",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.53e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 985.8,
+      "wall_ms": 988.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U146",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U146",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.275e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 795.8,
+      "wall_ms": 798.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U147",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U147",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.395e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 842.0,
+      "wall_ms": 843.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U150",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U150",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.59e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 969.9,
+      "wall_ms": 971.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U151",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U151",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0002157,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1715.1,
+      "wall_ms": 1716.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "abstained": false
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U152",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U152",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.65e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 1177.5,
+      "wall_ms": 1179.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U153",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U153",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.515e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 743.7,
+      "wall_ms": 746.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U154",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U154",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.665e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 923.4,
+      "wall_ms": 929.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-bn-U155",
+      "lang": "bn",
+      "type": "out_of_scope",
+      "translation_of": "U155",
+      "detected": "bn",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.44e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 907.8,
+      "wall_ms": 910.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U001",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U001",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0001899,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2354.7,
+      "wall_ms": 2361.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.1441241011289089,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.125,
+          "ndcg@10": 0.1441241011289089,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "你可以在公告发布到截止日期之间提交福利申请，截止日期大致定在八月底。"
+    },
+    {
+      "qid": "M-zh-U007",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U007",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00030885,
+      "llm_calls": 4,
+      "cached_calls": 0,
+      "latency_ms": 3786.9,
+      "wall_ms": 3793.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "奖学金申请的截止日期是强制性的，无法接受超过该日期的申请。 申请必须仅通过在线方式填写，其他方式提交的申请将不被考虑。"
+    },
+    {
+      "qid": "M-zh-U015",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U015",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0003441,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 4326.4,
+      "wall_ms": 4333.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.03582622045929986,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.03582622045929986,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3406992958233561,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "你可以申请奖学金的年限取决于你所注册的课程类型。对于本科课程（L），可以申请七个学期的奖学金，从首次注册的年份开始；对于单一循环的硕士课程（LMCU），可以申请课程规定的持续时间加一个学期的奖学金；对于硕士课程（LM），可以申请五个学期的奖学金，从首次注册的年份开始。"
+    },
+    {
+      "qid": "M-zh-U018",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U018",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00024615,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3571.3,
+      "wall_ms": 3573.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "是的，奖学金的申请有效期为一个学年，因此每年都需要重新提交申请。"
+    },
+    {
+      "qid": "M-zh-U022",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U022",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0003486,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 6082.5,
+      "wall_ms": 6091.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4568625914789285,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "可以申请奖学金，但只能针对每个学习阶段的第一个学位。 如果已经获得了第一层次的学位（学士学位），则只能申请第二层次的学位（硕士学位）的奖学金。 如果已经获得了第二层次的学位（硕士学位），则只能申请第三层次的学位（博士或专业化）的奖学金。"
+    },
+    {
+      "qid": "M-zh-U025",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U025",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00035355,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 5440.4,
+      "wall_ms": 5447.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.125,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.08582969033352111,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "申请1年级课程奖学金的经济条件是，必须在截止日期之前拥有低于奖学金公告中规定的ISEE和ISPE阈值的学习权利ISEE。 为了获得奖学金第二期的支付，必须在次年的8月10日之前获得公告中规定的学分数量。 这一规定不适用于根据1992年104号法案被认可的残疾学生或残疾程度不低于66%的学生。"
+    },
+    {
+      "qid": "M-zh-U030",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U030",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.00016815,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1717.4,
+      "wall_ms": 1718.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U049",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U049",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.53e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 959.8,
+      "wall_ms": 962.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U050",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U050",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00052275,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 6601.8,
+      "wall_ms": 6604.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "学生必须使用新的SRM模块（学生关系管理）与Ufficio Diritto allo studio联系，以获取有关福利的信息。 通过访问在线服务，学生需要打开一个在线票据，并选择相关的Presidio和类别与ERDIS操作员进行沟通。 在票据中，除了说明问题外，还可以附加相关文件。 提交后，学生可以在自己的保留区域查看已打开的票据，并监控其进展。"
+    },
+    {
+      "qid": "M-zh-U052",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U052",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.335e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 827.5,
+      "wall_ms": 834.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1,
+          "ndcg@10": 0.11537435261451835,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U055",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U055",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 0.4,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00045255,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 7055.4,
+      "wall_ms": 7062.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.3333333333333333,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.4692787260227565,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "如果我的奖学金在最终名单中被撤销，我必须退还已领取的款项。 我还需要偿还我实际消费的餐食和住宿服务的货币价值。 如果我被取消资格，我将失去在整个学习期间继续获得支付的权利。 我还需要支付相当于所领取金额三倍的罚款。 此外，我的大学学费也需要正常缴纳，因为我不再被视为奖学金获得者。"
+    },
+    {
+      "qid": "M-zh-U056",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U056",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00025635,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3513.2,
+      "wall_ms": 3514.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.4,
+          "precision@10": 0.2,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.5243179538492756,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "如果我在学年开始后的次年8月31日之前放弃大学学习或转学，我的奖学金将被撤销。即使我已经获得了维持奖学金所需的学分，我也会失去奖学金。"
+    },
+    {
+      "qid": "M-zh-U058",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U058",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.00017235,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1529.3,
+      "wall_ms": 1530.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.10256070754442634,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.10256070754442634,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.10256070754442634,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U062",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U062",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00027165,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3497.5,
+      "wall_ms": 3504.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.2,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.20844768033547378,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.2,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.20844768033547378,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.10344714905816861,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "如果学生在申请奖学金的截止日期之前提交了ISEE计算请求，但由于未能记录数据而被排除在临时排名之外，可以根据第11条第8款的规定，申请复审自己的位置。学生必须在规定的期限内提交申请。若机构发现缺失的数据并非学生的责任，将在最后有效的申诉提交日之前进行数据库核查。"
+    },
+    {
+      "qid": "M-zh-U066",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U066",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00022125,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2493.8,
+      "wall_ms": 2495.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.22843129573946425,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "申请各种福利的截止日期是2026年8月28日。"
+    },
+    {
+      "qid": "M-zh-U070",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U070",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0002871,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2524.5,
+      "wall_ms": 2525.8,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.25,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3103414471745058,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.25,
+          "recall@5": 0.25,
+          "recall@10": 0.25,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.3103414471745058,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.25,
+          "recall@5": 0.5,
+          "recall@10": 0.75,
+          "precision@1": 1.0,
+          "precision@5": 0.4,
+          "precision@10": 0.3,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.5338450562733622,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "文件必须附有意大利语翻译，并由意大利相关外交或领事机构或官方翻译认证。"
+    },
+    {
+      "qid": "M-zh-U073",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U073",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.41e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 744.0,
+      "wall_ms": 746.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U080",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U080",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0002184,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2796.8,
+      "wall_ms": 2803.4,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.3562071871080222,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.3562071871080222,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "是的，即使没有收入或不动产，家庭成员中的成年人仍然需要提交证明，证明在参考年度内没有收入或财产。"
+    },
+    {
+      "qid": "M-zh-U089",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U089",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 0.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00037725,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 6233.5,
+      "wall_ms": 6236.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.1815417925373527,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.6666666666666666,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.2,
+          "mrr@10": 0.1111111111111111,
+          "ndcg@10": 0.2769189462922768,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "根据提供的信息，截止日期包括：第一期截止日期为2026年11月6日，第二期截止日期为2026年12月18日，第三期截止日期为2027年5月14日。 另外，关于学业成绩的评估有两个截止日期：第一个截止日期为2027年8月10日，第二个截止日期为2027年11月30日。 这些是已知的截止日期。"
+    },
+    {
+      "qid": "M-zh-U091",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U091",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0003015,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2837.1,
+      "wall_ms": 2839.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "如果我获得了奖学金，并且是外地学生，我有权享受免费的住宿。"
+    },
+    {
+      "qid": "M-zh-U094",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U094",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00022575,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3280.3,
+      "wall_ms": 3282.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "您需要在临时名单公布后五天内确认接受床位。"
+    },
+    {
+      "qid": "M-zh-U096",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U096",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 4,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.000534,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 6931.6,
+      "wall_ms": 6934.3,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41578174318067046,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41578174318067046,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.41578174318067046,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "您可以免费使用住宿十个月，从教学活动开始到次年七月中旬，除非有不同的通知。 如果您是最后一个学期的奖学金获得者，可以免费使用住宿六个月（从教学活动开始到2026年3月31日）。 超过该期限后，学生将转为付费服务。 住宿服务的开放时间从大学课程开始的日期或根据不同地区的需求的后续日期开始。"
+    },
+    {
+      "qid": "M-zh-U097",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U097",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.0002277,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2305.9,
+      "wall_ms": 2307.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U098",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U098",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 5,
+      "citation_precision": 0.2,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00040635,
+      "llm_calls": 7,
+      "cached_calls": 0,
+      "latency_ms": 6267.2,
+      "wall_ms": 6269.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "在分配时需要提交一个医疗证明，证明不早于入境前15天，表明学生没有传染病或对共处危险的症状。 该证明必须在交钥匙时同时提交。 如果没有提交该证明，床位将无法分配。 医疗证明的费用由学生自行承担。 学生在实际进入住宿设施时必须提供该证明。"
+    },
+    {
+      "qid": "M-zh-U099",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U099",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 2,
+      "citation_precision": 0.5,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0004263,
+      "llm_calls": 6,
+      "cached_calls": 0,
+      "latency_ms": 5937.4,
+      "wall_ms": 5940.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.3333333333333333,
+          "recall@10": 0.3333333333333333,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.21495732275579915,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "只有在机构无法提供住宿的情况下，学生才能申请住宿费用的报销。 学生需要证明他们在私人处租住，租期不得少于10个月（最后一个学期的获胜者为5个月）。"
+    },
+    {
+      "qid": "M-zh-U101",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U101",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0002124,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2935.9,
+      "wall_ms": 2938.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "不，获得付费床位的学生没有权利享受免费餐。"
+    },
+    {
+      "qid": "M-zh-U103",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U103",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.00019095,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 1529.6,
+      "wall_ms": 1532.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U106",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U106",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0002994,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 3546.0,
+      "wall_ms": 3547.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "所有国际学生，无论是欧盟还是非欧盟，都被邀请参加预入学程序。这是评估课程的唯一方式。"
+    },
+    {
+      "qid": "M-zh-U107",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U107",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.23e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 847.9,
+      "wall_ms": 850.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.1,
+          "mrr@10": 0.16666666666666666,
+          "ndcg@10": 0.3562071871080222,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U110",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U110",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00025335,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2643.7,
+      "wall_ms": 2646.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6131471927654584,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6131471927654584,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 0.6131471927654584,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "对于用意大利语授课的学位课程，您必须证明您具备该语言的能力。法律要求至少达到B2水平，尽管B1水平也可能被接受。"
+    },
+    {
+      "qid": "M-zh-U113",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U113",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 3,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.0003054,
+      "llm_calls": 5,
+      "cached_calls": 0,
+      "latency_ms": 4126.1,
+      "wall_ms": 4130.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "建议提供B2级别的英语语言能力证明，但不是强制性的。 即使没有以下证书，也可以申请预录取：剑桥、雅思、托福。 任何其他认证将不被考虑。"
+    },
+    {
+      "qid": "M-zh-U117",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U117",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.335e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 870.0,
+      "wall_ms": 871.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.5,
+          "ndcg@10": 0.6309297535714574,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U123",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U123",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 0.00015195,
+      "llm_calls": 2,
+      "cached_calls": 0,
+      "latency_ms": 2298.1,
+      "wall_ms": 2300.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 0.0,
+          "recall@10": 0.0,
+          "precision@1": 0.0,
+          "precision@5": 0.0,
+          "precision@10": 0.0,
+          "mrr@10": 0.0,
+          "ndcg@10": 0.0,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U127",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U127",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.00019635,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2606.6,
+      "wall_ms": 2609.2,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": false,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.3333333333333333,
+          "ndcg@10": 0.5,
+          "correct_source@3": 1.0
+        }
+      },
+      "answer": "欧洲经济区/欧洲联盟公民不需要申请居留许可。"
+    },
+    {
+      "qid": "M-zh-U130",
+      "lang": "zh",
+      "type": "translation",
+      "translation_of": "U130",
+      "detected": "zh",
+      "idk": false,
+      "n_sentences": 1,
+      "citation_precision": 1.0,
+      "answer_text_lang": "zh",
+      "cost_usd": 0.000234,
+      "llm_calls": 3,
+      "cached_calls": 0,
+      "latency_ms": 2315.8,
+      "wall_ms": 2318.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "recall@1": 1.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 1.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 1.0,
+          "ndcg@10": 1.0,
+          "correct_source@3": 1.0
+        },
+        "S3f": {
+          "insufficient_evidence": false,
+          "recall@1": 0.0,
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "precision@1": 0.0,
+          "precision@5": 0.2,
+          "precision@10": 0.1,
+          "mrr@10": 0.2,
+          "ndcg@10": 0.38685280723454163,
+          "correct_source@3": 0.0
+        }
+      },
+      "answer": "请联系语言办公室（邮件至 elisabetta.gaspari@unicam.it）以获取最新信息。"
+    },
+    {
+      "qid": "M-zh-U144",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U144",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.425e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 940.2,
+      "wall_ms": 946.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U146",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U146",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.65e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 810.1,
+      "wall_ms": 815.5,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U147",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U147",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.41e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 731.6,
+      "wall_ms": 734.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U150",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U150",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.62e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 713.5,
+      "wall_ms": 716.1,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U151",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U151",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.29e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 921.5,
+      "wall_ms": 927.9,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U152",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U152",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.8e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 894.2,
+      "wall_ms": 896.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U153",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U153",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.41e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 745.3,
+      "wall_ms": 751.6,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U154",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U154",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.59e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 956.8,
+      "wall_ms": 958.0,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    },
+    {
+      "qid": "M-zh-U155",
+      "lang": "zh",
+      "type": "out_of_scope",
+      "translation_of": "U155",
+      "detected": "zh",
+      "idk": true,
+      "n_sentences": 0,
+      "citation_precision": null,
+      "answer_text_lang": null,
+      "cost_usd": 1.47e-05,
+      "llm_calls": 1,
+      "cached_calls": 0,
+      "latency_ms": 1002.2,
+      "wall_ms": 1004.7,
+      "metrics": {
+        "S1": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S2": {
+          "insufficient_evidence": true,
+          "abstained": true
+        },
+        "S3f": {
+          "insufficient_evidence": true,
+          "abstained": true
+        }
+      },
+      "answer": ""
+    }
+  ]
+}

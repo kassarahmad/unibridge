@@ -231,7 +231,21 @@
           "enum": [
             "it",
             "en",
-            "ar"
+            "ar",
+            "fr",
+            "es",
+            "pt",
+            "de",
+            "ro",
+            "sq",
+            "uk",
+            "ru",
+            "tr",
+            "fa",
+            "ur",
+            "hi",
+            "bn",
+            "zh"
           ],
           "title": "Language",
           "type": "string"
@@ -500,7 +514,21 @@
       "enum": [
         "it",
         "en",
-        "ar"
+        "ar",
+        "fr",
+        "es",
+        "pt",
+        "de",
+        "ro",
+        "sq",
+        "uk",
+        "ru",
+        "tr",
+        "fa",
+        "ur",
+        "hi",
+        "bn",
+        "zh"
       ],
       "title": "Language",
       "type": "string"

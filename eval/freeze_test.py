@@ -20,6 +20,7 @@ FREEZE = ROOT / "eval" / "queries" / "test_freeze.json"
 DATASETS = {
     "d1": (QUERIES, FREEZE),
     "unibridge": (ROOT / "eval" / "queries" / "unibridge_queries.jsonl", ROOT / "eval" / "queries" / "unibridge_test_freeze.json"),
+    "unibridge_ml": (ROOT / "eval" / "queries" / "unibridge_queries_ml.jsonl", ROOT / "eval" / "queries" / "unibridge_ml_test_freeze.json"),
 }
 
 

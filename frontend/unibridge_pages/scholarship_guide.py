@@ -10,7 +10,9 @@ from unibridge_common import post, show_text, t
 st.title(t("guide_title"))
 st.caption(t("guide_caption"))
 lang = st.session_state.lang
-LEVELS = {"L": "Bachelor (laurea)", "LM": "Master (laurea magistrale)", "LMCU5": "Single-cycle, 5 years", "LMCU6": "Single-cycle, 6 years"}
+LEVELS = ("L", "LM", "LMCU5", "LMCU6")
+FLAGS = ("family_abroad", "non_eu", "permit", "submitted", "extra_semester", "part_time", "disability", "prior_degree",
+         "differentiated", "review")
 OUTCOME_ICON = {"pass": ":material/check_circle:", "fail": ":material/cancel:", "check": ":material/help:", "info": ":material/info:",
                 "not_applicable": ":material/remove:"}
 STATUS_ICON = {"done": ":material/check_box:", "todo": ":material/check_box_outline_blank:", "overdue": ":material/warning:",
@@ -18,30 +20,28 @@ STATUS_ICON = {"done": ":material/check_box:", "todo": ":material/check_box_outl
 
 with st.form("facts"):
     c1, c2, c3 = st.columns(3)
-    level = c1.selectbox("Course", list(LEVELS), format_func=LEVELS.get)
-    year = c2.number_input("Year of course in 2026/2027", 1, 6, 2)
-    today = c3.date_input("Reference date", dt.date.today())
+    level = c1.selectbox(t("course"), LEVELS, format_func=lambda x: t(f"level_{x}"))
+    year = c2.number_input(t("year"), 1, 6, 2)
+    today = c3.date_input(t("ref_date"), dt.date.today())
     c1, c2, c3 = st.columns(3)
-    credits = c1.number_input("Credits (CFU) by 10/8/2026", 0, 400, 30)
-    bonus = c2.number_input("Bonus credits to use", 0, 15, 0)
-    residence = c3.selectbox("Residence status", ["fuori_sede", "pendolare", "in_sede"])
+    credits = c1.number_input(t("credits"), 0, 400, 30)
+    bonus = c2.number_input(t("bonus"), 0, 15, 0)
+    residence = c3.selectbox(t("residence"), ["fuori_sede", "pendolare", "in_sede"])
     c1, c2 = st.columns(2)
-    isee = c1.number_input("ISEE for university study (EUR, 0 = not known)", 0.0, 200000.0, 0.0, step=500.0)
-    ispe = c2.number_input("ISPE (EUR, 0 = not known)", 0.0, 500000.0, 0.0, step=500.0)
-    flags = st.pills("Your situation", ["family abroad", "non-EU citizen", "residence permit for 2026/2027", "application submitted",
-                                        "extra semester", "part-time", "disability >= 66%", "previous degree of same level",
-                                        "course listed in Art. 7.6", "asked for review"], selection_mode="multi")
+    isee = c1.number_input(t("isee"), 0.0, 200000.0, 0.0, step=500.0)
+    ispe = c2.number_input(t("ispe"), 0.0, 500000.0, 0.0, step=500.0)
+    flags = st.pills(t("situation"), FLAGS, format_func=lambda x: t(f"flag_{x}"), selection_mode="multi")
     submitted = st.form_submit_button(t("check"), type="primary", icon=":material/fact_check:", key="check")
 
 if submitted:
     facts = {
         "language": lang, "today": today.isoformat(), "level": level, "year": int(year), "credits": int(credits),
         "bonus_credits": int(bonus), "isee": isee or None, "ispe": ispe or None, "residence": residence,
-        "family_abroad": "family abroad" in flags, "non_eu": "non-EU citizen" in flags,
-        "has_residence_permit": "residence permit for 2026/2027" in flags, "application_submitted": "application submitted" in flags,
-        "extra_semester": "extra semester" in flags, "part_time": "part-time" in flags, "disability_66": "disability >= 66%" in flags,
-        "prior_degree_same_level": "previous degree of same level" in flags, "differentiated_merit_course": "course listed in Art. 7.6" in flags,
-        "review_requested": "asked for review" in flags,
+        "family_abroad": "family_abroad" in flags, "non_eu": "non_eu" in flags,
+        "has_residence_permit": "permit" in flags, "application_submitted": "submitted" in flags,
+        "extra_semester": "extra_semester" in flags, "part_time": "part_time" in flags, "disability_66": "disability" in flags,
+        "prior_degree_same_level": "prior_degree" in flags, "differentiated_merit_course": "differentiated" in flags,
+        "review_requested": "review" in flags,
     }
     code, body = post("/v1/procedure/scholarship", facts)
     if code != 200:

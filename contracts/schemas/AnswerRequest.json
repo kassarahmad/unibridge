@@ -15,7 +15,21 @@
           "enum": [
             "it",
             "en",
-            "ar"
+            "ar",
+            "fr",
+            "es",
+            "pt",
+            "de",
+            "ro",
+            "sq",
+            "uk",
+            "ru",
+            "tr",
+            "fa",
+            "ur",
+            "hi",
+            "bn",
+            "zh"
           ],
           "type": "string"
         },
@@ -24,7 +38,7 @@
         }
       ],
       "default": null,
-      "description": "Answer language; null = detected from the query (it, en, ar).",
+      "description": "Answer language (ISO 639-1); null = detected from the query.",
       "title": "Language"
     },
     "mode": {

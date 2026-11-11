@@ -44,7 +44,7 @@ from freeze_test import verify  # noqa: E402  (eval/ is on sys.path via ub_commo
 
 from p14_search.answer import prompts
 from p14_search.answer.language import detect
-from p14_search.answer.llm import LLMClient, LLMError
+from p14_search.answer.llm import LLMClient, LLMError, read_usage
 from p14_search.answer.service import AnswerService
 from p14_search.answer.verifier import is_yes
 from p14_search.evaluation.metrics import percentile
@@ -60,10 +60,15 @@ def mean(xs):
     return round(statistics.fmean(xs), 4) if xs else None
 
 
+JUDGE_COST: list[float] = []  # estimated USD of the judge's non-cached calls in this run
+
+
 def judge(llm, passage_text: str, sentence: str) -> bool | None:
     try:
         system, user = prompts.support_prompt(passage_text, sentence)
-        return is_yes(llm.complete(system, user, 3, "eval_judge").text)
+        r = llm.complete(system, user, 3, "eval_judge")
+        JUDGE_COST.append(0.0 if r.cached else (r.cost_usd or 0.0))
+        return is_yes(r.text)
     except LLMError:
         return None
 
@@ -91,7 +96,6 @@ def main() -> int:
     users = principals(settings)
     test = queries("test")[: args.limit]
     qrels = load_qrels()
-    usage_start = settings.llm_usage_log.stat().st_size if settings.llm_usage_log.exists() else 0
 
     # Each LLM configuration has its own response cache, so that one configuration never reuses the calls of
     # another (llm and llm_verified send the same answer prompt): cost and latency of a first run are those of a
@@ -178,18 +182,12 @@ def main() -> int:
         }
         print(config, json.dumps({k: v for k, v in per_config[config].items() if k != "by_lang"}))
 
-    # cost of this run, from the usage log lines appended by it
-    new_lines = []
-    if settings.llm_usage_log.exists():
-        with open(settings.llm_usage_log, encoding="utf-8") as f:
-            f.seek(usage_start)
-            new_lines = [json.loads(x) for x in f.read().splitlines() if x.strip()]
-    fresh = [x for x in new_lines if not x["cached"]]
+    # cost of this run, summed from its own calls (not from the shared usage log: other evaluations may run at the same time)
     run_cost = {
-        "calls": len(new_lines), "non_cached_calls": len(fresh),
-        "input_tokens": sum(x["input_tokens"] for x in fresh), "output_tokens": sum(x["output_tokens"] for x in fresh),
-        "estimated_cost_usd": round(sum(x["cost_usd"] or 0 for x in fresh), 6),
-        "by_purpose": {p: sum(1 for x in fresh if x["purpose"] == p) for p in sorted({x["purpose"] for x in fresh})},
+        "answer_calls": sum(x["llm_calls"] for x in rows), "answer_cached_calls": sum(x["cached_calls"] for x in rows),
+        "answers_estimated_cost_usd": round(sum(x["cost_usd"] or 0 for x in rows), 6),
+        "judge_calls": len(JUDGE_COST), "judge_estimated_cost_usd": round(sum(JUDGE_COST), 6),
+        "estimated_cost_usd": round(sum(x["cost_usd"] or 0 for x in rows) + sum(JUDGE_COST), 6),
     }
     ts = timestamp()
     report = {
@@ -208,7 +206,7 @@ def main() -> int:
         w.writerows(rows)
     # cumulative LLM spend of the project (all runs), from the usage log
     if settings.llm_usage_log.exists():
-        all_rows = [json.loads(x) for x in settings.llm_usage_log.read_text(encoding="utf-8").splitlines() if x.strip()]
+        all_rows = read_usage(settings.llm_usage_log)
         allf = [x for x in all_rows if not x["cached"]]
         write_json(RESULTS / "llm_cost.json", {
             "source": "logs/llm_usage.jsonl (not committed); estimated with the price table in src/p14_search/answer/llm.py",

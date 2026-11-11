@@ -29,27 +29,28 @@ from p14_search.procedure import rules as R
 from p14_search.procedure.ics import calendar
 from p14_search.procedure.model import SINK, SOURCE, build_net
 from p14_search.procedure.soundness import enabled, fire
+from p14_search.i18n import localize
 
 log = logging.getLogger("p14.procedure")
 
 VERDICT = {
-    "eligible": {"it": "In base ai dati inseriti risulti in possesso dei requisiti del bando.",
+    "eligible": localize("guide.verdict.eligible", {"it": "In base ai dati inseriti risulti in possesso dei requisiti del bando.",
                  "en": "Based on the data you entered, you meet the requirements of the call.",
-                 "ar": "بناءً على البيانات التي أدخلتها، تستوفي شروط الإعلان."},
-    "not_eligible": {"it": "In base ai dati inseriti almeno un requisito del bando non è soddisfatto.",
+                 "ar": "بناءً على البيانات التي أدخلتها، تستوفي شروط الإعلان."}),
+    "not_eligible": localize("guide.verdict.not_eligible", {"it": "In base ai dati inseriti almeno un requisito del bando non è soddisfatto.",
                      "en": "Based on the data you entered, at least one requirement of the call is not met.",
-                     "ar": "بناءً على البيانات التي أدخلتها، هناك شرط واحد على الأقل من شروط الإعلان غير مستوفى."},
-    "check_with_office": {"it": "Alcuni requisiti non si possono verificare automaticamente: controlla con l'ufficio ERDIS.",
+                     "ar": "بناءً على البيانات التي أدخلتها، هناك شرط واحد على الأقل من شروط الإعلان غير مستوفى."}),
+    "check_with_office": localize("guide.verdict.check_with_office", {"it": "Alcuni requisiti non si possono verificare automaticamente: controlla con l'ufficio ERDIS.",
                           "en": "Some requirements cannot be checked automatically: check with the ERDIS office.",
-                          "ar": "لا يمكن التحقق من بعض الشروط تلقائيًا: تحقق مع مكتب ERDIS."},
+                          "ar": "لا يمكن التحقق من بعض الشروط تلقائيًا: تحقق مع مكتب ERDIS."}),
 }
-DISCLAIMER = {
+DISCLAIMER = localize("guide.disclaimer", {
     "it": "Guida informativa basata sul bando ERDIS 2026/2027. Fa fede solo l'esito pubblicato da ERDIS. I dati inseriti non vengono salvati.",
     "en": "Information guide based on the ERDIS call 2026/2027. Only the outcome published by ERDIS is binding. Your data is not stored.",
     "ar": "دليل معلوماتي مبني على إعلان ERDIS 2026/2027. النتيجة الرسمية هي فقط ما ينشره ERDIS. لا يتم حفظ بياناتك.",
-}
-# checklist texts: (it, en, ar)
-TEXTS = {
+})
+# checklist texts: (it, en, ar), localized below
+_TEXTS = {
     "isee": ("Sottoscrivi la DSU e ottieni l'ISEE per il diritto allo studio universitario entro il 28/8/2026.",
              "Sign the DSU and obtain the ISEE for university study benefits by 28/8/2026.",
              "وقّع إقرار DSU واحصل على مؤشر ISEE الخاص بمزايا الدراسة الجامعية قبل 28/8/2026."),
@@ -83,6 +84,39 @@ TEXTS = {
                           "As a non-EU first-year student, the first instalment is paid when you reach the required credits, unless you give a guarantee.",
                           "بصفتك طالبًا من خارج الاتحاد الأوروبي في السنة الأولى، تُدفع الدفعة الأولى عند تحقيق الساعات المعتمدة المطلوبة، ما لم تقدّم ضمانًا."),
 }
+TEXTS = {key: localize(f"guide.checklist.{key}", dict(zip(("it", "en", "ar"), texts))) for key, texts in _TEXTS.items()}
+
+
+# Titles of rules and deadlines (English as built by the code -> every language). Rule details stay in English
+# because they contain the student's own figures; the Italian quote of the call is always shown next to them.
+_LABELS_IT = {
+    "Application by 28/8/2026": "Domanda entro il 28/8/2026",
+    f"ISEE at most {R.ISEE_MAX:,.0f} EUR": f"ISEE non superiore a {R.ISEE_MAX:,.0f} EUR".replace(",", "."),
+    f"ISPE at most {R.ISPE_MAX:,.0f} EUR": f"ISPE non superiore a {R.ISPE_MAX:,.0f} EUR".replace(",", "."),
+    "No previous degree of the same or a higher level": "Nessun titolo precedente di livello pari o superiore",
+    "Within the duration of the benefit": "Entro la durata del beneficio",
+    "Merit requirement": "Requisito di merito",
+    "Residence permit for 2026/2027": "Permesso di soggiorno per il 2026/2027",
+    "Amount category": "Fascia di importo",
+    "Application deadline (online, confirmed)": "Scadenza della domanda (online, confermata)",
+    "Provisional ranking (indicative); request for review within 5 days": "Graduatoria provvisoria (indicativa); istanza di revisione entro 5 giorni",
+    "Final ranking (first half of October 2026)": "Graduatoria definitiva (prima metà di ottobre 2026)",
+    "Last day to give your IBAN": "Ultimo giorno per comunicare l'IBAN",
+    "Last day to complete ISEE parificato documents": "Ultimo giorno per completare i documenti dell'ISEE parificato",
+    "First instalment (20%) at the latest": "Prima rata (20%) al più tardi",
+    "Instalment at the latest": "Rata al più tardi",
+    "First instalment (50%) at the latest": "Prima rata (50%) al più tardi",
+    "Copy of the residence permit": "Copia del permesso di soggiorno",
+    "Second instalment at the latest": "Seconda rata al più tardi",
+    "20 credits for the balance": "20 crediti per il saldo",
+    "Last date for 20 credits, otherwise revocation": "Ultima data per i 20 crediti, altrimenti revoca",
+}
+LABELS = {en: localize("guide.label." + re.sub(r"[^a-z0-9]+", "_", en.lower()).strip("_"), {"it": it, "en": en})
+          for en, it in _LABELS_IT.items()}
+
+
+def _label(text: str, lang: str) -> str:
+    return LABELS[text][lang] if text in LABELS else text
 
 
 def _norm(text: str) -> str:
@@ -108,7 +142,7 @@ class ScholarshipGuide:
         out: list[RuleResult] = []
 
         def add(rid, title, outcome, detail, key):
-            out.append(RuleResult(id=rid, title=title, outcome=outcome, detail=detail, citation=self.cite(key)))
+            out.append(RuleResult(id=rid, title=_label(title, f.language), outcome=outcome, detail=detail, citation=self.cite(key)))
 
         # application deadline (Art. 10.1)
         if f.application_submitted:
@@ -223,7 +257,6 @@ class ScholarshipGuide:
     def guide(self, f: ProcedureRequest, request_id: str) -> ProcedureResponse:
         today = dt.date.fromisoformat(f.today) if f.today else dt.date.today()
         lang = f.language
-        li = {"it": 0, "en": 1, "ar": 2}[lang]
         results = self.evaluate(f, today)
         outcomes = {r.outcome for r in results}
         verdict = "not_eligible" if "fail" in outcomes else "check_with_office" if "check" in outcomes else "eligible"
@@ -237,7 +270,7 @@ class ScholarshipGuide:
 
         def item(iid, due, key, done=False, info=False):
             st = "done" if done else "info" if info else ("overdue" if due and today > due else "todo")
-            checklist.append(ChecklistItem(id=iid, text=TEXTS[iid][li], due=due.isoformat() if due else None, status=st, citation=self.cite(key)))
+            checklist.append(ChecklistItem(id=iid, text=TEXTS[iid][lang], due=due.isoformat() if due else None, status=st, citation=self.cite(key)))
 
         submitted = bool(f.application_submitted)
         if f.family_abroad:
@@ -285,6 +318,7 @@ class ScholarshipGuide:
                          citation=self.cite("revoke_first_year")),
             ]
         deadlines.sort(key=lambda d: d.date)
+        deadlines = [d.model_copy(update={"title": _label(d.title, lang)}) for d in deadlines]
         ics = calendar([(d.date, f"ERDIS: {d.title}", f"{d.citation.section} - {d.citation.quote}" + (" (indicative date)" if d.indicative else ""))
                         for d in deadlines], today)
         category = f.residence or ("fuori_sede" if f.family_abroad else None)

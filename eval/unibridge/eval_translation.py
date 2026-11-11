@@ -97,7 +97,12 @@ def main() -> int:
     if settings.llm_usage_log.exists():
         with open(settings.llm_usage_log, encoding="utf-8") as f:
             f.seek(usage_start)
-            new_lines = [json.loads(x) for x in f.read().splitlines() if x.strip()]
+            new_lines = []
+            for x in f.read().splitlines():
+                try:
+                    new_lines.append(json.loads(x))
+                except json.JSONDecodeError:  # line still being written by another process
+                    continue
     fresh = [x for x in new_lines if not x["cached"] and x["purpose"] == "query_translation"]
     ts = timestamp()
     report = {

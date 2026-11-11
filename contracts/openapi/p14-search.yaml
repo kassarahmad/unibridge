@@ -105,8 +105,8 @@ paths:
       tags:
       - answer
       summary: Answer
-      description: 'Answer in the student''s language (it, en, ar); every sentence
-        cites a passage, shown with its Italian original.
+      description: 'Answer in the student''s language (17 languages, see p14_search.i18n);
+        every sentence cites a passage, shown with its Italian original.
 
         Without a configured LLM the answer is extractive. Weak evidence -> ''I don''t
         know'' + a draft for the right office.'
@@ -693,9 +693,23 @@ components:
             - it
             - en
             - ar
+            - fr
+            - es
+            - pt
+            - de
+            - ro
+            - sq
+            - uk
+            - ru
+            - tr
+            - fa
+            - ur
+            - hi
+            - bn
+            - zh
           - type: 'null'
           title: Language
-          description: Answer language; null = detected from the query (it, en, ar).
+          description: Answer language (ISO 639-1); null = detected from the query.
         mode:
           type: string
           enum:
@@ -740,6 +754,20 @@ components:
           - it
           - en
           - ar
+          - fr
+          - es
+          - pt
+          - de
+          - ro
+          - sq
+          - uk
+          - ru
+          - tr
+          - fa
+          - ur
+          - hi
+          - bn
+          - zh
           title: Language
         mode:
           type: string
@@ -1262,6 +1290,20 @@ components:
             - it
             - en
             - ar
+            - fr
+            - es
+            - pt
+            - de
+            - ro
+            - sq
+            - uk
+            - ru
+            - tr
+            - fa
+            - ur
+            - hi
+            - bn
+            - zh
           - type: 'null'
           title: Language
         passage_ids:
@@ -1297,6 +1339,20 @@ components:
           - it
           - en
           - ar
+          - fr
+          - es
+          - pt
+          - de
+          - ro
+          - sq
+          - uk
+          - ru
+          - tr
+          - fa
+          - ur
+          - hi
+          - bn
+          - zh
           title: Language
         out_of_scope:
           type: boolean
@@ -1568,6 +1624,20 @@ components:
           - it
           - en
           - ar
+          - fr
+          - es
+          - pt
+          - de
+          - ro
+          - sq
+          - uk
+          - ru
+          - tr
+          - fa
+          - ur
+          - hi
+          - bn
+          - zh
           title: Language
           default: en
         today:
@@ -1700,6 +1770,20 @@ components:
           - it
           - en
           - ar
+          - fr
+          - es
+          - pt
+          - de
+          - ro
+          - sq
+          - uk
+          - ru
+          - tr
+          - fa
+          - ur
+          - hi
+          - bn
+          - zh
           title: Language
         verdict:
           type: string

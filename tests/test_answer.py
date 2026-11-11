@@ -175,3 +175,67 @@ def test_office_keywords_match_word_starts_only():
     assert service.choose_office("Come è previsto il calendario delle lezioni?")[0] is None  # "visto" inside "previsto"
     assert service.choose_office("Serve il visto per studiare?")[0] == "international"
     assert service.choose_office("Quando apre l'iscrizione?")[0] == "student_office"  # stem "iscrizion"
+
+
+SAMPLES = {
+    "it": "Quando posso presentare la domanda di borsa?", "en": "When should I apply for the pre-admission?",
+    "ar": "متى يتم نشر قوائم الترتيب؟", "fr": "Quand dois-je payer les frais d'inscription ?",
+    "es": "¿Cuándo tengo que pagar las tasas universitarias?", "pt": "Quando devo pagar as taxas da universidade?",
+    "de": "Wann muss ich die Studiengebühren bezahlen?", "ro": "Când trebuie să depun cererea pentru bursă?",
+    "sq": "Kur duhet të aplikoj për bursën e studimit?", "uk": "Коли треба подати заяву на стипендію?",
+    "ru": "Когда нужно подать заявление на стипендию?", "tr": "Burs başvurusunu ne zaman yapmalıyım?",
+    "fa": "چه زمانی باید برای بورسیه درخواست بدهم؟", "ur": "مجھے اسکالرشپ کے لیے کب درخواست دینی چاہیے؟",
+    "hi": "मुझे छात्रवृत्ति के लिए कब आवेदन करना चाहिए?", "bn": "আমাকে কখন বৃত্তির জন্য আবেদন করতে হবে?",
+    "zh": "我应该什么时候申请奖学金？",
+}
+
+
+def test_every_language_is_detected():
+    from p14_search.i18n import LANGS
+
+    assert set(SAMPLES) == set(LANGS)
+    assert {lang: detect(text) for lang, text in SAMPLES.items()} == {lang: lang for lang in SAMPLES}
+    assert detect("") == "it"
+
+
+def test_api_language_type_matches_the_language_list():
+    import typing
+
+    from p14_search.i18n import LANGS, NAMES, NAMES_IT, NATIVE
+    from p14_search.models import Lang
+
+    assert set(typing.get_args(Lang)) == set(LANGS) == set(NAMES) == set(NAMES_IT) == set(NATIVE)
+
+
+def test_localize_prefers_hand_written_then_generated_then_english():
+    from p14_search.answer.language import I_DONT_KNOW
+    from p14_search.i18n import LANGS, localize
+
+    texts = localize("test.only", {"it": "ciao", "en": "hello"})
+    assert texts["it"] == "ciao" and texts["fr"] == "hello" and set(texts) == set(LANGS)
+    assert set(I_DONT_KNOW) == set(LANGS) and I_DONT_KNOW["fr"] != I_DONT_KNOW["en"]  # generated translation present
+
+
+def test_french_question_is_answered_in_french(llm_client):
+    body = ask(llm_client, "Combien de jours de travail à distance par mois puis-je faire ?")
+    assert body["language"] == "fr" and body["query_italian"] == "quante giornate di lavoro agile al mese"
+    assert any("Write the answer in French" in system for system, _ in llm_client.services.llm.provider.calls)
+
+
+def test_i_dont_know_in_the_language_of_the_question(llm_client):
+    from p14_search.answer.language import I_DONT_KNOW
+
+    body = ask(llm_client, "我想问一下 nessunarisposta 的问题")
+    assert body["insufficient_evidence"] and body["message"] == I_DONT_KNOW[body["language"]]
+
+
+def test_usage_log_with_a_partial_line_does_not_break_the_budget_check(tmp_path, fake):
+    from p14_search.answer.llm import read_usage
+
+    log = tmp_path / "usage.jsonl"
+    log.write_text('{"cost_usd": 0.5, "cached": false}\n{"cost_usd": 0.2, "cach', encoding="utf-8")  # another process is writing
+    assert read_usage(log) == [{"cost_usd": 0.5, "cached": False}]
+    settings = Settings(_env_file=None, llm_provider="", llm_cache_dir=tmp_path / "c", llm_usage_log=log, llm_budget_usd=1.0,
+                        llm_price_in_per_mtok=1.0, llm_price_out_per_mtok=2.0)
+    llm = build_llm(settings, fake)
+    assert llm.spent_usd() == 0.5 and llm.complete("s", "p", 5, "test").text

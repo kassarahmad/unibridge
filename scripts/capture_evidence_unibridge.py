@@ -23,6 +23,8 @@ from pathlib import Path
 import httpx
 from dotenv import dotenv_values
 
+from p14_search.i18n import NATIVE
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "evidence" / "unibridge"
 
@@ -34,6 +36,8 @@ CASES = [
     ("visitor", "en", "Is there a buddy programme for international students?", "ub_04_role_visitor.png", False, False),
     ("student", "en", "Is there a buddy programme for international students?", "ub_05_role_student.png", True, False),
     ("visitor", "en", "Which football team won the Italian league last year?", "ub_06_out_of_scope.png", False, False),
+    ("visitor", "fr", "Quand dois-je payer les frais d'inscription à l'université ?", "ub_08_answer_fr.png", True, False),
+    ("visitor", "zh", "申请奖学金的截止日期是什么时候？", "ub_09_answer_zh.png", True, False),
 ]
 
 
@@ -70,10 +74,11 @@ def screenshots(ui: str) -> None:
         def setup(role: str, lang: str, path: str = "") -> None:
             page.goto(f"{ui}/{path}", wait_until="networkidle")
             page.get_by_test_id("stSidebar").wait_for(timeout=60000)
-            page.get_by_test_id("stSidebar").get_by_role("radio", name={"it": "Italiano", "en": "English", "ar": "العربية"}[lang]).click()
+            page.get_by_test_id("stSidebar").locator('[data-testid="stSelectbox"]').first.click()
+            page.get_by_role("option", name=NATIVE[lang], exact=True).click()
             page.wait_for_timeout(800)
             if role != "visitor":
-                page.get_by_test_id("stSidebar").locator('[data-testid="stSelectbox"]').first.click()
+                page.get_by_test_id("stSidebar").locator('[data-testid="stSelectbox"]').nth(1).click()
                 page.get_by_role("option", name=role, exact=True).click()
                 page.wait_for_timeout(800)
 
@@ -100,10 +105,10 @@ def screenshots(ui: str) -> None:
             seg = page.get_by_role("spinbutton", name=f"{part}, Reference date")
             seg.click()
             seg.press_sequentially(value)
-        isee = page.get_by_label("ISEE for university study (EUR, 0 = not known)", exact=True)
+        isee = page.get_by_label("ISEE for university study (EUR, 0 = not known)", exact=True)  # English UI
         isee.fill("15000")
         isee.press("Tab")
-        page.get_by_role("button", name="Check").click()
+        page.get_by_test_id("stFormSubmitButton").click()
         page.get_by_text("Your checklist").wait_for(timeout=60000)
         page.wait_for_timeout(1500)
         page.screenshot(path=str(OUT / "ub_07_scholarship_guide.png"), full_page=True)

@@ -1,11 +1,20 @@
 {
   "source": "logs/llm_usage.jsonl (not committed); estimated with the price table in src/p14_search/answer/llm.py",
-  "updated_at": "20261111-172151",
-  "non_cached_calls": 1116,
-  "input_tokens": 561806,
-  "output_tokens": 25006,
-  "estimated_cost_usd": 0.099274,
+  "updated_at": "20261111-185216",
+  "non_cached_calls": 5458,
+  "input_tokens": 2090316,
+  "output_tokens": 153616,
+  "estimated_cost_usd": 0.405717,
   "models": [
     "openai:gpt-4o-mini"
-  ]
+  ],
+  "calls_by_purpose": {
+    "answer": 1022,
+    "eval_judge": 482,
+    "i18n_translation": 114,
+    "ml_query_translation": 616,
+    "probe": 1,
+    "query_translation": 1603,
+    "support_check": 1620
+  }
 }

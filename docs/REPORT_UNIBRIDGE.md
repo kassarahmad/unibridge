@@ -1,24 +1,25 @@
 # UniBridge - a multilingual assistant for international students
 ### Technical report - Complex Systems Design, MSc Computer Science (AI), University of Camerino
 
-Author: Ahmad Kassar. Course: Complex Systems Design (Prof. Flavio Corradini). Branch `unibridge` of this repository.
-UniBridge is built on the P14 search engine of the same repository (hybrid retrieval, ACL, citations,
-evaluation harness): see [REPORT.md](REPORT.md) for P14 itself.
-
-Every number in this report is produced by a committed script and read from a file in `eval/results/unibridge/`;
-`python eval/check_doc_numbers.py` checks the decimals of this file against those files.
+Author: Ahmad Kassar. Course: Complex Systems Design (Prof. Flavio Corradini).
+UniBridge runs on the P14 search engine of the same repository (hybrid retrieval, permissions inside retrieval,
+citations, evaluation harness), which is documented in [REPORT.md](REPORT.md). Every number below is produced by a
+committed script and read from a file in `eval/results/unibridge/`; `eval/check_doc_numbers.py` checks the
+decimals of this report against those files.
 
 ## 1. Problem
 
-International students in Camerino must follow Italian rules written in Italian: the university's student
-guide and regulations, the ERDIS Marche scholarship call (about 70 pages), the ministerial circular on the
-admission of foreign students. Many of them read English or Arabic better than Italian. A wrong reading has a
-cost: a missed deadline excludes the student from the scholarship (Art. 10 of the call), a missing ISEE
-parificato document makes the application incomplete.
+An international student in Camerino has to follow rules written in Italian: the university's student guide and
+regulations, the ERDIS Marche call for the regional scholarship, the ministry circular on the admission of foreign
+students. Many of these students read English, Arabic, Chinese or Persian better than Italian, and a wrong reading
+has a cost. An application submitted after 28 August 2026 is excluded (Art. 10 of the call); a missing document for
+the ISEE parificato leaves the application incomplete. General-purpose chatbots answer fluently, but they do not show
+where an answer comes from and can produce a plausible but wrong date.
 
-General-purpose chatbots answer fluently but do not show where an answer comes from, and they invent dates.
-UniBridge answers **only from official documents**, shows **the Italian sentence behind each claim**, says
-**"I don't know"** when the evidence is weak, and then helps the student write to the right office.
+We therefore set a narrow goal. UniBridge answers only from official documents, in the language of the question,
+and shows the Italian sentence behind every claim. When the documents are not enough it says so and helps the
+student write to the responsible office. For the scholarship, the procedure most students ask about, it offers a
+guide whose logic is a formal model of the call and whose eligibility checks are deterministic code.
 
 ## 2. Users and roles
 
@@ -29,91 +30,112 @@ UniBridge answers **only from official documents**, shows **the Italian sentence
 | scholarship / student / international office | office staff | + that office's internal notes (`restricted`, own office) |
 | unibridge-admin | maintainer | everything |
 
-Roles are mapped onto the P14 access levels (config/principals_unibridge.json): no new ACL code. Student-only
-notices and internal office notes are **synthetic** (6 documents, labelled `[SINTETICO]` in the title and
-text), because real ones are not public.
+The roles are mapped onto the access levels of P14 (`config/principals_unibridge.json`), so no new permission code
+was needed. Student-only notices and internal office notes are not public; the six documents of these kinds in the
+corpus are synthetic and labelled as such (`[SINTETICO]` in title and text).
 
 ## 3. Architecture
 
-![Context](images/ub-01-context.png)
+![System context](images/ub-01-context.png)
 
 ![Components](images/ub-02-components.png)
 
-UniBridge is a **profile** of the P14 service (`src/p14_search/unibridge_profile.py`): same code, its own SQLite
-file, Qdrant collection and principals. New modules:
-
-| Module | Role |
-|---|---|
-| `answer/` | language detection, query translation, LLM answer with citations, verifier, extractive fallback |
-| `answer/llm.py` | OpenAI / Anthropic behind one interface (`LLM_PROVIDER`), fake provider for tests, disk cache, usage log, spend limit |
-| `handoff/` | office routing rule table, Italian e-mail draft (never sent) |
-| `procedure/` | scholarship procedure model, deterministic eligibility rules, state machine, checklist, `.ics` |
-| `frontend/unibridge_app.py` | Streamlit demo: Ask page, Scholarship guide |
-
-Endpoints: `POST /v1/answer`, `POST /v1/handoff`, `POST /v1/procedure/scholarship`, plus the P14 endpoints.
+UniBridge is a profile of the P14 service (`src/p14_search/unibridge_profile.py`): the same code with its own SQLite
+file, Qdrant collection and principals. Three modules are new. `answer/` detects the language, translates the
+question, asks the language model for an answer with citations, verifies it, and falls back to extractive answers
+when no model is available; `answer/llm.py` hides OpenAI and Anthropic behind one interface (chosen by
+`LLM_PROVIDER`), with a fake provider for the tests, a disk cache, a usage log and a spending limit. `handoff/`
+chooses the office with a rule table and drafts a formal Italian e-mail, which is never sent. `procedure/` holds the
+scholarship model, the eligibility rules, the state machine, the checklist and the `.ics` calendar. The endpoints are
+`POST /v1/answer`, `POST /v1/handoff` and `POST /v1/procedure/scholarship`, next to those of P14; the Streamlit
+demo (`frontend/unibridge_app.py`) uses them like any other client.
 
 ### 3.1 Answer pipeline
 
 ![Answer sequence](images/ub-03-sequence-answer.png)
 
-1. Detect the language of the question (it / en / ar).
-2. Retrieve with S2 (BM25 + multilingual-e5-small, RRF), ACL applied inside retrieval.
-3. If the question is not Italian and an LLM is configured: translate it into Italian (temperature 0,
-   cached) and fuse the two rankings with RRF (system **S3f**, see the S3 experiment below).
-4. If no passage passes the calibrated evidence threshold: "I don't know" in the student's language + handoff.
-5. Otherwise the LLM answers **only from the numbered passages**, in the student's language, one claim per
-   sentence, each sentence ending with `[Pn]`. Passages are wrapped as data; the prompt says they are never
-   instructions (prompt-injection guard).
-6. Verifier: drop sentences without a valid passage id; then the same LLM is asked, per sentence, whether the
-   cited passage supports it (yes/no, cached). If nothing survives: "I don't know" + handoff.
-7. The response carries every sentence with its passage, and the Italian original of every cited passage.
+1. Detect the language of the question (17 languages, see Languages below).
+2. Retrieve with S2 (BM25 + multilingual-e5-small, reciprocal rank fusion); permissions are applied inside retrieval.
+3. If the question is not Italian and a model is configured, translate it into Italian (temperature 0, cached),
+   retrieve again and fuse the two rankings (S3f, see the translation experiment in the evaluation).
+4. If no passage passes the evidence threshold calibrated on the tuning split, answer "I don't know" in the
+   student's language and prepare the handoff.
+5. Otherwise the model answers only from the numbered passages, in the student's language, one claim per sentence,
+   each sentence ending with `[Pn]`. Passages are wrapped in tags that the passage text cannot close, and the system
+   prompt states that they are data, never instructions.
+6. The verifier drops sentences without a valid passage id, then asks the same model, sentence by sentence, whether
+   the cited passage supports it (yes/no, cached). If nothing is left, the answer becomes "I don't know" + handoff.
+7. The response carries every sentence with its passages and the Italian original of each cited passage.
 
-Without an API key (or when the call fails or the budget is reached) the answer is **extractive**: Italian
-sentences copied from the passages, each with its citation.
+Without an API key, or when the call fails or the budget is reached, the answer is extractive: Italian sentences
+copied from the passages, each with its citation.
 
-## 4. Data
+### 3.2 Languages
 
-Details: [DATA_UNIBRIDGE.md](DATA_UNIBRIDGE.md). 42 real public documents (ERDIS Marche, UNICAM, UNICAM
-International, MUR, Normattiva) and 6 synthetic restricted ones: 2,330 passages. Raw files are not committed;
-`scripts/fetch_corpus_unibridge.py` re-downloads them and checks the SHA-256 recorded in the manifest.
-Licences are recorded per document; unicam.it pages have no open licence and are used locally only
-(OPEN_QUESTIONS U3).
+The first version supported Italian, English and Arabic. We extended it to the languages that international
+students in Italy are most likely to read best: Italian, English, Arabic, French, Spanish, Portuguese, German,
+Romanian, Albanian, Ukrainian, Russian, Turkish, Persian, Urdu, Hindi, Bengali and Simplified Chinese. The list is
+one table (`src/p14_search/i18n.py`); the language of a question is identified offline with lingua (n-gram models,
+deterministic) restricted to these languages. The answer prompt only receives the name of the language, so the
+answer step needed no change. The fixed texts (the "I don't know" message, the guide's checklist, the interface) are
+written by hand in Italian, English and Arabic; for the other fourteen languages they were translated once by the
+language model (`scripts/translate_i18n.py`), stored in `src/p14_search/i18n_llm.json` and marked
+`llm_generated` and `needs_native_review`. The details of the scholarship rules stay in English, because they contain
+the student's own figures; the verdict, the checklist and the deadlines follow the student's language. Arabic,
+Persian and Urdu are shown right to left.
 
-**Question set** (`eval/queries/unibridge_queries.jsonl`): 155 questions, 102 in the frozen test split
-(42 Italian, 30 English, 30 Arabic; 9 out of scope). Italian questions are **real questions from official FAQ
-pages** (ERDIS, UNICAM International), with the FAQ answer as ground truth; English and Arabic versions and
-everyday paraphrases were produced by an LLM and are flagged `llm_generated: true` (Arabic and English also
-`needs_native_review: true`). The test split was frozen with a SHA-256 before any tuning
-(`eval/freeze_test.py --dataset unibridge`).
+## 4. Data and test sets
 
-## 5. Procedure model (Complex Systems Design core)
+The corpus ([DATA_UNIBRIDGE.md](DATA_UNIBRIDGE.md)) has 42 real public documents from ERDIS Marche, the University of
+Camerino and its international office, the Ministry of University and Normattiva, plus the six synthetic restricted
+notes: 2,330 passages. Raw files are not committed; `scripts/fetch_corpus_unibridge.py` downloads them again and
+checks the SHA-256 recorded in the manifest. Licences are recorded per document; the pages of unicam.it have no open
+licence and are used locally only (OPEN_QUESTIONS U3).
 
-![Procedure](images/ub-04-procedure.png)
+The main question set (`eval/queries/unibridge_queries.jsonl`) has 155 questions; the 102 of the test split
+(42 Italian, 30 English, 30 Arabic, 9 out of scope) were frozen with a SHA-256 before any tuning. The Italian
+questions are real questions taken from official FAQ pages (ERDIS, UNICAM International), so the official answer and
+the article it cites are the ground truth. English and Arabic versions and the everyday paraphrases were written by
+the language model and are flagged `llm_generated`. For the fourteen added languages we built a second test set
+(`eval/queries/unibridge_queries_ml.jsonl`) from the same 35 FAQ questions and 9 out-of-scope questions of the
+frozen test split, translated by the language model into every added language (616
+questions). A translation keeps the relevance judgments of its source question; the set was frozen with its own hash
+before the evaluation.
 
-The ERDIS scholarship procedure 2026/2027 is defined once in `src/p14_search/procedure/model.py`; the BPMN 2.0
-file `docs/bpmn/scholarship.bpmn` (24 nodes, 26 flows) and the workflow net `docs/bpmn/scholarship.pnml`
-(18 places, 20 transitions, 42 arcs) are generated from it, so they cannot disagree. Every step and deadline is
-tied to an article of the call ([PROCEDURE.md](PROCEDURE.md)).
+## 5. Procedure model
 
-**Soundness** (`eval/results/unibridge/procedure_soundness.json`): the net is a workflow net (single source
-`i`, single sink `o`, every node on a path from `i` to `o`); the reachability graph has 19 markings; the net
-is bounded, has the option to complete, proper completion and no dead transitions, so it is **sound**. The
-check is done twice: by our own reachability analysis and by pm4py's WOFLAN on the PNML file (both: sound).
-Verification in WoPeD is described in PROCEDURE.md (screenshot to be taken by hand).
+![BPMN model of the ERDIS scholarship procedure 2026/2027 (docs/bpmn/scholarship.bpmn)](images/scholarship_bpmn.png)
 
-**Guide**: the state machine replays the net on the student's facts; eligibility rules (credits by year,
-ISEE and ISPE limits of Art. 8, prior degree, duration, residence permit, deadlines) are
-**deterministic code**, each with the article that defines it; no LLM is involved and the facts are not stored.
-On 15 fictional scenarios with the expected checklist written from the call, 15 are fully correct
-(verdict, rules, checklist, marking, next steps; `procedure_eval.json`, accuracy 1.0). The scenarios were written
-by the same author as the rules, so this tests consistency with our reading of the call, not the reading itself.
+The ERDIS scholarship procedure 2026/2027 is written once, in `src/p14_search/procedure/model.py`. The BPMN 2.0 file
+`docs/bpmn/scholarship.bpmn` (24 nodes, 26 flows, lanes Student and
+ERDIS) and the workflow net `docs/bpmn/scholarship.pnml` (18 places, 20
+transitions, 42 arcs) are generated from it, so the diagram, the net and the guide cannot disagree.
+Every step and deadline is tied to an article of the call ([PROCEDURE.md](PROCEDURE.md)): the application by
+28 August 2026, the provisional ranking, the optional request for review within five days, the final ranking, the
+payment of the instalments, and the revocation when the merit requirement for the balance is not met.
+
+We check soundness in code (`eval/results/unibridge/procedure_soundness.json`). The net is a workflow net: one source
+place `i`, one sink place `o`, and every node lies on a path from `i` to `o`. Its reachability graph has
+19 markings; the net is bounded, every reachable marking can still
+reach the final marking, the final marking is reached cleanly (no tokens left behind), and no transition is dead.
+The net is therefore sound. pm4py's WOFLAN implementation, run on the PNML file, gives the same result. The steps to
+verify it in WoPeD are in PROCEDURE.md.
+
+The guide replays the net as a state machine on the student's facts: a transition fires only if it is enabled and the
+facts or the reference date say it has happened, and the enabled transitions of the final marking are the next steps.
+Eligibility (credits by year of course, the ISEE and ISPE limits of Art. 8, previous degree, duration of the
+benefit, residence permit, deadlines) is decided by deterministic code; each rule carries the article that defines
+it. No language model is involved and the facts are neither stored nor logged. On 15 fictional students, with the
+expected verdict and checklist written from the call, all 15 are fully correct (`procedure_eval.json`). The same
+person wrote the scenarios and the rules, so this shows that the code follows our reading of the call, not that the
+reading is right.
 
 ## 6. Evaluation
 
-All on the frozen test split (102 questions), role visitor, calibration of the evidence thresholds on the tuning
-split only (`calibration.json`).
+Unless stated otherwise, results are on the frozen test split of 102 questions, with the role visitor and the
+evidence thresholds calibrated on the tuning split only (`calibration.json`).
 
-### 6.1 Retrieval: B0, S1, S2 (`eval_latest.json`)
+### 6.1 Retrieval by language
 
 | nDCG@10 | B0 BM25 | S1 dense | S2 hybrid |
 |---|---|---|---|
@@ -122,152 +144,182 @@ split only (`calibration.json`).
 | English (28) | 0.3907 | 0.3898 | 0.3966 |
 | Arabic (26) | 0.0 | 0.227 | 0.2179 |
 
-**Hypothesis tested: "BM25 fails on Arabic questions over Italian text" - confirmed.** For 100% of the Arabic
-in-scope test questions BM25 returns no relevant passage in the top 10, and for 92.31% it returns nothing at all
-(no shared terms). The dense model recovers part of it (nDCG@10 0.227), still far below Italian. S2 vs B0 on
-Arabic: p = 0.0017; S2 vs S1: no significant difference in any language (p = 0.9021 overall).
-ACL: 0 leaks in 16,626 checked passages (6 roles x 102 questions x 3 systems).
+We expected keyword search to fail on Arabic questions over Italian documents, and it does: for
+100% of the Arabic in-scope test questions BM25 returns
+no relevant passage in the first ten, and for 92.31% it returns
+nothing at all, since the two languages share no terms. The dense model recovers part of the loss (nDCG@10
+0.227), still far below Italian. The difference between S2 and B0 on Arabic is significant
+(paired randomization test, p = 0.0017); between S2 and S1 there is
+no significant difference in any language (p = 0.9021 overall).
+The permission filter leaked nothing: 0 leaks in 16,626 checked passages (6 roles,
+102 questions, 3 systems).
 
-### 6.2 Experiment S3: translate the question into Italian before retrieval (`translation_latest.json`)
+### 6.2 Translating the question before retrieval
 
-Systems: S3 = S2 run on the LLM Italian translation (Italian questions unchanged, so S3 = S2 on them); S3f =
-RRF of S2(original) and S2(translation), which is what the answer service does. No tuning on the test split:
-the translation prompt was fixed in phase 4, temperature 0, cache on; thresholds are the S2 calibration.
-60 translations, estimated cost 0.001041 USD.
+In experiment S3 the language model translates a non-Italian question into Italian before retrieval. We compare S3
+(S2 on the translation only) and S3f (reciprocal rank fusion of S2 on the original and S2 on the translation, which
+is what the answer service does) with S1 and S2. Nothing was tuned on the test split: the translation prompt was
+fixed in phase 4, the temperature is 0 and the thresholds are those of S2. The 60 translations
+cost 0.001041 USD.
 
 | | S1 dense | S2 hybrid | S3 translated | S3f fused |
 |---|---|---|---|---|
-| nDCG@10 English | 0.3898 | 0.3966 | 0.3148 | 0.5187 |
-| nDCG@10 Arabic | 0.227 | 0.2179 | 0.4324 | 0.4295 |
-| recall@10 English | 0.3869 | 0.4137 | 0.4301 | 0.7277 |
-| recall@10 Arabic | 0.25 | 0.2452 | 0.5256 | 0.6314 |
-| correct source in top 3, Arabic | 0.2692 | 0.2308 | 0.6923 | 0.7308 |
+| nDCG@10, English | 0.3898 | 0.3966 | 0.3148 | 0.5187 |
+| nDCG@10, Arabic | 0.227 | 0.2179 | 0.4324 | 0.4295 |
+| recall@10, English | 0.3869 | 0.4137 | 0.4301 | 0.7277 |
+| recall@10, Arabic | 0.25 | 0.2452 | 0.5256 | 0.6314 |
 | false "insufficient evidence", Arabic | 0.6538 | 0.6538 | 0.0769 | 0.0385 |
-| nDCG@10 all 102 | 0.4101 | 0.4123 | 0.4476 | 0.5082 |
+| nDCG@10, all 102 | 0.4101 | 0.4123 | 0.4476 | 0.5082 |
 
-Findings:
-- **Arabic**: translation roughly doubles nDCG@10 (0.2179 -> 0.4324) and cuts false "insufficient evidence" from
-  65.38% to 7.69% of the Arabic questions. Paired randomization test S3 vs S2 on Arabic nDCG@10: p = 0.0954 (n = 26, not significant
-  at 0.05); S3f vs S2: p = 0.006.
-- **English**: S3 alone *loses* nDCG@10 (0.3966 -> 0.3148, p = 0.5476) while S3f gains (0.5187). A likely cause,
-  measured but not confirmed by human judgement: the corpus contains English versions of the call and of the
-  teaching regulation. For English questions, S2 takes 52 of its 84 top-3 passages from those English documents,
-  but only 6 of the 60 grade-2 passages in the qrels are in them (the ground truth comes from Italian FAQs).
-  Translating to Italian moves retrieval away from the English documents. The qrels may under-rate the
-  English versions.
-- **Fusion is the robust choice**: S3f vs S2 on all questions nDCG@10 p = 0.0012 and recall@10 p = 0.0001; it
-  keeps what the original-language ranking finds and adds what the translation finds.
-- Cost of the fused design: on out-of-scope questions abstention drops from 1.0 to 0.8889 (one of 9 out-of-scope
-  questions is no longer flagged); the answer step can still say "I don't know".
-- **Bias to keep in mind**: English and Arabic test questions are LLM translations of Italian FAQs, and S3
-  translates them back with an LLM. The round trip may reconstruct the original Italian wording better than a
-  real student's question would. Native-written questions are needed to confirm the gain.
+For Arabic, translation roughly doubles nDCG@10 and removes most of the false "insufficient evidence" flags. With
+only 26 Arabic questions the gain of S3 over S2 is not significant at the 0.05 level
+(p = 0.0954), while the gain of S3f is
+(p = 0.006). For English, translation alone loses ground and
+fusion gains. We looked for the reason. The corpus contains English versions of the call and of the teaching
+regulation; for English questions S2 takes 52 of its 84 top-3 passages from these documents, but only 6 of the 60
+grade-2 passages of the qrels are in them, because the ground truth comes from Italian FAQs. Translating into
+Italian moves retrieval away from passages that are probably relevant but not marked as such; this explanation is
+measured, not confirmed by human judgment (OPEN_QUESTIONS U5). Over all 102 questions fusion is significantly
+better than S2 (nDCG@10 p = 0.0012, recall@10
+p = 0.0001). Its cost is one out-of-scope question that is no
+longer flagged (abstention 0.8889 instead of 1.0); the answer step can still
+decline it. One bias must be kept in mind: the English and Arabic test questions are themselves machine
+translations of Italian FAQs, and a round trip through the same kind of model may rebuild the Italian wording more
+easily than a question written by a real student.
 
-### 6.3 Answers: extractive vs LLM vs LLM + verifier
+### 6.3 Seventeen languages
 
-Source: `eval/results/unibridge/answers_20261111-172151.json` (copy: `answers_latest.json`). Same retrieval for all
-three (S2; LLM configurations add the translation fusion S3f). Model: OpenAI gpt-4o-mini, temperature 0.
-Each configuration has its own response cache, so costs and latencies are those of a cold first run.
+On the multilingual test set (616 questions in fourteen languages, plus the Italian
+originals as a reference; `multilingual_latest.json`) we measured language identification, retrieval with S1, S2 and
+S3f, and answers in the default mode (language model + verifier), without any change to prompts, thresholds or
+verifier.
+
+| Language | n | detected | nDCG@10 S2 | nDCG@10 S3f | answered | citation precision | answer in its language |
+|---|---|---|---|---|---|---|---|
+| Italian (originals) | 29 | 1.0 | 0.6948 | 0.6948 | 26 | 0.8897 | 1.0 |
+| French | 44 | 1.0 | 0.2896 | 0.4929 | 31 | 0.8871 | 1.0 |
+| Spanish | 44 | 1.0 | 0.4721 | 0.5516 | 34 | 0.8868 | 1.0 |
+| Portuguese | 44 | 0.9773 | 0.3063 | 0.4784 | 29 | 0.9103 | 0.9655 |
+| German | 44 | 1.0 | 0.4407 | 0.5602 | 28 | 0.8571 | 0.9643 |
+| Romanian | 44 | 1.0 | 0.3221 | 0.4828 | 28 | 0.8536 | 1.0 |
+| Albanian | 44 | 1.0 | 0.2495 | 0.4542 | 27 | 0.8185 | 1.0 |
+| Ukrainian | 44 | 1.0 | 0.3595 | 0.4504 | 27 | 0.8123 | 1.0 |
+| Russian | 44 | 1.0 | 0.3276 | 0.5099 | 27 | 0.9049 | 1.0 |
+| Turkish | 44 | 1.0 | 0.3672 | 0.464 | 26 | 0.8615 | 1.0 |
+| Persian | 44 | 1.0 | 0.3766 | 0.461 | 28 | 0.9524 | 1.0 |
+| Urdu | 44 | 1.0 | 0.3825 | 0.4891 | 29 | 0.8402 | 1.0 |
+| Hindi | 44 | 1.0 | 0.4439 | 0.4878 | 30 | 0.8639 | 1.0 |
+| Bengali | 44 | 1.0 | 0.3647 | 0.4698 | 31 | 0.7892 | 1.0 |
+| Chinese | 44 | 1.0 | 0.2876 | 0.4332 | 25 | 0.884 | 1.0 |
+
+Over the fourteen added languages the language of the question is identified correctly in
+99.8% of cases, and 99.5% of the
+answers are written in the language of the question. Fusion with the Italian translation raises nDCG@10 from
+0.3564 (S2) to 0.4847
+(p = 0.0001). Fusion improves nDCG@10 in every one of the fourteen languages. Without it, S2 flags insufficient evidence for 74.08% of the in-scope questions in these languages, because the evidence threshold was calibrated on Italian, English and Arabic; with fusion the share falls to 10.82% of them. The answers still decline more in-scope questions than in Italian, English and Arabic (18.37% against 7.53%), which points to a per-language threshold as the next improvement.
+The citation precision of the answers is 0.8658 and
+100.0% of the out-of-scope questions get "I don't know". The run cost
+0.17837 USD.
+
+### 6.4 Answers: extractive, language model, language model with verifier
+
+Source: `answers_latest.json`, all 102 test questions, OpenAI gpt-4o-mini at temperature 0. Each configuration has
+its own response cache, so cost and latency are those of a first run.
 
 | 102 test questions | extractive | LLM, no verifier | LLM + verifier |
 |---|---|---|---|
-| answered (not "I don't know") | 69 | 87 | 85 |
-| citation precision (cited passage is relevant) | 0.4058 | 0.801 | 0.8157 |
-| sentences without a valid citation | 0.0 | 0.0661 | 0.0 |
-| sentences the support check rejects (*) | 0.029 | 0.0891 | 0.0 |
-| answer in the question's language | 0.9275 | 0.9885 | 0.9882 |
-| "I don't know" on out-of-scope (9) | 1.0 | 1.0 | 1.0 |
-| "I don't know" on in-scope (should be low) | 0.2581 | 0.0645 | 0.086 |
+| answered (not "I don't know") | 69 | 87 | 86 |
+| citation precision (cited passage is relevant) | 0.4058 | 0.7802 | 0.7847 |
+| sentences without a valid citation | 0.0 | 0.0718 | 0.0 |
+| sentences the support check rejects (*) | 0.029 | 0.0943 | 0.0 |
+| answer in the language of the question | 0.9275 | 1.0 | 1.0 |
+| "I don't know" on the 9 out-of-scope questions | 1.0 | 1.0 | 1.0 |
+| "I don't know" on in-scope questions | 0.2581 | 0.0645 | 0.0753 |
 | relevant passages given to the answer step | 0.4265 | 0.6089 | 0.6089 |
-| LLM calls per answer | 0.0 | 1.5 | 3.51 |
-| estimated cost per answer (USD) | 0.0 | 0.000233 | 0.000313 |
-| latency p50 / p95 (ms) | 27.6 / 35.6 | 2294.5 / 3531.9 | 2982.9 / 7241.6 |
+| LLM calls per answer | 0.0 | 1.49 | 3.54 |
+| estimated cost per answer (USD) | 0.0 | 0.000233 | 0.000316 |
+| latency p50 / p95 (ms) | 28.1 / 35.5 | 2111.4 / 3888.3 | 2975.5 / 7011.1 |
 
-(*) The support check is the verifier's own yes/no call (same model, same prompt): for "LLM, no verifier" it
-measures what the verifier would remove; for "LLM + verifier" it is 0 **by construction**. It is not an
-independent faithfulness measure; the independent check is the human review of
-`eval/review/unibridge_answers_review.csv` (30 answers, not done yet).
+(*) The support check is the verifier's own yes/no call, with the same model and prompt. For the configuration
+without verifier it measures what the verifier would remove; for the configuration with verifier it is 0 by
+construction. It is not an independent measure of faithfulness: the independent check is the human review of
+`eval/review/unibridge_answers_review.csv` (30 answers), which has not been done yet.
 
-By language (LLM + verifier): citation precision Italian 0.8134, English 0.7558, Arabic 0.887; in-scope
-"I don't know" Italian 0.0769, English 0.0714, Arabic 0.1154. The extractive mode answers only 5 of the
-30 Arabic questions (in-scope "I don't know" 0.8077) and always in Italian (language correct 0.0 for Arabic).
+By language, with the verifier, citation precision is 0.7644
+for Italian, 0.7288 for English and
+0.8804 for Arabic. Extractive answers are always Italian
+sentences and help Arabic speakers very little: only 5 of the 30
+Arabic questions get an answer.
 
-Findings:
-- The LLM roughly **doubles citation precision** over extractive answers (0.4058 -> 0.801) and answers far more
-  questions, above all in Arabic, because it uses the translated retrieval.
-- The **verifier** removes all uncited sentences (6.61% -> 0) and the sentences its support check rejects, at
-  the price of 2 more "I don't know" on in-scope questions (0.0645 -> 0.086), about 2 more LLM calls per answer
-  and a longer tail latency (p95 3531.9 -> 7241.6 ms). Citation precision moves only slightly (0.801 -> 0.8157):
-  most cited passages were already relevant.
-- **Cost** is negligible at this scale: 0.000313 USD per verified answer.
-- Over-pruning exists: in the demo (screenshot `ub_03_answer_it_draft.png`) the verified answer to "Entro quando
-  devo pagare le tasse universitarie?" keeps only the late-payment fee, although the cited passage also gives the
-  three instalment dates. Not tuned on the test split; reported as a limitation.
-- **Determinism**: temperature 0 does not make gpt-4o-mini fully deterministic. A first run with a shared cache
-  gave citation precision 0.7946 for "LLM, no verifier" (`answers_20261111-170857.json`) against 0.801 here;
-  the cache makes re-runs identical.
+The language model roughly doubles citation precision over extractive answers and answers many more questions,
+above all in Arabic, because it uses the fused retrieval. The verifier removes every uncited sentence and the
+sentences its own check rejects, at the price of a few more "I don't know" on in-scope questions, about two more
+calls per answer and a longer tail latency. Citation precision moves only a little with the verifier: most cited
+passages were already relevant. The verifier can also remove too much. In the demo (`ub_03_answer_it_draft.png`)
+the verified answer to "Entro quando devo pagare le tasse universitarie?" keeps only the late-payment fee, although
+the cited passage also gives the three instalment dates; we report this rather than tune the verifier on the test
+split. Temperature 0 does not make gpt-4o-mini fully deterministic: three cold runs of the configuration without
+verifier gave citation precision 0.7946 (`answers_20261111-170857.json`), 0.801 (`answers_20261111-172151.json`)
+and the value in the table, so differences of about two points between configurations are within run-to-run noise.
+The last run also uses the new language detector (see Languages), which fixed the one Italian test question that the
+earlier word-list detector had taken for English. The cache makes re-runs identical.
 
-**Total estimated LLM spend of the project** (all runs, from the usage log, `llm_cost.json`): 1,116 non-cached
-calls, 561,806 input and 25,006 output tokens, **0.099274 USD**.
+### 6.5 Handoff
 
-### 6.4 Handoff (`handoff_eval.json`)
+For in-scope test questions the office chosen by the rule table is the expected one in
+68.82% of cases (Italian 0.7179, English 0.6786,
+Arabic 0.6538); in 23.66% no office is chosen and the draft goes to a
+generic address. Out-of-scope questions never get a draft. Drafts are not sent: the student copies or downloads them.
 
-For in-scope test questions the office chosen by the rule table matches the expected office in 68.82% of
-cases (Italian 0.7179, English 0.6786, Arabic 0.6538); in 23.66% no office is chosen and the draft falls back
-to a generic address. No draft is produced for out-of-scope questions (1.0). Drafts are never sent: the
-student copies or downloads them.
+## 7. Security, privacy and cost
 
-### 6.5 Procedure
+The API key lives only in `.env`, which git ignores; `.env.example` has empty `LLM_*` values, and before every commit
+`git grep` looks for anything that resembles a key. The scholarship guide never calls the language model, and the
+answer step sends only the question and the passages the user is allowed to see. The question is free text, though,
+and a student could type personal data into it; the interface does not filter it. Against prompt injection the
+passages are wrapped as data and uncited sentences are removed, which limits the damage of injected instructions
+but is not a guarantee. Permissions are applied inside retrieval, before the model sees anything, so a visitor's
+answer cannot be built from a student-only notice (screenshots `ub_04` and `ub_05`).
 
-See section 5: 15 of 15 scenarios correct, workflow net sound (two independent checks).
-
-## 7. Security, privacy, cost
-
-- **API key** only in `.env` (git-ignored); `.env.example` has empty `LLM_*` values; before each commit
-  `git grep -nE "sk-|sk-ant-|LLM_API_KEY=.+"` is run.
-- **No personal data to the LLM**: the scholarship guide never calls the LLM; the LLM receives the question
-  and retrieved public/permitted passages only. Caveat: the question is free text and a student could type
-  personal data into it; the UI does not filter it.
-- **Prompt injection**: passages are wrapped in `<passage>` blocks, closing tags are stripped from passage text,
-  and the system prompt states that passages are data. The verifier removes uncited sentences, which limits the
-  effect of injected instructions, but this is a mitigation, not a guarantee.
-- **ACL** is applied inside retrieval, before the LLM sees anything: a visitor's answer can never be built from
-  a student-only notice (screenshots `ub_04` / `ub_05`).
-- **Cost**: temperature 0, max 600 output tokens, disk cache keyed by SHA-256 of (provider, model, max tokens,
-  temperature, prompt); every call is logged (provider, model, tokens, estimated cost) in `logs/llm_usage.jsonl`;
-  a hard stop at 5 USD of estimated spend. Total estimated spend of the project: see `llm_cost.json`
-  (answer evaluation section).
+Every call uses temperature 0 and at most 600 output tokens for answers; responses are cached on disk under the
+SHA-256 of provider, model, token limit, temperature and prompt; each call is logged with provider, model, tokens and
+estimated cost, and calls stop when the estimated spend reaches 5 USD. The whole project, every evaluation included,
+made 5,458 paid calls for an estimated 0.405717 USD (`llm_cost.json`).
 
 ## 8. Human oversight
 
-- Every answer sentence shows its Italian source; the student can check it.
-- "I don't know" is a designed outcome, not an error; it leads to a human office.
-- E-mail drafts are never sent automatically.
-- The scholarship guide states that only the ERDIS outcome is binding.
-- Items that **must be reviewed by a person** before any real use:
-  `eval/review/unibridge_review.csv` (Arabic and LLM-drafted questions),
-  `eval/review/unibridge_query_translations.csv` (S3 translations),
-  `eval/review/unibridge_answers_review.csv` (30 answers, is each sentence supported by its passage?).
+Every answer sentence shows its Italian source, so the student can check it. "I don't know" is a designed outcome
+that leads to a person in an office, and e-mail drafts are never sent automatically. The scholarship guide states
+that only the outcome published by ERDIS is binding. Before any real use, people must review the LLM-produced
+material: `eval/review/unibridge_review.csv` (Arabic and LLM-drafted questions),
+`eval/review/unibridge_query_translations.csv` and `eval/review/unibridge_ml_review.csv` (translated questions),
+`eval/review/unibridge_i18n_review.csv` (interface texts in the added languages) and
+`eval/review/unibridge_answers_review.csv` (is each answer sentence supported by its passage?).
 
 ## 9. Limitations
 
-- One university and one regional body; the corpus is a snapshot (November 2026).
-- English and Arabic questions are LLM translations, not questions written by students; no native review yet.
-- Relevance judgments come from the official FAQ answer and the linked article; other relevant passages (for
-  example the English version of the call) may be under-rated (see the S3 experiment).
-- The faithfulness judge is the same model and prompt as the verifier (see the answer evaluation): it is not an independent
-  measure. Only the human review sample is.
-- Extractive answers are in Italian whatever the question language.
-- The scholarship rules cover the 2026/2027 call only; a new call needs a new model and new rules.
+The corpus covers one university, one regional body and one call, as published in November 2026. All test questions
+not in Italian are machine translations rather than questions written by students, and no native speaker has
+checked them yet. The relevance judgments come from Italian FAQ answers and the articles they cite; equivalent
+passages elsewhere, such as the English version of the call, are under-rated. The faithfulness check uses the same
+model and prompt as the verifier, so only the human review sample is an independent measure. Extractive answers are
+Italian whatever the language of the question. The rule details of the scholarship guide are in English in every
+language. The rules cover the 2026/2027 call only: a new call needs a new model and new rules.
 
-## 10. Use of AI tools
+## 10. Future work
 
-- An AI coding assistant (Claude Code) was used to write code, tests, documentation and diagrams of this
-  project, under the author's direction; the author reviewed the design decisions and results.
-- An LLM (OpenAI gpt-4o-mini, through the code in `src/p14_search/answer/llm.py`) produced: the English and
-  Arabic translations and the paraphrases in the question set (`llm_generated: true`), the Italian translations
-  used by S3/S3f, the answers in the LLM configurations, the yes/no support checks, and the Italian translation
-  of questions in handoff drafts.
-- The 6 synthetic restricted documents were written by an LLM (Claude, in the coding session); they are flagged
-  `synthetic: true` and `llm_generated: true` and titled `[SINTETICO]`.
-- No LLM output is presented as ground truth: relevance judgments come from official FAQ answers.
+Collect questions written by international students and have them reviewed by native speakers; complete the human
+review of answers; extend the corpus to housing, residence permits and other universities after a licence check of
+each source; calibrate the "I don't know" threshold per language; open the model in WoPeD and keep it aligned with
+the next call.
+
+## 11. Use of AI tools
+
+An AI coding assistant (Claude Code) was used to write code, tests, documentation and diagrams, under the author's
+direction; design decisions and results were reviewed by the author. A language model (OpenAI gpt-4o-mini, through
+`src/p14_search/answer/llm.py`) produced the English and Arabic translations and the paraphrases of the question set,
+the questions of the multilingual test set, the interface texts of the fourteen added languages, the Italian
+translations used for retrieval, the answers of the LLM configurations, the yes/no support checks, and the Italian
+translation of questions in the handoff drafts; all of this is flagged `llm_generated`. The six synthetic restricted
+documents were written by an LLM (Claude, during development) and are flagged `synthetic` and `llm_generated`. No
+LLM output is used as ground truth: relevance judgments come from official FAQ answers.

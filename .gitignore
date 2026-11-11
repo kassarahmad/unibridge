@@ -19,3 +19,4 @@ config/local_*.json
 dist/
 Claude outputs/
 docs/DEFENSE_NOTES_UNIBRIDGE.md
+node_modules/

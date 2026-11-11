@@ -1,0 +1,8 @@
+{
+  "name": "unibridge-deliverables",
+  "private": true,
+  "description": "Builds deliverables/UniBridge_Presentation_Ahmad_Kassar.pptx from eval/results (node build_presentation.js)",
+  "dependencies": {
+    "pptxgenjs": "3.12.0"
+  }
+}

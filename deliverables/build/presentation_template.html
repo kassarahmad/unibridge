@@ -1,0 +1,415 @@
+<title>UniBridge Presentation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a 1600x900 stage scaled to the window; each slide a sheet with a margin column for the section and the clock,
+   like a passport page; sub-steps inside slides; a control strip below. Palette: university burgundy, slate, amber for "I don't know". */
+:root {
+  --bg: #e7e9ef; --paper: #fbfbfd; --card: #ffffff; --ink: #1d2230; --muted: #5a6274; --line: #d9dce5;
+  --accent: #8e1b33; --accent-soft: #f6e7ea; --accent-ink: #ffffff; --slate: #34507a; --slate-soft: #e6ecf5; --amber: #a8720c; --amber-soft: #fbf1dc;
+  --bar-a: #b4bccb; --bar-b: #8e1b33; --bar-c: #34507a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11131a; --paper: #181b24; --card: #1f2330; --ink: #eceef4; --muted: #a3a9b8; --line: #2d3242;
+  --accent: #e0607a; --accent-soft: #3a1c25; --accent-ink: #1a0b10; --slate: #8fb0e0; --slate-soft: #1e2a3d; --amber: #f0b54a; --amber-soft: #3a2e14;
+  --bar-a: #4a5163; --bar-b: #e0607a; --bar-c: #8fb0e0; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11131a; --paper: #181b24; --card: #1f2330; --ink: #eceef4; --muted: #a3a9b8; --line: #2d3242;
+  --accent: #e0607a; --accent-soft: #3a1c25; --accent-ink: #1a0b10; --slate: #8fb0e0; --slate-soft: #1e2a3d; --amber: #f0b54a; --amber-soft: #3a2e14;
+  --bar-a: #4a5163; --bar-b: #e0607a; --bar-c: #8fb0e0; color-scheme: dark }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); margin: 0; overflow: hidden;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0; box-sizing: border-box; }
+* { box-sizing: border-box; }
+.app { height: 100%; display: flex; flex-direction: column; gap: 10px; padding-block: 12px; }
+.viewport { flex: 1; min-height: 0; position: relative; }
+.stage { position: absolute; left: 50%; top: 50%; width: 1600px; height: 900px; background: var(--paper); border-radius: 6px;
+  box-shadow: 0 30px 60px -40px rgba(20, 24, 40, .45); overflow: hidden; }
+.slide { position: absolute; inset: 0; display: grid; grid-template-columns: 150px 1fr; }
+.slide[hidden] { display: none !important; }
+.margin { border-right: 1px solid var(--line); padding: 54px 0 40px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+.margin .no { font-family: var(--display); font-size: 52px; font-weight: 300; color: var(--accent); line-height: 1; }
+.margin .sec { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.margin .time { font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: center; line-height: 1.5; }
+.main { padding: 54px 70px 44px 60px; display: flex; flex-direction: column; min-width: 0; }
+.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+.kicker { font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--slate); }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h2 { font-size: 52px; font-weight: 500; letter-spacing: -.02em; line-height: 1.05; margin-top: 10px; }
+.sub { margin: 10px 0 0; font-size: 19px; color: var(--muted); max-width: 920px; }
+.tag { min-width: 240px; border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; }
+.tag small { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.tag span { display: block; font-size: 17px; font-weight: 600; margin-top: 2px; }
+.tag .dots { display: flex; gap: 5px; margin-top: 8px; }
+.tag .dots em { width: 22px; height: 4px; background: var(--line); }
+.tag .dots em.on { background: var(--accent); }
+.body { flex: 1; min-height: 0; margin-top: 30px; }
+.build { height: 100%; }
+.build[hidden] { display: none !important; }
+.grid { display: grid; gap: 20px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 22px 24px; min-width: 0; }
+.card.ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.card.accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.card.soft { background: var(--slate-soft); border-color: transparent; }
+.card.amber { background: var(--amber-soft); border-color: transparent; }
+.label { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.card.ink .label, .card.accent .label { color: inherit; opacity: .8; }
+.card h3 { font-family: var(--display); font-size: 25px; font-weight: 500; margin: 10px 0 8px; }
+.card p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--muted); }
+.card.ink p, .card.accent p { color: inherit; opacity: .9; }
+.out { margin-top: 12px; font-size: 14px; font-weight: 700; color: var(--slate); }
+.big { font-family: var(--display); font-size: 66px; font-weight: 300; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--mono); font-size: 14px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--card); color: var(--ink); }
+.note { font-size: 15px; color: var(--muted); margin: 0; }
+.rule { border-top: 1px solid var(--ink); padding-top: 12px; }
+.rule p { font-size: 16px; color: var(--muted); margin: 6px 0 0; }
+.num { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.compact .card { padding: 15px 20px; }
+.compact .card h3 { font-size: 21px; margin: 6px 0 4px; }
+.compact .card p { font-size: 15.5px; }
+.compact .out { margin-top: 8px; }
+.media { grid-template-rows: minmax(0, 1fr); }
+.media > * { min-height: 0; }
+.figure { width: 100%; height: 100%; object-fit: contain; object-position: top left; border: 1px solid var(--line); background: #fff; }
+table { border-collapse: collapse; width: 100%; font-size: 18px; font-variant-numeric: tabular-nums; }
+th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+th { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--ink); }
+td.n, th.n { text-align: center; }
+td.hi { color: var(--accent); font-weight: 700; }
+.chart text { fill: var(--muted); font-family: var(--body); font-size: 13px; }
+.chart .val { fill: var(--ink); font-size: 12px; font-weight: 600; }
+.legend { display: flex; gap: 18px; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.journey { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); background: var(--card); }
+.journey > div { padding: 22px 20px; border-right: 1px solid var(--line); min-width: 0; }
+.journey > div:last-child { border-right: 0; }
+.journey > div.on { background: var(--slate-soft); }
+.journey h3 { font-family: var(--display); font-size: 22px; font-weight: 500; margin: 8px 0 6px; }
+.journey p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
+.gantt { display: grid; grid-template-columns: 300px repeat(3, 1fr); row-gap: 14px; align-items: center; }
+.gantt .h { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 8px; }
+.gantt .t b { display: block; font-size: 16px; } .gantt .t span { font-size: 13px; color: var(--muted); }
+.gantt i { display: block; height: 12px; }
+.title-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; height: 100%; align-items: center; }
+.title-grid h1 { font-size: 112px; font-weight: 700; letter-spacing: -.035em; line-height: .95; }
+.title-grid h1 span { color: var(--accent); }
+.stamp { border: 2px solid var(--accent); color: var(--accent); display: inline-block; padding: 6px 12px; font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; transform: rotate(-2deg); }
+.meta { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; border-top: 1px solid var(--ink); padding-top: 18px; font-size: 17px; }
+.meta small { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+.rtl { direction: rtl; text-align: right; font-size: 26px; color: var(--ink) !important; }
+.bar { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; flex-wrap: wrap; }
+.bar button, .bar select { font: inherit; font-size: 13px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px; cursor: pointer; }
+.bar .round { width: 38px; height: 38px; padding: 0; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-size: 18px; }
+.bar .round:disabled { opacity: .35; cursor: default; }
+.bar button:focus-visible, .bar select:focus-visible { outline: 3px solid var(--slate); outline-offset: 2px; }
+.progress { display: flex; gap: 4px; flex: 1; min-width: 100px; }
+.progress em { flex: 1; max-width: 48px; height: 4px; background: var(--line); }
+.progress em.on { background: var(--accent); }
+.where { font-size: 13px; min-width: 0; }
+.where small { display: block; color: var(--muted); font-size: 11px; font-family: var(--mono); }
+@media (max-width: 700px) { .bar .hide-s { display: none; } }
+@media (prefers-reduced-motion: no-preference) { .build:not([hidden]) { animation: in .3s ease both; } @keyframes in { from { opacity: .5; transform: translateX(8px); } to { opacity: 1; transform: none; } } }
+</style>
+
+<div class="app">
+  <div class="viewport" id="viewport"><div class="stage" id="stage">
+
+  <!-- Title -->
+  <section class="slide" data-section="Title" data-seconds="20">
+    <div class="main"><div class="body" style="margin-top:0"><div class="build title-grid">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;align-items:center;gap:18px"><img src="__LOGO__" alt="University of Camerino" style="width:70px;height:auto"><div class="kicker">University of Camerino · Final project</div></div>
+        <h1>Uni<span>Bridge</span></h1>
+        <p class="sub" style="font-size:24px;color:var(--ink);max-width:640px">A multilingual assistant that answers international students from official Italian documents, in their own language, with the Italian source of every sentence.</p>
+        <div class="meta"><div><small>Course</small>Complex Systems Design</div><div><small>Author</small>Ahmad Kassar</div><div><small>Supervisor</small>Prof. Flavio Corradini</div></div>
+      </div>
+      <div class="grid" style="gap:14px">
+        <div class="card"><div class="label">Student asks · Arabic</div><p class="rtl" style="margin-top:10px">متى آخر موعد لتقديم طلب المنحة الدراسية؟</p></div>
+        <div class="card"><div class="label">UniBridge answers · Arabic</div><p class="rtl" style="margin-top:10px">الموعد النهائي هو 28 أغسطس 2026. [1]</p>
+          <p style="margin-top:12px;font-size:15px">[1] ERDIS call 2026/2027, Art. 10 · «entro il 28 agosto 2026, pena l'esclusione dal concorso»</p></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px"><span class="stamp">__LANGS__ languages</span><span class="note" style="font-family:var(--mono);font-size:13px">it en ar fr es pt de ro sq uk ru tr fa ur hi bn zh</span></div>
+      </div>
+    </div></div></div>
+  </section>
+
+  <!-- Objectives -->
+  <section class="slide" data-section="Objectives" data-seconds="55" data-kicker="Purpose and research question" data-title="Objectives and research question" data-sub="Can an assistant help international students with Italian rules without inventing anything?">
+    <div class="main"><div class="body"><div class="build grid compact" style="grid-template-columns: 1fr 1fr 1fr; gap:14px">
+      <div class="card" style="grid-row: span 2"><div class="label">Problem</div><p style="margin-top:10px">Fees, career rules, admission and the regional scholarship are described in Italian documents. Missing a deadline excludes a student from the scholarship (Art. 10 of the call). General chatbots answer fluently but do not show their source and can invent dates.</p></div>
+      <div class="card ink" style="grid-column: span 2"><div class="label">Research question</div><p style="font-size:22px;margin-top:10px;line-height:1.4">How well can search over official documents, a translation step and a verified language-model answer serve questions asked in many languages, and when must the system say "I don't know"?</p></div>
+      <div class="card"><div class="num">O1</div><h3>Cited answers</h3><p>Each sentence ends with its passage; the Italian original next to it.</p><div class="out">Output: citation precision</div></div>
+      <div class="card"><div class="num">O2</div><h3>Every language</h3><p>Detect the language, search across languages, answer in the language of the question.</p><div class="out">Output: results per language</div></div>
+      <div class="card"><div class="num">O3</div><h3>Scholarship guide</h3><p>Eligibility, checklist and calendar from fixed rules of the call.</p><div class="out">Output: correct test scenarios</div></div>
+      <div class="card"><div class="num">O4</div><h3>Knowing the limits</h3><p>Decline out-of-scope questions; draft an e-mail to the right office.</p><div class="out">Output: "I don't know" accuracy</div></div>
+      <div class="card soft"><div class="label" style="color:var(--slate)">Primary metrics</div><div class="chips" style="margin-top:10px"><span class="chip">nDCG@10</span><span class="chip">recall@10</span><span class="chip">citation precision</span><span class="chip">answer language</span></div></div>
+      <div class="card amber" style="grid-column: span 2"><div class="label" style="color:var(--amber)">Diagnostic metrics</div><div class="chips" style="margin-top:10px"><span class="chip">false "I don't know"</span><span class="chip">permission leaks</span><span class="chip">cost per answer</span><span class="chip">latency</span></div></div>
+    </div></div></div>
+  </section>
+
+  <!-- Work plan -->
+  <section class="slide" data-section="Work plan" data-seconds="60" data-kicker="How the work was organised" data-title="Three phases, one author" data-sub="Each phase ends with a check that the next one depends on">
+    <div class="main"><div class="body">
+      <div class="build" data-step="Phases" style="display:flex;flex-direction:column;gap:26px">
+        <div class="card">
+          <div class="gantt">
+            <div class="h">Workstream</div><div class="h">Phase 1</div><div class="h">Phase 2</div><div class="h">Phase 3</div>
+            <div class="t"><b>Search and evaluation method</b><span>hybrid search, permissions, frozen test sets</span></div><div style="grid-column:2/4"><i style="background:var(--slate);width:70%"></i></div><div></div>
+            <div class="t"><b>Documents and questions</b><span>official sources, FAQ questions, translations</span></div><div></div><div><i style="background:var(--accent)"></i></div><div></div>
+            <div class="t"><b>Search by language</b><span>keyword, dense, hybrid; the Arabic test</span></div><div></div><div><i style="background:var(--accent);width:80%;margin-left:20%"></i></div><div></div>
+            <div class="t"><b>Answers and verification</b><span>model answer, verifier, "I don't know" + e-mail</span></div><div></div><div></div><div><i style="background:var(--ink);width:75%"></i></div>
+            <div class="t"><b>Scholarship guide and languages</b><span>fixed rules, checklist, __LANGS__ languages</span></div><div></div><div></div><div><i style="background:var(--ink);width:85%;margin-left:15%"></i></div>
+            <div class="t"><b>Demo and documents</b><span>screenshots, report, this presentation</span></div><div></div><div></div><div><i style="background:repeating-linear-gradient(90deg,var(--amber) 0 10px,transparent 10px 16px)"></i></div>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="rule"><span class="num">Gate 1</span><p>Search tested (permissions, contracts) and the evaluation method reproducible.</p></div>
+          <div class="rule"><span class="num">Gate 2</span><p>Test questions frozen with a SHA-256 hash before any tuning.</p></div>
+          <div class="rule"><span class="num">Gate 3</span><p>All tests green; every number in the documents checked against the result files.</p></div>
+        </div>
+      </div>
+      <div class="build" data-step="What each phase delivered" hidden style="display:grid;grid-template-columns: repeat(3, 1fr);gap:20px;align-content:start">
+        <div class="card"><div class="num">Phase 1</div><h3>Foundation</h3><p>Safe parsing of PDF, Word and HTML; passages with stable ids; keyword and multilingual search with rank fusion; permissions applied inside the search; citations; a REST API with frozen contracts; the evaluation method.</p></div>
+        <div class="card soft"><div class="num">Phase 2</div><h3>Data and first findings</h3><p>__DOCS_REAL__ official documents with licence and hash; roles for visitors, students and offices; real questions from official FAQ pages; English and Arabic versions; search measured by language.</p><div class="out">Finding: keyword search fails on Arabic</div></div>
+        <div class="card accent"><div class="num" style="color:inherit">Phase 3</div><h3>The assistant</h3><p>Answers with a verifier and an extractive fallback; "I don't know" with an office e-mail; the scholarship guide; __LANGS__ languages; demo, report and presentation.</p><div class="out" style="color:inherit">Shown on Friday</div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="slide" data-section="Architecture" data-seconds="120" data-kicker="Architecture" data-title="System flow and software architecture" data-sub="One service · four components · an optional language model">
+    <div class="main"><div class="body">
+      <div class="build" data-step="Question to answer" style="display:flex;flex-direction:column;gap:28px">
+        <div class="grid" style="grid-template-columns: repeat(4, 1fr)">
+          <div class="card"><div class="num">01</div><h3>Documents</h3><p>Official sources parsed into passages with document, section and page.</p><div class="out">__PASSAGES__ passages</div></div>
+          <div class="card"><div class="num">02</div><h3>Search</h3><p>Keyword + multilingual embeddings, rank fusion; the user's permissions applied inside the search.</p><div class="out">Top passages with evidence</div></div>
+          <div class="card soft"><div class="num">03</div><h3>Answer</h3><p>The model answers only from the numbered passages; a verifier drops unsupported sentences.</p><div class="out">Sentences with citations</div></div>
+          <div class="card"><div class="num">04</div><h3>Student or office</h3><p>Answer with Italian sources, or "I don't know" and an Italian e-mail draft.</p><div class="out">Nothing sent automatically</div></div>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 34px">
+          <div class="rule"><span class="num">Without a key</span><p>No language model configured: extractive answers, Italian sentences copied from the documents. No API call.</p></div>
+          <div class="rule"><span class="num">Passages are data</span><p>Wrapped in tags the passage text cannot close; the prompt says they are never instructions.</p></div>
+          <div class="rule"><span class="num">Cost control</span><p>Temperature 0, cached responses, every call logged, hard stop at 5 USD.</p></div>
+        </div>
+      </div>
+      <div class="build" data-step="Components" hidden style="display:grid;grid-template-columns: repeat(4, 1fr);gap:16px;align-content:start">
+        <div class="card ink" style="grid-column: span 4"><div class="label">Presentation</div><p style="margin-top:6px">Web demo · chat with roles and language selector · scholarship guide · e-mail draft download</p></div>
+        <div class="card" style="grid-column: span 4"><div class="label">Service API</div><div class="chips" style="margin-top:10px"><span class="chip">POST /v1/answer</span><span class="chip">POST /v1/handoff</span><span class="chip">POST /v1/procedure/scholarship</span><span class="chip">POST /v1/search</span><span class="chip">GET /v1/health</span></div></div>
+        <div class="card soft"><div class="label" style="color:var(--slate)">Answer</div><p style="margin-top:6px">language detection, translation, answer, verifier, extractive fallback</p></div>
+        <div class="card soft"><div class="label" style="color:var(--slate)">Handoff</div><p style="margin-top:6px">office rule table, Italian e-mail</p></div>
+        <div class="card soft"><div class="label" style="color:var(--slate)">Scholarship guide</div><p style="margin-top:6px">fixed rules, checklist, calendar; no language model</p></div>
+        <div class="card soft"><div class="label" style="color:var(--slate)">Language model · optional</div><p style="margin-top:6px">OpenAI or Anthropic, disk cache, usage log, budget</p></div>
+        <div class="card" style="grid-column: span 2"><div class="label">Search</div><p style="margin-top:6px">keyword index + multilingual embeddings, rank fusion, permissions, citations</p></div>
+        <div class="card" style="grid-column: span 2"><div class="label">Storage</div><p style="margin-top:6px">SQLite (documents, passages, logs) · Qdrant (vectors) · Docker</p></div>
+      </div>
+      <div class="build" data-step="Exchange contracts" hidden style="display:flex;flex-direction:column;gap:26px">
+        <div class="rule"><span class="num">Request · POST /v1/answer</span><div class="chips" style="margin-top:12px"><span class="chip">query</span><span class="chip">language (optional)</span><span class="chip">mode</span><span class="chip">top_k</span><span class="chip">with_handoff</span></div></div>
+        <div class="rule"><span class="num">Response</span><div class="chips" style="margin-top:12px"><span class="chip">language</span><span class="chip">sentences[ text, passage_ids ]</span><span class="chip">sources[ Italian text, citation ]</span><span class="chip">insufficient_evidence</span><span class="chip">handoff</span><span class="chip">llm usage</span><span class="chip">versions</span></div>
+          <p>Contracts frozen as OpenAPI and JSON Schema; errors as standard problem documents; every response names the index and model versions.</p></div>
+        <div class="rule"><span class="num">Roles · API key → permissions</span><div class="chips" style="margin-top:12px"><span class="chip">visitor · public</span><span class="chip">student · + student-only notices</span><span class="chip">office staff · + own internal notes</span></div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Student journey -->
+  <section class="slide" data-section="Student journey" data-seconds="60" data-kicker="From question to answer" data-title="A question and its constraints" data-sub="One question follows the same route in every language">
+    <div class="main"><div class="body">
+      <div class="build" data-step="Route" style="display:flex;flex-direction:column;gap:26px">
+        <div class="journey">
+          <div><div class="num">01</div><h3>Language</h3><p>Detected offline among __LANGS__ languages.</p></div>
+          <div><div class="num">02</div><h3>Search as written</h3><p>Finds passages that share meaning or words with the question.</p></div>
+          <div class="on"><div class="num">03</div><h3>Translate and fuse</h3><p>Italian translation, second search, the two rankings fused.</p></div>
+          <div class="on"><div class="num">04</div><h3>Answer and verify</h3><p>One claim per sentence, each with [Pn]; unsupported sentences removed.</p></div>
+          <div><div class="num">05</div><h3>Show</h3><p>Answer in the student's language next to the Italian original.</p></div>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 30px">
+          <div class="rule"><span class="num">Weak evidence</span><p>No passage passes the threshold: "I don't know" in the student's language and an e-mail draft.</p></div>
+          <div class="rule"><span class="num">Out of scope</span><p>A question about football or a gym: "I don't know", no e-mail.</p></div>
+          <div class="rule"><span class="num">Permissions</span><p>A visitor never gets an answer built from a student-only notice.</p></div>
+        </div>
+      </div>
+      <div class="build media" data-step="In the demo" hidden style="display:grid;grid-template-columns: 1fr 1fr;gap:26px">
+        <img class="figure" src="__ANSWER_FR__" alt="French question answered in French with Italian sources">
+        <img class="figure" src="__HANDOFF__" alt="I don't know with an Italian e-mail draft">
+      </div>
+      <div class="build media" data-step="Scholarship guide" hidden style="display:grid;grid-template-columns: 1fr 1fr;gap:34px">
+        <img class="figure" src="__GUIDE__" alt="Scholarship guide screenshot">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="rule"><span class="num">No language model</span><p>Credits by year, ISEE and ISPE limits, previous degree, residence permit and deadlines are checked by code, each rule with its article of the call.</p></div>
+          <div class="rule"><span class="num">Where you are</span><p>The steps already done and the next ones, from the facts the student enters and the date.</p></div>
+          <div class="rule"><span class="num">__SCEN__ of 15 test scenarios correct</span><p>Fictional students with the checklist written from the call.</p></div>
+          <div class="rule"><span class="num">Nothing stored</span><p>Credits and ISEE stay in the request; never logged, never sent to the language model.</p></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Data and evaluation -->
+  <section class="slide" data-section="Data &amp; evaluation" data-seconds="150" data-kicker="Evidence" data-title="Data and evaluation" data-sub="Frozen test sets · paired randomization tests · every number from the result files">
+    <div class="main"><div class="body">
+      <div class="build" data-step="Data sources" style="display:flex;flex-direction:column;gap:22px">
+        <table>
+          <tr><th>Data source</th><th>Intended use</th><th>Remaining gap</th></tr>
+          <tr><td><b>__DOCS_REAL__ official documents</b><br><span class="note">ERDIS Marche, University of Camerino, ministry, Normattiva</span></td><td>Corpus: __PASSAGES__ passages with section, page and offsets</td><td>One university and one call; a snapshot</td></tr>
+          <tr><td><b>Official FAQ questions</b><br><span class="note">__IT__ Italian test questions</span></td><td>Questions with known answers: the FAQ answer and the article it cites</td><td>Few questions per topic</td></tr>
+          <tr><td><b>Translations and paraphrases</b><br><span class="note">__EN__ English, __AR__ Arabic, __ML_N__ in 14 more languages</span></td><td>The same questions in every language</td><td>Machine translations; native review pending</td></tr>
+          <tr><td><b>__DOCS_SYN__ synthetic notes</b><br><span class="note">labelled as synthetic</span></td><td>Test the roles: student-only and office-only content</td><td>Not real notices</td></tr>
+        </table>
+        <div class="card soft" style="display:flex;gap:18px;align-items:center"><div class="label" style="color:var(--slate);white-space:nowrap">Evaluation protocol</div><p style="color:var(--ink)">Tune on one split · freeze the test split with a SHA-256 hash · measure once · compare systems with paired randomization tests.</p></div>
+      </div>
+      <div class="build" data-step="Keyword search vs Arabic" hidden style="display:grid;grid-template-columns: 1.6fr 1fr;gap:28px">
+        <div class="card"><div class="label">nDCG@10 by question language</div><div class="legend" style="margin:12px 0"><span style="--c:var(--bar-a)">Keyword</span><span style="--c:var(--bar-c)">Dense</span><span style="--c:var(--bar-b)">Hybrid</span></div><svg class="chart" id="chart1" viewBox="0 0 760 420" width="100%" role="img" aria-label="nDCG@10 by language for keyword, dense and hybrid search"></svg></div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="card amber"><div class="big" style="color:var(--amber)">__BM25_AR__</div><p style="margin-top:10px;color:var(--ink)">of the __N_AR__ Arabic test questions: keyword search finds no relevant passage in the top 10.</p></div>
+          <div class="rule"><span class="num">Permissions</span><p>0 leaks in __ACL__ checked passages.</p></div>
+        </div>
+      </div>
+      <div class="build" data-step="Translate and fuse" hidden style="display:grid;grid-template-columns: 1.6fr 1fr;gap:28px">
+        <div class="card"><div class="label">nDCG@10 · English and Arabic test questions</div><div class="legend" style="margin:12px 0"><span style="--c:var(--bar-a)">As written</span><span style="--c:var(--bar-c)">Translated only</span><span style="--c:var(--bar-b)">Fused</span></div><svg class="chart" id="chart2" viewBox="0 0 760 420" width="100%" role="img" aria-label="nDCG@10 for English and Arabic, as written, translated and fused"></svg></div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="card ink"><div class="label">All __TEST__ questions</div><div class="big" style="font-size:54px;margin-top:8px">__S2_ALL__ → __S3F_ALL__</div><p style="margin-top:8px">nDCG@10 with fusion · p = __P_FUSE__</p></div>
+          <div class="rule"><span class="num">English</span><p>Translation alone is worse: English questions find the English version of the call, which the ground truth rarely marks. Measured, not yet confirmed by a person.</p></div>
+        </div>
+      </div>
+      <div class="build" data-step="__LANGS__ languages" hidden style="display:grid;grid-template-columns: 1.7fr 1fr;gap:28px">
+        <div class="card"><div class="label">nDCG@10 by language · same questions · it = Italian originals</div><div class="legend" style="margin:12px 0"><span style="--c:var(--bar-a)">As written</span><span style="--c:var(--bar-b)">Fused with the Italian translation</span></div><svg class="chart" id="chart3" viewBox="0 0 860 420" width="100%" role="img" aria-label="nDCG@10 by language, as written and fused"></svg></div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card"><div class="big" style="font-size:48px;color:var(--slate)">__ML_DETECT__</div><p style="margin-top:6px">questions whose language is detected correctly</p></div>
+          <div class="card"><div class="big" style="font-size:48px;color:var(--slate)">__ML_LANG__</div><p style="margin-top:6px">answers written in the language of the question</p></div>
+          <div class="card amber"><div class="label" style="color:var(--amber)">Without fusion</div><p style="margin-top:6px;color:var(--ink)">"Insufficient evidence" for __ML_FA_S2__ of in-scope questions; __ML_FA_S3F__ with fusion (p = __ML_P__).</p></div>
+        </div>
+      </div>
+      <div class="build" data-step="Answers" hidden style="display:flex;flex-direction:column;gap:16px">
+        <table>
+          <tr><th>__TEST__ test questions</th><th class="n">Extractive (no model)</th><th class="n">Model, no verifier</th><th class="n">Model + verifier</th></tr>
+          __ANSWER_ROWS__
+        </table>
+        <p class="note">The verifier's check uses the same model, so it is not an independent measure of faithfulness; a human review of 30 answers is the independent check (pending). In the __ML_LANGS_N__ added languages citation precision is __ML_CIT__.</p>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- Questions -->
+  <section class="slide" data-section="Questions" data-seconds="30" data-extra="+ Q&amp;A" data-kicker="Outcome" data-title="What is done and what comes next" data-sub="">
+    <div class="main"><div class="body"><div class="build" style="display:grid;grid-template-columns: 1.45fr 1fr;gap:40px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="rule"><span class="num">01 · Assistant</span><p>Answers in __LANGS__ languages, each sentence with its Italian source.</p></div>
+          <div class="rule"><span class="num">02 · Guide</span><p>Scholarship eligibility, checklist and calendar from fixed rules.</p></div>
+          <div class="rule"><span class="num">03 · Evidence</span><p>Frozen test sets, results per language, reproducible numbers.</p></div>
+        </div>
+        <div class="card amber"><div class="label" style="color:var(--amber)">Limits</div><p style="margin-top:8px;color:var(--ink)">Non-Italian questions are machine translations; the ground truth misses some relevant passages; the verifier sometimes removes too much; one university, one call.</p></div>
+        <div class="card"><div class="label">Next steps</div><p style="margin-top:8px">Questions written by real international students and checked by native speakers; human review of answers; more documents after licence checks; per-language "I don't know" thresholds.</p></div>
+        <p class="note">Use of AI tools: a coding assistant for code and documents; a language model for translations and answers. Declared in the report.</p>
+      </div>
+      <div class="card accent" style="display:flex;flex-direction:column;gap:16px;padding:40px"><div class="label">Discussion</div><h2 style="font-size:72px;margin:0">Questions?</h2><p style="font-size:19px">Demo, report and code ready to show on Friday.</p><div style="margin-top:auto;border-top:1px solid currentColor;padding-top:14px;opacity:.85;font-family:var(--mono);font-size:13px">Ahmad Kassar · Complex Systems Design</div></div>
+    </div></div></div>
+  </section>
+
+  </div></div>
+
+  <nav class="bar" aria-label="Presentation controls">
+    <button class="round" id="prev" aria-label="Previous">←</button>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <select id="jump" aria-label="Go to section"></select>
+    <button id="skip" class="hide-s">Skip section</button>
+    <div class="where" id="where"></div>
+    <button id="full" class="hide-s" aria-label="Full screen">⛶</button>
+    <button class="round" id="next" aria-label="Next">→</button>
+  </nav>
+</div>
+
+<script id="chart-data" type="application/json">__CHART_DATA__</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById("chart-data").textContent);
+  const slides = [...document.querySelectorAll(".slide")];
+  slides.forEach((s, i) => {
+    const margin = document.createElement("aside");
+    margin.className = "margin";
+    margin.innerHTML = `<div class="no">${String(i + 1).padStart(2, "0")}</div><div class="sec">${s.dataset.section}</div><div class="time">${s.dataset.seconds} sec${s.dataset.extra ? "<br>" + s.dataset.extra : ""}</div>`;
+    s.prepend(margin);
+    if (s.dataset.title) {
+      const builds = [...s.querySelectorAll(".build[data-step]")];
+      const head = document.createElement("div");
+      head.className = "head";
+      head.innerHTML = `<div><div class="kicker">${s.dataset.kicker}</div><h2>${s.dataset.title}</h2>${s.dataset.sub ? `<p class="sub">${s.dataset.sub}</p>` : ""}</div>` +
+        (builds.length > 1 ? `<div class="tag"><small>${s.dataset.section} · <b class="k" style="font-weight:400"></b></small><span class="t"></span><div class="dots">${builds.map(() => "<em></em>").join("")}</div></div>` : "");
+      s.querySelector(".main").prepend(head);
+    }
+  });
+  const steps = [];
+  slides.forEach((s, si) => { const b = s.querySelectorAll(".build"); b.forEach((_, bi) => steps.push({ si, bi, n: b.length })); });
+  const jump = document.getElementById("jump"), progress = document.getElementById("progress");
+  slides.forEach((s, i) => {
+    const o = document.createElement("option"); o.value = i; o.textContent = `${String(i + 1).padStart(2, "0")} · ${s.dataset.section}`; jump.append(o);
+    progress.append(document.createElement("em"));
+  });
+  let cur = 0;
+  try { const h = location.hash.replace("#", ""); if (/^s\d+$/.test(h)) cur = Math.max(0, steps.findIndex((x) => x.si === +h.slice(1) - 1)); } catch (e) {}
+  function show(k) {
+    cur = Math.max(0, Math.min(steps.length - 1, k));
+    const { si, bi, n } = steps[cur];
+    slides.forEach((s, i) => { s.hidden = i !== si; });
+    const s = slides[si], b = [...s.querySelectorAll(".build")];
+    b.forEach((el, i) => { el.hidden = i !== bi; });
+    const tag = s.querySelector(".tag");
+    if (tag) {
+      tag.querySelector(".k").textContent = `${bi + 1} / ${n}`;
+      tag.querySelector(".t").textContent = b[bi].dataset.step || "";
+      tag.querySelectorAll(".dots em").forEach((d, i) => d.classList.toggle("on", i === bi));
+    }
+    progress.querySelectorAll("em").forEach((e, i) => e.classList.toggle("on", i <= si));
+    jump.value = si;
+    document.getElementById("where").innerHTML = `${s.dataset.section} · ${b[bi].dataset.step || s.dataset.section}<small>${si + 1} / ${slides.length} · step ${bi + 1} / ${n}</small>`;
+    document.getElementById("prev").disabled = cur === 0;
+    document.getElementById("next").disabled = cur === steps.length - 1;
+    document.getElementById("skip").disabled = si === slides.length - 1;
+  }
+  document.getElementById("prev").onclick = () => show(cur - 1);
+  document.getElementById("next").onclick = () => show(cur + 1);
+  document.getElementById("skip").onclick = () => show(steps.findIndex((x) => x.si === steps[cur].si + 1));
+  jump.onchange = () => show(steps.findIndex((x) => x.si === +jump.value));
+  document.getElementById("full").onclick = () => {
+    try { (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()).catch(() => {}); } catch (e) {}
+  };
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "SELECT") return;
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(cur + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(cur - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(steps.length - 1);
+  });
+  const vp = document.getElementById("viewport"), stage = document.getElementById("stage");
+  function fit() { const k = Math.min(vp.clientWidth / 1600, vp.clientHeight / 900); stage.style.transform = `translate(-50%, -50%) scale(${k})`; }
+  new ResizeObserver(fit).observe(vp);
+  fit();
+  // Grouped bars on one linear scale from 0 to 0.8 (nDCG@10).
+  function bars(id, groups, series, w, h) {
+    const svg = document.getElementById(id);
+    const pad = { l: 44, r: 10, t: 14, b: 40 }, H = h - pad.t - pad.b, W = w - pad.l - pad.r, max = 0.8;
+    const y = (v) => pad.t + H - (v / max) * H;
+    let out = "";
+    for (let t = 0; t <= max + 1e-9; t += 0.2) out += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${pad.l - 8}" y="${y(t) + 4}" text-anchor="end">${t.toFixed(1)}</text>`;
+    const gw = W / groups.length, bw = Math.min(46, (gw * 0.78) / series.length);
+    groups.forEach((g, gi) => {
+      const x0 = pad.l + gi * gw + (gw - bw * series.length) / 2;
+      series.forEach((s, k) => {
+        const v = s.values[gi], x = x0 + k * bw;
+        out += `<rect x="${x + 2}" y="${y(v)}" width="${bw - 4}" height="${pad.t + H - y(v)}" fill="${s.color}"/>`;
+        if (s.labels !== false) out += `<text class="val" x="${x + bw / 2}" y="${y(v) - 6}" text-anchor="middle">${v.toFixed(2)}</text>`;
+      });
+      out += `<text x="${pad.l + gi * gw + gw / 2}" y="${h - 14}" text-anchor="middle">${g}</text>`;
+    });
+    svg.innerHTML = out;
+  }
+  bars("chart1", D.c1.groups, [{ values: D.c1.B0, color: "var(--bar-a)" }, { values: D.c1.S1, color: "var(--bar-c)" }, { values: D.c1.S2, color: "var(--bar-b)" }], 760, 420);
+  bars("chart2", D.c2.groups, [{ values: D.c2.S2, color: "var(--bar-a)" }, { values: D.c2.S3, color: "var(--bar-c)" }, { values: D.c2.S3f, color: "var(--bar-b)" }], 760, 420);
+  bars("chart3", D.c3.groups, [{ values: D.c3.S2, color: "var(--bar-a)", labels: false }, { values: D.c3.S3f, color: "var(--bar-b)", labels: false }], 860, 420);
+  show(cur);
+})();
+</script>

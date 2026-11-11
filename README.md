@@ -1,42 +1,143 @@
-# UniBridge - multilingual assistant for international students (branch `unibridge`)
+# UniBridge - multilingual assistant for international students
 
-Students ask in **Italian, English or Arabic**. UniBridge finds the exact passage in official Italian documents
-(University of Camerino, ERDIS Marche, MUR), answers in the student's language with a **citation for every
-sentence and the Italian original next to it**, guides the student through the **ERDIS scholarship procedure**
-(modelled in BPMN, verified sound as a Petri net, eligibility checked by deterministic rules), and when the
-evidence is weak says **"I don't know"** and drafts an Italian e-mail to the right office (never sent
-automatically). It runs on the P14 search engine documented below.
+**Complex Systems Design** - MSc in Computer Science (AI), University of Camerino - Prof. Flavio Corradini.
+Author: Ahmad Kassar. Branch `unibridge`; built on the P14 search engine documented further below.
+
+International students in Camerino must follow rules written in Italian: the student guide and regulations of the
+University of Camerino, the ERDIS Marche call for the regional scholarship, the ministry circular on foreign
+students. UniBridge lets them ask in **17 languages** (Italian, English, Arabic, French, Spanish, Portuguese, German,
+Romanian, Albanian, Ukrainian, Russian, Turkish, Persian, Urdu, Hindi, Bengali, Chinese). It finds the exact passage
+in the official Italian documents and answers in the language of the question, with a **citation for every sentence
+and the Italian original next to it**. When the documents are not enough it says **"I don't know"** and drafts a
+formal Italian e-mail to the right office (never sent automatically). For the ERDIS scholarship it offers a **guide**
+driven by a BPMN model of the call, verified as a **sound Petri net**, with eligibility checked by fixed rules.
 
 | | |
 |---|---|
-| **Report** | [docs/REPORT_UNIBRIDGE.md](docs/REPORT_UNIBRIDGE.md) - data [DATA_UNIBRIDGE.md](docs/DATA_UNIBRIDGE.md), procedure [PROCEDURE.md](docs/PROCEDURE.md) |
-| **Corpus** | 42 real public documents + 6 synthetic restricted ones (labelled), 2,330 passages |
-| **Test set** | 102 frozen questions: 42 Italian (official FAQ), 30 English, 30 Arabic (LLM translations, to be reviewed) |
-| **Key finding** | Keyword search finds nothing relevant for every Arabic test question; translating the question into Italian and fusing both rankings (S3f) raises nDCG@10 from 0.4123 to 0.5082 overall (p = 0.0012) |
-| **Answers** | Citation precision 0.4058 extractive, 0.801 LLM, 0.8157 LLM + verifier; out-of-scope questions answered "I don't know": all 9 |
-| **Procedure** | Workflow net sound (own check + pm4py WOFLAN); 15 of 15 test scenarios correct |
-| **Cost** | gpt-4o-mini, 0.000313 USD per verified answer; whole project 0.099274 USD |
-| **Evidence** | Screenshots and API session in [docs/evidence/unibridge/](docs/evidence/unibridge/) |
+| **Deliverables** | [Technical report (PDF)](deliverables/UniBridge_Technical_Report_Ahmad_Kassar.pdf) · [Word](deliverables/UniBridge_Technical_Report_Ahmad_Kassar.docx) · [Presentation (PowerPoint)](deliverables/UniBridge_Presentation_Ahmad_Kassar.pptx) · [PDF](deliverables/UniBridge_Presentation_Ahmad_Kassar.pdf) |
+| **Report (Markdown)** | [docs/REPORT_UNIBRIDGE.md](docs/REPORT_UNIBRIDGE.md) · data [DATA_UNIBRIDGE.md](docs/DATA_UNIBRIDGE.md) · procedure [PROCEDURE.md](docs/PROCEDURE.md) · [open questions](docs/OPEN_QUESTIONS.md) |
+| **Corpus** | 42 official public documents (ERDIS Marche, UNICAM, MUR, Normattiva) + 6 synthetic restricted notes (labelled), 2,330 passages |
+| **Test sets** | 102 frozen questions (42 Italian from official FAQ pages, 30 English, 30 Arabic) + 616 frozen questions in 14 more languages |
+| **Keyword search vs Arabic** | BM25 finds no relevant passage for 100% of the Arabic test questions |
+| **Translate and fuse** | nDCG@10 0.41 → 0.51 on the 102 questions (p = 0.0012); 0.36 → 0.48 in the 14 added languages |
+| **Answers** | Citation precision 0.41 extractive, 0.78 with the LLM, 0.78 with LLM + verifier; all out-of-scope questions get "I don't know" |
+| **Languages** | Question language detected correctly in 99.8% of cases; 99.5% of the answers are in the language of the question (14 added languages) |
+| **Procedure** | Workflow net sound (own state-space check + pm4py WOFLAN); 15 of 15 test scenarios correct |
+| **Cost** | gpt-4o-mini, 0.000316 USD per verified answer; whole project 0.40 USD |
+| **Tests** | `pytest`: 126 passed in 8.44s |
 
-![UniBridge answer in Arabic with the Italian source](docs/evidence/unibridge/ub_02_answer_ar.png)
+![UniBridge answering in Arabic with the Italian source](docs/evidence/unibridge/ub_02_answer_ar.png)
 
-### Run UniBridge
+### Features
+- **Ask** (`POST /v1/answer`): language detection, hybrid search (BM25 + multilingual embeddings), translation of the
+  question into Italian and rank fusion, an answer from the retrieved passages only, a verifier that drops sentences
+  without a valid or supporting citation, and the Italian original of every cited passage. Without an LLM key the
+  answer is extractive (Italian sentences copied from the documents).
+- **"I don't know" + office e-mail** (`POST /v1/handoff`): rule table for the scholarship, student or international
+  office; formal Italian draft with the question translated and the documents already checked.
+- **Scholarship guide** (`POST /v1/procedure/scholarship`): fixed eligibility rules (credits, ISEE, ISPE, year,
+  deadlines), each with its article; position in the procedure; personal checklist; `.ics` calendar. No LLM; the
+  data is not stored.
+- **Roles**: visitor (public documents), student (+ student-only notices), office staff (+ their internal notes).
+  Permissions are applied inside retrieval.
+
+### Quick start (Windows, PowerShell)
+Requirements: Python 3.11, Docker Desktop, about 2 GB of disk for models and corpus; an NVIDIA GPU is optional
+(`EMBEDDING_DEVICE=cpu` in `.env` without it). Free ports: 6333 (Qdrant), 8001 (API), 8501 (demo).
+
 ```powershell
-docker compose up -d                                                   # Qdrant
-.venv\Scripts\python.exe scripts\fetch_corpus_unibridge.py              # official documents (not committed)
-.venv\Scripts\python.exe scripts\ingest_unibridge.py                    # own SQLite file + Qdrant collection
-# optional, for LLM answers: LLM_PROVIDER=openai|anthropic, LLM_MODEL, LLM_API_KEY in .env (without them: extractive answers)
-.venv\Scripts\python.exe -m uvicorn p14_search.unibridge_main:app --port 8001
-.venv\Scripts\streamlit.exe run frontend\unibridge_app.py                # demo UI
-```
-Evaluation (frozen test split): `eval\unibridge\run_eval.py` (retrieval B0/S1/S2), `eval_translation.py` (S3),
-`eval_answers.py` (answers), `eval_procedure.py`, `eval_handoff.py`; `eval\check_doc_numbers.py` checks the
-numbers in the reports against `eval/results/`.
+# 1. Python environment and dependencies
+python -m pip install --user uv
+python -m uv python install 3.11
+python -m uv venv --python 3.11 .venv
+python -m uv pip install --python .venv\Scripts\python.exe -e ".[dev,data,ui]"
 
-**Use of AI tools (UniBridge)**: an AI coding assistant (Claude Code) was used for code, documentation and the
-synthetic documents; an LLM (gpt-4o-mini) produced the English/Arabic questions, paraphrases, query translations
-and the answers under evaluation. All LLM-produced data is flagged `llm_generated: true`; details in section 10
-of the report. Arabic and LLM-drafted items still need human review (`eval/review/`).
+# 2. Configuration (demo keys; optional LLM)
+copy .env.example .env
+# optional, for LLM answers: in .env set LLM_PROVIDER=openai (or anthropic), LLM_MODEL=gpt-4o-mini, LLM_API_KEY=...
+# without them UniBridge works with extractive answers and makes no API call
+
+# 3. Vector database
+docker compose up -d
+
+# 4. Corpus and index (first time only)
+.venv\Scripts\python.exe scripts\fetch_corpus_unibridge.py   # downloads the official documents, checks SHA-256
+.venv\Scripts\python.exe scripts\ingest_unibridge.py         # own SQLite file + Qdrant collection
+
+# 5. Start the API (keep this window open)
+.venv\Scripts\python.exe -m uvicorn p14_search.unibridge_main:app --port 8001
+
+# 6. In a second window: the demo
+.venv\Scripts\streamlit.exe run frontend\unibridge_app.py
+```
+Open http://localhost:8501 (demo) and http://127.0.0.1:8001/docs (API documentation). The demo starts in the
+language of the browser; the answer always follows the language of the question.
+
+### Calling the API
+Every request carries an `X-API-Key` header; the demo keys of the roles are in `.env.example`
+(`demo-ub-visitor`, `demo-ub-student`, `demo-ub-scholarship-office`, ...).
+
+```powershell
+# Ask a question (any of the 17 languages)
+curl.exe -s -X POST http://127.0.0.1:8001/v1/answer -H "X-API-Key: demo-ub-visitor" -H "Content-Type: application/json" -d "{\"query\": \"When is the deadline for the scholarship application?\"}"
+
+# Draft an e-mail to the right office
+curl.exe -s -X POST http://127.0.0.1:8001/v1/handoff -H "X-API-Key: demo-ub-visitor" -H "Content-Type: application/json" -d "{\"query\": \"Can I get a refund of the university fees?\", \"language\": \"en\"}"
+
+# Scholarship guide: second-year bachelor student, ISEE 15,000 EUR, on 1 August 2026
+curl.exe -s -X POST http://127.0.0.1:8001/v1/procedure/scholarship -H "X-API-Key: demo-ub-visitor" -H "Content-Type: application/json" -d "{\"language\": \"en\", \"today\": \"2026-08-01\", \"level\": \"L\", \"year\": 2, \"credits\": 30, \"isee\": 15000, \"residence\": \"fuori_sede\"}"
+```
+Contracts: `contracts/openapi/p14-search.yaml` and `contracts/schemas/` (AnswerRequest, AnswerResponse,
+HandoffRequest, ProcedureRequest, ...).
+
+### Tests and evaluation
+```powershell
+.venv\Scripts\python.exe -m pytest                                   # unit and API tests, fake LLM only
+
+# evaluations on the frozen test splits (results in eval\results\unibridge\)
+.venv\Scripts\python.exe eval\freeze_test.py --dataset unibridge --verify
+.venv\Scripts\python.exe eval\unibridge\run_eval.py                  # retrieval B0 / S1 / S2 by language
+.venv\Scripts\python.exe eval\unibridge\eval_translation.py          # S3: translate the question before retrieval (LLM)
+.venv\Scripts\python.exe eval\unibridge\eval_answers.py              # extractive vs LLM vs LLM + verifier (LLM)
+.venv\Scripts\python.exe eval\unibridge\eval_multilingual.py         # 17 languages (LLM)
+.venv\Scripts\python.exe eval\unibridge\eval_procedure.py            # 15 scholarship scenarios
+.venv\Scripts\python.exe eval\unibridge\eval_handoff.py              # office routing
+.venv\Scripts\python.exe scripts\build_scholarship_model.py          # BPMN + PNML + soundness check
+.venv\Scripts\python.exe eval\check_doc_numbers.py                   # every number in the reports vs eval\results
+```
+LLM steps use temperature 0 and a disk cache, so a re-run gives the same answers at no cost; every call is logged
+in `logs\llm_usage.jsonl` and stops at 5 USD of estimated spend.
+
+### Rebuilding the deliverables
+```powershell
+.venv\Scripts\python.exe scripts\render_mermaid.py                   # diagrams -> docs\images\ub-*.png
+.venv\Scripts\python.exe scripts\render_bpmn.py                      # BPMN picture -> docs\images\scholarship_bpmn.png
+.venv\Scripts\python.exe scripts\build_report_docx.py                # report .docx + .pdf (needs Microsoft Word)
+cd deliverables\build; npm install; node build_presentation.js; cd ..\..    # presentation .pptx (export the PDF from PowerPoint)
+.venv\Scripts\python.exe scripts\capture_evidence_unibridge.py       # screenshots (API and demo running; needs the 'evidence' extra)
+```
+
+### Where things are
+| Path | What |
+|---|---|
+| `src/p14_search/answer/` | language, translation, LLM answer, verifier, extractive fallback, LLM providers with cache and budget |
+| `src/p14_search/i18n.py`, `i18n_llm.json` | the 17 languages and the fixed texts (hand-written it/en/ar; LLM-translated for the others) |
+| `src/p14_search/handoff/` | office rule table and Italian e-mail draft |
+| `src/p14_search/procedure/` | procedure model, rules, state machine, checklist, `.ics` |
+| `src/p14_search/unibridge_profile.py`, `unibridge_main.py` | UniBridge configuration and API entry point |
+| `frontend/unibridge_app.py`, `frontend/unibridge_pages/` | Streamlit demo |
+| `docs/bpmn/` | `scholarship.bpmn` (BPMN 2.0) and `scholarship.pnml` (workflow net) |
+| `eval/unibridge/`, `eval/queries/`, `eval/qrels/` | evaluation scripts, question sets, relevance judgments |
+| `eval/results/unibridge/` | every result quoted in the documents |
+| `eval/review/` | LLM-produced items to be checked by a person |
+| `docs/evidence/unibridge/` | screenshots and a recorded API session |
+| `deliverables/` | report and presentation; `deliverables/build/` rebuilds the presentation |
+
+**Use of AI tools.** An AI coding assistant (Claude Code) was used for code, documentation and the synthetic
+documents; an LLM (gpt-4o-mini) produced the translated questions, paraphrases, query translations, the interface
+texts of 14 languages and the answers under evaluation. All LLM-produced data is flagged `llm_generated: true`;
+details in section 11 of the report. Translations and LLM-drafted items still need review by native speakers
+(`eval/review/`).
 
 ---
 

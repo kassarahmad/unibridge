@@ -25,7 +25,7 @@ driven by a BPMN model of the call, verified as a **sound Petri net**, with elig
 | **Procedure** | Workflow net sound (own state-space check + pm4py WOFLAN); 15 of 15 test scenarios correct |
 | **Answer pipeline** | Modelled as a workflow net (16 places, 26 transitions) and proved sound: every question ends in a cited answer or in "I don't know" + handoff, no deadlock |
 | **Cost** | gpt-4o-mini, 0.000316 USD per verified answer; whole project 0.40 USD |
-| **Tests** | `pytest`: 126 passed in 8.44s |
+| **Tests** | `pytest`: 143 tests collected |
 
 ![UniBridge answering in Arabic with the Italian source](docs/evidence/unibridge/ub_02_answer_ar.png)
 

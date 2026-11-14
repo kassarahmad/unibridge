@@ -72,7 +72,43 @@ demo (`frontend/unibridge_app.py`) uses them like any other client.
 Without an API key, or when the call fails or the budget is reached, the answer is extractive: Italian sentences
 copied from the passages, each with its citation.
 
-### 3.2 Languages
+### 3.2 The answer pipeline as a Petri net
+
+![Workflow net of the answer pipeline (docs/bpmn/answer_flow.pnml)](images/answer_flow_net.png)
+
+The pipeline has many branches (translation or not, enough evidence or not, three outcomes of the model call, the
+verifier, two ways into the extractive fallback), and a forgotten branch would mean a question that never gets a
+reply. We therefore modelled it as a workflow net, with the same classes and the same checker as the scholarship
+procedure (section 5). One token is one question. The net (`src/p14_search/answer/flow.py`) has 16 places,
+26 transitions and 52 arcs; each transition names the step of `AnswerService.answer()` it stands for, and each
+choice in the code is a place with several output transitions. It has four end transitions: the answer with its
+citations, "I don't know" with the e-mail draft for the office, "I don't know" when no office matches the question,
+and "I don't know" when the caller did not ask for a draft.
+
+`scripts/build_answer_flow_model.py` exports the net as PNML and checks it
+(`eval/results/unibridge/answer_flow_soundness.json`). It is a workflow net and it is sound: its reachability graph
+has 16 markings, every one of them can still reach the final marking, the final marking is reached with no token
+left behind, and no transition is dead. pm4py's WOFLAN implementation, run on the PNML file, agrees. For the
+service, soundness gives three guarantees:
+
+- no deadlock: whatever happens (weak evidence, the model replies `NO_ANSWER`, the model is unreachable during the
+  answer or during the support check, the verifier drops every sentence) the request terminates;
+- every question ends in exactly one of the four outcomes, so the student always gets either an answer in which
+  every sentence has its passage, or "I don't know" with the handoff. The net has 46 complete runs: 10 end in an
+  answer and 36 in "I don't know";
+- no dead branch: every step of the model can happen, including the fallback from a failed model call to the
+  extractive answer.
+
+Two limits must be stated. Soundness is a property of the model, not of the Python code: the link between the two
+is a test (`tests/test_answer_flow.py`) that sends real requests to the API in every configuration it can produce
+(no model, verified answer, translated question, `NO_ANSWER`, verifier dropping everything, weak evidence, model
+failure in either call, handoff with and without an office), derives the transitions from each response and
+replays them on the net; 25 of the 26 transitions are covered this way (the remaining one, an extractive answer
+that finds no sentence, cannot be produced with the test corpus). And "an answer with citations" is guaranteed by
+the verifier and by the extractive mode; the mode `llm`, which skips the verifier, exists only for the evaluation
+baseline and is a separate branch of the net.
+
+### 3.3 Languages
 
 The first version supported Italian, English and Arabic. We extended it to the languages that international
 students in Italy are most likely to read best: Italian, English, Arabic, French, Spanish, Portuguese, German,

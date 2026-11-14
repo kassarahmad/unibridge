@@ -143,11 +143,11 @@ def layout(net) -> dict[str, tuple[int, int]]:
     return {n: (60 + 110 * lv, 80 + 110 * i) for lv, ns in columns.items() for i, n in enumerate(ns)}
 
 
-def pnml(net) -> str:
+def pnml(net, net_id: str = "scholarship", title: str = "ERDIS scholarship 2026/2027 - workflow net") -> str:
     pos = layout(net)
     out = ['<?xml version="1.0" encoding="UTF-8"?>', "<pnml>",
-           '  <net id="scholarship" type="http://www.informatik.hu-berlin.de/top/pntd/ptNetb">',
-           "    <name><text>ERDIS scholarship 2026/2027 - workflow net</text></name>"]
+           f'  <net id="{net_id}" type="http://www.informatik.hu-berlin.de/top/pntd/ptNetb">',
+           f"    <name><text>{escape(title)}</text></name>"]
     for p in net.places:
         x, y = pos[p]
         out.append(f'    <place id="{p}"><name><text>{p}</text><graphics><offset x="0" y="40"/></graphics></name>'

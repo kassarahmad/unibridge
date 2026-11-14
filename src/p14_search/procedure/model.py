@@ -98,10 +98,11 @@ class Net:
         return out
 
 
-def build_net() -> Net:
+def build_net(steps: tuple[Step, ...] = STEPS) -> Net:
+    """Net of the given steps (default: the scholarship procedure). Places are collected from the steps."""
     places: list[str] = []
-    for s in STEPS:
+    for s in steps:
         for p in (*s.inputs, *s.outputs):
             if p not in places:
                 places.append(p)
-    return Net(places, {s.id: s for s in STEPS})
+    return Net(places, {s.id: s for s in steps})

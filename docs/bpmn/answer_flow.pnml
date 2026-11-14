@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="answer_flow" type="http://www.informatik.hu-berlin.de/top/pntd/ptNetb">
+    <name><text>UniBridge answer pipeline - workflow net</text></name>
+    <place id="i"><name><text>i</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="60" y="80"/><dimension x="40" y="40"/></graphics><initialMarking><text>1</text></initialMarking></place>
+    <place id="p_question"><name><text>p_question</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="280" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_language"><name><text>p_language</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="500" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_first_ranking"><name><text>p_first_ranking</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="720" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_ranking"><name><text>p_ranking</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="940" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_sources"><name><text>p_sources</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1160" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_no_answer"><name><text>p_no_answer</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2260" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_extractive"><name><text>p_extractive</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1820" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_llm_called"><name><text>p_llm_called</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1380" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_generated"><name><text>p_generated</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1600" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_verified"><name><text>p_verified</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1820" y="190"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_answer"><name><text>p_answer</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2260" y="190"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_extracted"><name><text>p_extracted</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2040" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="o"><name><text>o</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="3030" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_idk"><name><text>p_idk</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2480" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <place id="p_office"><name><text>p_office</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2700" y="80"/><dimension x="40" y="40"/></graphics></place>
+    <transition id="t_receive"><name><text>Receive the question (POST /v1/answer)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="170" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_language"><name><text>Detect the language of the question</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="390" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_retrieve"><name><text>Hybrid retrieval S2 (BM25 + dense, RRF) with the permission filter</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="610" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_translate_fuse"><name><text>Translate the question into Italian, retrieve again, fuse the rankings (RRF)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="830" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_no_translation"><name><text>Keep the first ranking (Italian question, extractive mode or translation failed)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="830" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_sources"><name><text>Load the passages, re-check permissions, number them P1..Pk</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1050" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_insufficient"><name><text>No passage, or evidence below the calibrated threshold</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1270" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_mode_extractive"><name><text>Extractive mode (requested, or no LLM configured)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1270" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_llm_call"><name><text>Ask the LLM for an answer with one citation per sentence</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1270" y="300"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_llm_failed"><name><text>LLM unavailable (error, timeout or spend limit): extractive fallback</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1490" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_llm_no_answer"><name><text>The LLM replies NO_ANSWER (or nothing)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1490" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_llm_text"><name><text>The LLM returns sentences with citations</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1490" y="300"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_verify"><name><text>Verifier: drop sentences without a valid citation or not supported by the cited passage</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1710" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_verifier_llm_failed"><name><text>LLM unavailable during the support check: extractive fallback</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1710" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_skip_verifier"><name><text>Mode 'llm' (evaluation only): citations parsed, not verified</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1710" y="300"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_kept"><name><text>At least one sentence passes the verifier</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1930" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_all_dropped"><name><text>The verifier drops every sentence</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1930" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_extract"><name><text>Copy sentences from the passages, each with its passage</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="1930" y="300"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_extracted_some"><name><text>At least one sentence extracted</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2150" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_extracted_none"><name><text>No sentence could be extracted</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2150" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_respond"><name><text>Return the answer: every sentence with its passages and their Italian originals</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2370" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_idk"><name><text>Say "I don't know" in the language of the question</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2370" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_no_handoff"><name><text>Return "I don't know" (draft not requested: with_handoff = false)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2590" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_choose_office"><name><text>Choose the responsible office with the rule table</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2590" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_draft"><name><text>Return "I don't know" with the e-mail draft for the office (never sent)</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2810" y="80"/><dimension x="40" y="40"/></graphics></transition>
+    <transition id="t_out_of_scope"><name><text>No office matches: return "I don't know" without a draft</text><graphics><offset x="0" y="40"/></graphics></name><graphics><position x="2810" y="190"/><dimension x="40" y="40"/></graphics></transition>
+    <arc id="a1" source="i" target="t_receive"><inscription><text>1</text></inscription></arc>
+    <arc id="a2" source="t_receive" target="p_question"><inscription><text>1</text></inscription></arc>
+    <arc id="a3" source="p_question" target="t_language"><inscription><text>1</text></inscription></arc>
+    <arc id="a4" source="t_language" target="p_language"><inscription><text>1</text></inscription></arc>
+    <arc id="a5" source="p_language" target="t_retrieve"><inscription><text>1</text></inscription></arc>
+    <arc id="a6" source="t_retrieve" target="p_first_ranking"><inscription><text>1</text></inscription></arc>
+    <arc id="a7" source="p_first_ranking" target="t_translate_fuse"><inscription><text>1</text></inscription></arc>
+    <arc id="a8" source="t_translate_fuse" target="p_ranking"><inscription><text>1</text></inscription></arc>
+    <arc id="a9" source="p_first_ranking" target="t_no_translation"><inscription><text>1</text></inscription></arc>
+    <arc id="a10" source="t_no_translation" target="p_ranking"><inscription><text>1</text></inscription></arc>
+    <arc id="a11" source="p_ranking" target="t_sources"><inscription><text>1</text></inscription></arc>
+    <arc id="a12" source="t_sources" target="p_sources"><inscription><text>1</text></inscription></arc>
+    <arc id="a13" source="p_sources" target="t_insufficient"><inscription><text>1</text></inscription></arc>
+    <arc id="a14" source="t_insufficient" target="p_no_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a15" source="p_sources" target="t_mode_extractive"><inscription><text>1</text></inscription></arc>
+    <arc id="a16" source="t_mode_extractive" target="p_extractive"><inscription><text>1</text></inscription></arc>
+    <arc id="a17" source="p_sources" target="t_llm_call"><inscription><text>1</text></inscription></arc>
+    <arc id="a18" source="t_llm_call" target="p_llm_called"><inscription><text>1</text></inscription></arc>
+    <arc id="a19" source="p_llm_called" target="t_llm_failed"><inscription><text>1</text></inscription></arc>
+    <arc id="a20" source="t_llm_failed" target="p_extractive"><inscription><text>1</text></inscription></arc>
+    <arc id="a21" source="p_llm_called" target="t_llm_no_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a22" source="t_llm_no_answer" target="p_no_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a23" source="p_llm_called" target="t_llm_text"><inscription><text>1</text></inscription></arc>
+    <arc id="a24" source="t_llm_text" target="p_generated"><inscription><text>1</text></inscription></arc>
+    <arc id="a25" source="p_generated" target="t_verify"><inscription><text>1</text></inscription></arc>
+    <arc id="a26" source="t_verify" target="p_verified"><inscription><text>1</text></inscription></arc>
+    <arc id="a27" source="p_generated" target="t_verifier_llm_failed"><inscription><text>1</text></inscription></arc>
+    <arc id="a28" source="t_verifier_llm_failed" target="p_extractive"><inscription><text>1</text></inscription></arc>
+    <arc id="a29" source="p_generated" target="t_skip_verifier"><inscription><text>1</text></inscription></arc>
+    <arc id="a30" source="t_skip_verifier" target="p_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a31" source="p_verified" target="t_kept"><inscription><text>1</text></inscription></arc>
+    <arc id="a32" source="t_kept" target="p_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a33" source="p_verified" target="t_all_dropped"><inscription><text>1</text></inscription></arc>
+    <arc id="a34" source="t_all_dropped" target="p_no_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a35" source="p_extractive" target="t_extract"><inscription><text>1</text></inscription></arc>
+    <arc id="a36" source="t_extract" target="p_extracted"><inscription><text>1</text></inscription></arc>
+    <arc id="a37" source="p_extracted" target="t_extracted_some"><inscription><text>1</text></inscription></arc>
+    <arc id="a38" source="t_extracted_some" target="p_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a39" source="p_extracted" target="t_extracted_none"><inscription><text>1</text></inscription></arc>
+    <arc id="a40" source="t_extracted_none" target="p_no_answer"><inscription><text>1</text></inscription></arc>
+    <arc id="a41" source="p_answer" target="t_respond"><inscription><text>1</text></inscription></arc>
+    <arc id="a42" source="t_respond" target="o"><inscription><text>1</text></inscription></arc>
+    <arc id="a43" source="p_no_answer" target="t_idk"><inscription><text>1</text></inscription></arc>
+    <arc id="a44" source="t_idk" target="p_idk"><inscription><text>1</text></inscription></arc>
+    <arc id="a45" source="p_idk" target="t_no_handoff"><inscription><text>1</text></inscription></arc>
+    <arc id="a46" source="t_no_handoff" target="o"><inscription><text>1</text></inscription></arc>
+    <arc id="a47" source="p_idk" target="t_choose_office"><inscription><text>1</text></inscription></arc>
+    <arc id="a48" source="t_choose_office" target="p_office"><inscription><text>1</text></inscription></arc>
+    <arc id="a49" source="p_office" target="t_draft"><inscription><text>1</text></inscription></arc>
+    <arc id="a50" source="t_draft" target="o"><inscription><text>1</text></inscription></arc>
+    <arc id="a51" source="p_office" target="t_out_of_scope"><inscription><text>1</text></inscription></arc>
+    <arc id="a52" source="t_out_of_scope" target="o"><inscription><text>1</text></inscription></arc>
+  </net>
+</pnml>

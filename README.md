@@ -23,6 +23,7 @@ driven by a BPMN model of the call, verified as a **sound Petri net**, with elig
 | **Answers** | Citation precision 0.41 extractive, 0.78 with the LLM, 0.78 with LLM + verifier; all out-of-scope questions get "I don't know" |
 | **Languages** | Question language detected correctly in 99.8% of cases; 99.5% of the answers are in the language of the question (14 added languages) |
 | **Procedure** | Workflow net sound (own state-space check + pm4py WOFLAN); 15 of 15 test scenarios correct |
+| **Answer pipeline** | Modelled as a workflow net (16 places, 26 transitions) and proved sound: every question ends in a cited answer or in "I don't know" + handoff, no deadlock |
 | **Cost** | gpt-4o-mini, 0.000316 USD per verified answer; whole project 0.40 USD |
 | **Tests** | `pytest`: 126 passed in 8.44s |
 
@@ -132,6 +133,7 @@ HandoffRequest, ProcedureRequest, ...).
 .venv\Scripts\python.exe eval\unibridge\eval_procedure.py            # 15 scholarship scenarios
 .venv\Scripts\python.exe eval\unibridge\eval_handoff.py              # office routing
 .venv\Scripts\python.exe scripts\build_scholarship_model.py          # BPMN + PNML + soundness check
+.venv\Scripts\python.exe scripts\build_answer_flow_model.py          # Petri net of the answer pipeline: PNML, picture, soundness
 .venv\Scripts\python.exe eval\check_doc_numbers.py                   # every number in the reports vs eval\results
 ```
 LLM steps use temperature 0 and a disk cache, so a re-run gives the same answers at no cost; every call is logged
@@ -155,7 +157,8 @@ cd deliverables\build; npm install; node build_presentation.js; cd ..\..    # pr
 | `src/p14_search/procedure/` | procedure model, rules, state machine, checklist, `.ics` |
 | `src/p14_search/unibridge_profile.py`, `unibridge_main.py` | UniBridge configuration and API entry point |
 | `frontend/unibridge_app.py`, `frontend/unibridge_pages/` | Streamlit demo |
-| `docs/bpmn/` | `scholarship.bpmn` (BPMN 2.0) and `scholarship.pnml` (workflow net) |
+| `docs/bpmn/` | `scholarship.bpmn` (BPMN 2.0), `scholarship.pnml` and `answer_flow.pnml` (workflow nets) |
+| `src/p14_search/answer/flow.py` | the answer pipeline as a workflow net ([picture](docs/images/answer_flow_net.png)) |
 | `eval/unibridge/`, `eval/queries/`, `eval/qrels/` | evaluation scripts, question sets, relevance judgments |
 | `eval/results/unibridge/` | every result quoted in the documents |
 | `eval/review/` | LLM-produced items to be checked by a person |

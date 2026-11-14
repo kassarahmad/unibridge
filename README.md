@@ -31,8 +31,9 @@ driven by a BPMN model of the call, verified as a **sound Petri net**, with elig
 ### Features
 - **Ask** (`POST /v1/answer`): language detection, hybrid search (BM25 + multilingual embeddings), translation of the
   question into Italian and rank fusion, an answer from the retrieved passages only, a verifier that drops sentences
-  without a valid or supporting citation, and the Italian original of every cited passage. Without an LLM key the
-  answer is extractive (Italian sentences copied from the documents).
+  without a valid or supporting citation, and the Italian original of every cited passage. The LLM can be a
+  **local model** (LM Studio or Ollama, no key, no cost, works offline) or a cloud one (OpenAI, Anthropic). Without
+  an LLM the answer is extractive (Italian sentences copied from the documents).
 - **"I don't know" + office e-mail** (`POST /v1/handoff`): rule table for the scholarship, student or international
   office; formal Italian draft with the question translated and the documents already checked.
 - **Scholarship guide** (`POST /v1/procedure/scholarship`): fixed eligibility rules (credits, ISEE, ISPE, year,
@@ -54,7 +55,8 @@ python -m uv pip install --python .venv\Scripts\python.exe -e ".[dev,data,ui]"
 
 # 2. Configuration (demo keys; optional LLM)
 copy .env.example .env
-# optional, for LLM answers: in .env set LLM_PROVIDER=openai (or anthropic), LLM_MODEL=gpt-4o-mini, LLM_API_KEY=...
+# optional, for LLM answers: a local model (see "Local LLM" below), or in .env
+# LLM_PROVIDER=openai (or anthropic), LLM_MODEL=gpt-4o-mini, LLM_API_KEY=...
 # without them UniBridge works with extractive answers and makes no API call
 
 # 3. Vector database
@@ -72,6 +74,33 @@ docker compose up -d
 ```
 Open http://localhost:8501 (demo) and http://127.0.0.1:8001/docs (API documentation). The demo starts in the
 language of the browser; the answer always follows the language of the question.
+
+### Local LLM (LM Studio or Ollama)
+UniBridge can answer with a model that runs on the same machine, through the OpenAI-compatible API that LM Studio
+and Ollama expose. No API key, no cost (the 5 USD spend limit does not apply), and nothing leaves the laptop.
+Temperature 0, the disk cache, the usage log and the verifier work exactly as with a cloud model.
+
+```powershell
+# 1. LM Studio: load a model with an 8k context fully on the GPU and start the server on port 1234
+lms load qwen3vl-8b-instruct --gpu max -c 8192
+lms server start --port 1234
+
+# 2. .env
+#    LLM_PROVIDER=local
+#    LLM_MODEL=qwen3vl-8b-instruct          # the identifier printed by `lms ps`
+#    LLM_BASE_URL=http://127.0.0.1:1234/v1  # default
+#    LLM_TIMEOUT_S=120
+#    HF_HUB_OFFLINE=1                       # fully offline: the embedding model is read from the local cache
+
+# 3. Start the API as usual, then check Italian, English and Arabic (also with the network switched off)
+.venv\Scripts\python.exe scripts\check_local_llm.py
+```
+Tested with Qwen3VL 8B Instruct Q4_K_M (5.8 GB file, about 7 GB of GPU memory with an 8k context, so it fits an
+8 GB card) and with Qwen3 4B Instruct Q4_K_M (2.5 GB) for smaller cards. Any 7-8B instruct model that follows the
+`[P1]` citation format works.
+
+**Ollama instead of LM Studio**: `ollama pull qwen3:8b`, then set `LLM_MODEL=qwen3:8b` and
+`LLM_BASE_URL=http://127.0.0.1:11434/v1`; nothing else changes.
 
 ### Calling the API
 Every request carries an `X-API-Key` header; the demo keys of the roles are in `.env.example`
@@ -120,7 +149,7 @@ cd deliverables\build; npm install; node build_presentation.js; cd ..\..    # pr
 ### Where things are
 | Path | What |
 |---|---|
-| `src/p14_search/answer/` | language, translation, LLM answer, verifier, extractive fallback, LLM providers with cache and budget |
+| `src/p14_search/answer/` | language, translation, LLM answer, verifier, extractive fallback, LLM providers (local, OpenAI, Anthropic) with cache and budget |
 | `src/p14_search/i18n.py`, `i18n_llm.json` | the 17 languages and the fixed texts (hand-written it/en/ar; LLM-translated for the others) |
 | `src/p14_search/handoff/` | office rule table and Italian e-mail draft |
 | `src/p14_search/procedure/` | procedure model, rules, state machine, checklist, `.ics` |

@@ -1,6 +1,8 @@
 """LLM providers behind one small interface, with a disk cache, usage log and spend limit.
 
-- Providers: OpenAI or Anthropic (chosen by LLM_PROVIDER), FakeLLM for tests. Tests never call a real API.
+- Providers: OpenAI, Anthropic or a local OpenAI-compatible server such as LM Studio or Ollama (chosen by
+  LLM_PROVIDER), FakeLLM for tests. Tests never call a real API.
+- The local provider needs no API key and costs 0 USD, so the spend limit never blocks it.
 - Every call uses temperature 0 and a capped number of output tokens.
 - Responses are cached on disk, keyed by SHA-256 of (provider, model, max_tokens, system, prompt): a repeated
   evaluation costs nothing and gives the same text.
@@ -14,6 +16,7 @@ from __future__ import annotations
 import datetime as dt
 import hashlib
 import json
+import re
 import threading
 import time
 from dataclasses import dataclass
@@ -25,7 +28,10 @@ from p14_search.config import Settings
 # USD per million tokens (input, output). Used only for cost ESTIMATES; override with LLM_PRICE_*_PER_MTOK.
 # gpt-4o-mini: OpenAI price list (0.15 / 0.60). Unknown models give cost None unless overridden.
 PRICES = {"gpt-4o-mini": (0.15, 0.60)}
+FREE = (0.0, 0.0)  # local models: no cost, no spend limit
 TEMPERATURE = 0.0
+# Reasoning block that some local models write before the answer; it is not part of the answer.
+_THINK_RE = re.compile(r"<think>.*?(</think>|\Z)", re.S)
 
 
 def read_usage(path: Path) -> list[dict]:
@@ -84,6 +90,29 @@ class OpenAIProvider:
             messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
         )
         return r.choices[0].message.content or "", r.usage.prompt_tokens, r.usage.completion_tokens
+
+
+class LocalProvider:
+    """Model served on this machine through an OpenAI-compatible API: LM Studio (default, port 1234) or Ollama
+    (port 11434). No API key: the client library requires one, so a dummy value is sent."""
+
+    name = "local"
+
+    def __init__(self, model: str, base_url: str, timeout_s: float = 120.0, http_client=None):
+        from openai import OpenAI
+
+        self.model = model
+        self.base_url = base_url
+        self.client = OpenAI(base_url=base_url, api_key="local", timeout=timeout_s, max_retries=0, http_client=http_client)
+
+    def call(self, system: str, prompt: str, max_tokens: int) -> tuple[str, int, int]:
+        r = self.client.chat.completions.create(
+            model=self.model, temperature=TEMPERATURE, max_tokens=max_tokens,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+        )
+        text = _THINK_RE.sub("", r.choices[0].message.content or "").strip()
+        usage = r.usage  # some local servers omit it
+        return text, getattr(usage, "prompt_tokens", 0) or 0, getattr(usage, "completion_tokens", 0) or 0
 
 
 class AnthropicProvider:
@@ -154,7 +183,7 @@ class LLMClient:
             result = LLMResult(hit["text"], self.provider.name, self.provider.model, hit["input_tokens"], hit["output_tokens"],
                                self.cost(hit["input_tokens"], hit["output_tokens"]), True, (time.perf_counter() - start) * 1000)
         else:
-            if self.spent_usd() >= self.budget_usd:
+            if self.price != FREE and self.spent_usd() >= self.budget_usd:
                 raise BudgetExceeded(f"estimated LLM spend reached the budget of {self.budget_usd} USD")
             try:
                 text, tin, tout = self.provider.call(system, prompt, max_tokens)
@@ -182,18 +211,24 @@ class LLMClient:
 
 
 def build_llm(settings: Settings, provider: Provider | None = None) -> LLMClient | None:
-    """LLM client from settings, or None when no provider/key is configured (extractive mode)."""
+    """LLM client from settings, or None when no provider/key is configured (extractive mode).
+    The local provider needs a model name but no key."""
     if provider is None:
         key = settings.llm_api_key.get_secret_value()
-        if not (settings.llm_provider and settings.llm_model and key):
+        local = settings.llm_provider == "local"
+        if not (settings.llm_provider and settings.llm_model and (key or local)):
             return None
-        if settings.llm_provider == "openai":
+        if local:
+            provider = LocalProvider(settings.llm_model, settings.llm_base_url, settings.llm_timeout_s)
+        elif settings.llm_provider == "openai":
             provider = OpenAIProvider(settings.llm_model, key)
         elif settings.llm_provider == "anthropic":
             provider = AnthropicProvider(settings.llm_model, key)
         else:
-            raise ValueError(f"unknown LLM_PROVIDER {settings.llm_provider!r} (openai | anthropic)")
-    if settings.llm_price_in_per_mtok is not None and settings.llm_price_out_per_mtok is not None:
+            raise ValueError(f"unknown LLM_PROVIDER {settings.llm_provider!r} (openai | anthropic | local)")
+    if provider.name == "local":
+        price = FREE
+    elif settings.llm_price_in_per_mtok is not None and settings.llm_price_out_per_mtok is not None:
         price = (settings.llm_price_in_per_mtok, settings.llm_price_out_per_mtok)
     else:
         price = PRICES.get(provider.model)

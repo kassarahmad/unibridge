@@ -43,8 +43,10 @@ corpus are synthetic and labelled as such (`[SINTETICO]` in title and text).
 UniBridge is a profile of the P14 service (`src/p14_search/unibridge_profile.py`): the same code with its own SQLite
 file, Qdrant collection and principals. Three modules are new. `answer/` detects the language, translates the
 question, asks the language model for an answer with citations, verifies it, and falls back to extractive answers
-when no model is available; `answer/llm.py` hides OpenAI and Anthropic behind one interface (chosen by
-`LLM_PROVIDER`), with a fake provider for the tests, a disk cache, a usage log and a spending limit. `handoff/`
+when no model is available; `answer/llm.py` hides OpenAI, Anthropic and a local model behind one interface (chosen
+by `LLM_PROVIDER`), with a fake provider for the tests, a disk cache, a usage log and a spending limit. The local
+provider talks to any server with an OpenAI-compatible API on the same machine (LM Studio or Ollama): it needs no
+key, costs nothing and is never stopped by the spending limit, so the whole pipeline can run offline. `handoff/`
 chooses the office with a rule table and drafts a formal Italian e-mail, which is never sent. `procedure/` holds the
 scholarship model, the eligibility rules, the state machine, the checklist and the `.ics` calendar. The endpoints are
 `POST /v1/answer`, `POST /v1/handoff` and `POST /v1/procedure/scholarship`, next to those of P14; the Streamlit

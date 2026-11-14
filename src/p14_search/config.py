@@ -30,9 +30,12 @@ class Settings(BaseSettings):
     ie_min_dense: float = 0.0
     ie_min_bm25: float = 0.0
     # --- UniBridge answers (src/p14_search/answer/). Empty provider = extractive answers only, no API call.
-    llm_provider: str = ""  # openai | anthropic
+    llm_provider: str = ""  # openai | anthropic | local
     llm_model: str = ""
-    llm_api_key: SecretStr = SecretStr("")
+    llm_api_key: SecretStr = SecretStr("")  # not needed for local
+    # Local provider: any OpenAI-compatible server. LM Studio = port 1234, Ollama = http://127.0.0.1:11434/v1.
+    llm_base_url: str = "http://127.0.0.1:1234/v1"
+    llm_timeout_s: float = 120.0
     llm_max_output_tokens: int = 600
     llm_cache_dir: Path = Path("data/processed/llm_cache")
     llm_usage_log: Path = Path("logs/llm_usage.jsonl")

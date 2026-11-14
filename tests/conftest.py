@@ -50,7 +50,7 @@ def ingest_payload(external_id: str, access: str, office: str, title: str, text:
 @pytest.fixture(autouse=True)
 def no_real_llm(monkeypatch):
     """Tests never call a real LLM API: drop any LLM configuration coming from the environment."""
-    for var in ("LLM_PROVIDER", "LLM_MODEL", "LLM_API_KEY"):
+    for var in ("LLM_PROVIDER", "LLM_MODEL", "LLM_API_KEY", "LLM_BASE_URL"):
         monkeypatch.delenv(var, raising=False)
 
 

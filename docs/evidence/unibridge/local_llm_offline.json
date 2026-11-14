@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-11-14T12:43:37+00:00",
+  "api": "http://127.0.0.1:8001",
+  "internet_probes": {
+    "1.1.1.1": false,
+    "api.openai.com": false,
+    "huggingface.co": false
+  },
+  "internet_reachable": false,
+  "all_answered_by_local_llm": true,
+  "cached_calls": 0,
+  "cost_usd": 0.0,
+  "answers": [
+    {
+      "expected_language": "it",
+      "query": "Entro quando devo presentare la domanda di borsa di studio ERDIS?",
+      "seconds": 2.93,
+      "language": "it",
+      "mode": "llm_verified",
+      "answer_text": "Devi presentare la domanda di borsa di studio entro il giorno 28 agosto 2026.",
+      "sentences": [
+        {
+          "text": "Devi presentare la domanda di borsa di studio entro il giorno 28 agosto 2026.",
+          "citations": 1,
+          "supported": true
+        }
+      ],
+      "query_italian": null,
+      "verification": {
+        "generated_sentences": 1,
+        "dropped_uncited": 0,
+        "dropped_invalid_citation": 0,
+        "dropped_unsupported": 0,
+        "support_checked": true
+      },
+      "llm": {
+        "provider": "local",
+        "model": "qwen3vl-8b-instruct",
+        "calls": 2,
+        "cached_calls": 0,
+        "input_tokens": 1940,
+        "output_tokens": 34,
+        "cost_usd": 0.0
+      }
+    },
+    {
+      "expected_language": "en",
+      "query": "What is the deadline to apply for the ERDIS scholarship?",
+      "seconds": 6.98,
+      "language": "en",
+      "mode": "llm_verified",
+      "answer_text": "The deadline to apply for the ERDIS scholarship for the academic year 2026/2027 is fixed on 28 August 2026.",
+      "sentences": [
+        {
+          "text": "The deadline to apply for the ERDIS scholarship for the academic year 2026/2027 is fixed on 28 August 2026.",
+          "citations": 1,
+          "supported": true
+        }
+      ],
+      "query_italian": "Qual è la scadenza per presentare domanda per lo stipendio ERDIS?",
+      "verification": {
+        "generated_sentences": 1,
+        "dropped_uncited": 0,
+        "dropped_invalid_citation": 0,
+        "dropped_unsupported": 0,
+        "support_checked": true
+      },
+      "llm": {
+        "provider": "local",
+        "model": "qwen3vl-8b-instruct",
+        "calls": 3,
+        "cached_calls": 0,
+        "input_tokens": 1983,
+        "output_tokens": 63,
+        "cost_usd": 0.0
+      }
+    },
+    {
+      "expected_language": "ar",
+      "query": "ما هو الموعد النهائي لتقديم طلب المنحة الدراسية ERDIS؟",
+      "seconds": 6.25,
+      "language": "ar",
+      "mode": "llm_verified",
+      "answer_text": "الموعد النهائي لتقديم طلب المنحة الدراسية ERDIS هو 28 أغسطس 2026.",
+      "sentences": [
+        {
+          "text": "الموعد النهائي لتقديم طلب المنحة الدراسية ERDIS هو 28 أغسطس 2026.",
+          "citations": 1,
+          "supported": true
+        }
+      ],
+      "query_italian": "Qual è la scadenza per presentare domanda della borsa di studio ERDIS?",
+      "verification": {
+        "generated_sentences": 1,
+        "dropped_uncited": 0,
+        "dropped_invalid_citation": 0,
+        "dropped_unsupported": 0,
+        "support_checked": true
+      },
+      "llm": {
+        "provider": "local",
+        "model": "qwen3vl-8b-instruct",
+        "calls": 3,
+        "cached_calls": 0,
+        "input_tokens": 1866,
+        "output_tokens": 56,
+        "cost_usd": 0.0
+      }
+    }
+  ]
+}

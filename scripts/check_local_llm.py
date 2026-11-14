@@ -84,7 +84,10 @@ def main() -> int:
               f"provider {x.get('provider')}:{x.get('model')}, {x.get('calls')} call(s), {x.get('cached_calls')} cached, "
               f"{x.get('cost_usd')} USD, {a['seconds']} s")
     print(f"all answered by the local LLM: {report['all_answered_by_local_llm']}; written {out.relative_to(ROOT)}")
-    return 0 if report["all_answered_by_local_llm"] else 1
+    if report["cached_calls"]:
+        print(f"WARNING: {report['cached_calls']} call(s) came from the disk cache, so this run proves nothing about the model. "
+              "Empty the folder LLM_CACHE_DIR of the API and run again.")
+    return 0 if report["all_answered_by_local_llm"] and not report["cached_calls"] else 1
 
 
 if __name__ == "__main__":

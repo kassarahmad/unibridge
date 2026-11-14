@@ -1,0 +1,91 @@
+' Shared style of the UniBridge UML diagrams (UML 2.5 notation, PlantUML).
+' One colour per package of src/p14_search; every diagram includes this file and ends with $legend().
+
+!$ANSWER    = "#CDE2FB"
+!$RETRIEVAL = "#C9EEDD"
+!$INDEXING  = "#FBE6B3"
+!$INGESTION = "#FBDCCB"
+!$HANDOFF   = "#F6D3E0"
+!$PROCEDURE = "#DCD6F7"
+!$SECURITY  = "#F9CFCF"
+!$API       = "#E7E6E1"
+!$CORE      = "#D3EEF2"
+!$MODELS    = "#F3F0D7"
+!$FRONTEND  = "#DDEFC2"
+!$TOOLS     = "#EDEDED"
+!$EXTERNAL  = "#FFFFFF"
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam ArrowColor #3A3A38
+skinparam ArrowFontSize 11
+skinparam ArrowFontColor #3A3A38
+skinparam TitleFontSize 16
+skinparam TitleFontStyle bold
+skinparam LegendBackgroundColor #FFFFFF
+skinparam LegendBorderColor #9A9A94
+skinparam LegendFontSize 11
+skinparam NoteBackgroundColor #FFFDF2
+skinparam NoteBorderColor #9A9A94
+skinparam NoteFontSize 11
+skinparam ClassBorderColor #3A3A38
+skinparam ClassAttributeIconSize 0
+skinparam ClassFontStyle bold
+skinparam PackageBorderColor #6E6E69
+skinparam PackageFontStyle bold
+skinparam ComponentBorderColor #3A3A38
+skinparam InterfaceBorderColor #3A3A38
+skinparam DatabaseBorderColor #3A3A38
+skinparam NodeBorderColor #3A3A38
+skinparam ArtifactBorderColor #3A3A38
+skinparam SequenceLifeLineBorderColor #6E6E69
+skinparam SequenceGroupBorderColor #6E6E69
+skinparam SequenceGroupBackgroundColor #F4F4F1
+skinparam SequenceBoxBorderColor #9A9A94
+skinparam ParticipantBorderColor #3A3A38
+skinparam ActorBorderColor #3A3A38
+skinparam ActorBackgroundColor #FFFFFF
+hide empty members
+
+' Legend: the colour of each package. $legend() shows all of them, $legend("answer,retrieval") a selection.
+!function $swatch($name)
+!if ($name == "answer")
+!return "|<" + $ANSWER + ">     | answer | language, prompts, LLM providers, verifier, answer service |"
+!elseif ($name == "retrieval")
+!return "|<" + $RETRIEVAL + ">     | retrieval | BM25, dense, RRF, citations, evidence |"
+!elseif ($name == "indexing")
+!return "|<" + $INDEXING + ">     | indexing | SQLite store, Qdrant index, embedder |"
+!elseif ($name == "ingestion")
+!return "|<" + $INGESTION + ">     | ingestion | parser, chunker, approval |"
+!elseif ($name == "handoff")
+!return "|<" + $HANDOFF + ">     | handoff | office rules, e-mail draft |"
+!elseif ($name == "procedure")
+!return "|<" + $PROCEDURE + ">     | procedure | scholarship model, rules, guide |"
+!elseif ($name == "security")
+!return "|<" + $SECURITY + ">     | security | principals, access control |"
+!elseif ($name == "api")
+!return "|<" + $API + ">     | api | FastAPI application |"
+!elseif ($name == "core")
+!return "|<" + $CORE + ">     | services, config | wiring, settings, UniBridge profile |"
+!elseif ($name == "models")
+!return "|<" + $MODELS + ">     | models | Pydantic models of the API contract |"
+!elseif ($name == "frontend")
+!return "|<" + $FRONTEND + ">     | frontend | Streamlit demo |"
+!elseif ($name == "tools")
+!return "|<" + $TOOLS + ">     | scripts, eval | corpus, ingestion, evaluation, benchmarks |"
+!else
+!return "|<" + $EXTERNAL + ">     | external | libraries and systems outside the repository |"
+!endif
+!endfunction
+
+!procedure $legend($names="answer,retrieval,indexing,ingestion,handoff,procedure,security,api,core,models,frontend,tools,external")
+legend right
+|= |= Package |= Content |
+!foreach $n in %splitstr($names, ",")
+$swatch($n)
+!endfor
+endlegend
+!endprocedure

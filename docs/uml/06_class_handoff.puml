@@ -1,0 +1,90 @@
+@startuml
+!include _style.iuml
+title Class diagram - package handoff (src/p14_search/handoff)
+hide circle
+allowmixing
+
+package "handoff" {
+
+  class HandoffService $HANDOFF {
+    +offices : dict
+    +rules : dict [*]
+    +llm : LLMClient [0..1]
+    +choose_office(question : str, top_office : str [0..1]) : (office [0..1], why)
+    +to_italian(question : str, lang : str) : str [0..1]
+    +draft(question, language, sources : HandoffSource [*], request_id, top_office, office_id) : HandoffResponse
+  }
+
+  class "service" as service_mod <<module>> $HANDOFF {
+    +CONFIG = config/handoff_offices.json
+    -{static} _matches(keyword : str, question : str) : bool
+  }
+
+  artifact "config/handoff_offices.json" as cfg $HANDOFF
+}
+
+class LLMClient $ANSWER {
+  +complete(system, prompt, max_tokens, purpose) : LLMResult
+}
+class LLMError <<exception>> $ANSWER
+class "language" as language_mod <<module>> $ANSWER {
+  +HANDOFF_NOTE, OUT_OF_SCOPE_NOTE : dict
+  +{static} detect(text : str) : str
+}
+class "prompts" as prompts_mod <<module>> $ANSWER {
+  +TRANSLATE_SYSTEM : str
+}
+class AnswerService $ANSWER
+
+class HandoffResponse $MODELS {
+  +request_id : str
+  +language : Lang
+  +out_of_scope : bool
+  +message : str
+  +draft : HandoffDraft [0..1]
+}
+class HandoffDraft $MODELS {
+  +office_id : scholarship | student_office | international
+  +office_name : str
+  +channel : email | srm_ticket | desk
+  +to : str [0..1]
+  +how_to_send : str
+  +contact_source : str
+  +rule : str
+  +subject : str
+  +body : str
+  +question_original : str
+  +question_italian : str [0..1]
+  +translated_by_llm : bool
+  +sent : bool = false {readOnly}
+}
+class HandoffSource $MODELS {
+  +passage_id : str
+  +title : str
+  +section : str [0..1]
+  +page : int [0..1]
+  +source_url : str [0..1]
+}
+
+HandoffService o--> "0..1" LLMClient : llm
+HandoffService ..> cfg : <<read>>
+HandoffService ..> service_mod : <<use>>
+HandoffService ..> language_mod : <<use>>
+HandoffService ..> prompts_mod : <<use>>
+HandoffService ..> LLMError : <<catch>>\ndraft without translation
+HandoffService ..> HandoffResponse : <<create>>
+HandoffResponse *--> "0..1" HandoffDraft : draft
+HandoffDraft *--> "*" HandoffSource : sources
+AnswerService o--> "1" HandoffService : draft() when the\nanswer is "I don't know"
+
+note right of HandoffService
+  choose_office(): deterministic. Keywords of the rule
+  table are counted per office; a tie goes to the office
+  of the best retrieved passage, then to rule order;
+  no match = out of scope, no draft.
+  draft(): formal Italian text with placeholders for the
+  student's data. Nothing is ever sent (sent = false).
+end note
+
+$legend("handoff,answer,models")
+@enduml

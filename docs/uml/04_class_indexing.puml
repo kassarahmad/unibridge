@@ -1,0 +1,113 @@
+@startuml
+!include _style.iuml
+title Class diagram - package indexing (src/p14_search/indexing)
+hide circle
+
+package "indexing" {
+
+  interface Embedder <<Protocol>> $INDEXING {
+    +name : str
+    +dim : int
+    +embed_queries(texts : str [*]) : ndarray
+    +embed_passages(texts : str [*]) : ndarray
+  }
+
+  class SentenceTransformerEmbedder $INDEXING {
+    +name : str
+    +dim : int
+    +batch_size : int = 64
+    +query_prefix : str
+    +passage_prefix : str
+    -model : SentenceTransformer
+    -_lock : Lock
+    -_encode(texts : str [*]) : ndarray
+  }
+
+  class HashingEmbedder $INDEXING {
+    +name = "test/hashing-256"
+    +dim = 256
+    -_vec(text : str) : ndarray
+  }
+
+  class "embedder" as embedder_mod <<module>> $INDEXING {
+    +MODEL_PREFIXES : dict
+  }
+
+  class Store $INDEXING {
+    +conn : sqlite3.Connection
+    +lock : RLock
+    +query(sql, params) : Row [*]
+    +execute(sql, params) : Cursor
+    +transaction() : _Tx
+    +get_meta(key) : str [0..1]
+    +set_meta(key, value)
+    +refresh_snapshot_id() : str
+    +log_query(row)
+    +log_shadow(row)
+    +add_feedback(request_id, passage_id, judgement, comment, principal_hash) : int
+  }
+
+  class _Tx $INDEXING {
+    +store : Store
+    +__enter__() : sqlite3.Connection
+    +__exit__(exc_type, exc, tb)
+  }
+
+  class "store" as store_mod <<module>> $INDEXING {
+    +SCHEMA : str
+    +{static} now_iso() : str
+    +{static} dumps(obj) : str
+  }
+
+  class VectorIndex $INDEXING {
+    +client : QdrantClient
+    +collection : str
+    +dim : int
+    +ensure_collection()
+    +upsert(payloads : dict [*], vectors : ndarray, batch : int)
+    +delete(passage_ids : str [*])
+    +search(vector : ndarray, flt : Filter, limit : int) : (passage_id, score) [*]
+    +count() : int
+  }
+
+  class "vector_index" as vi_mod <<module>> $INDEXING {
+    +PAYLOAD_INDEXES : tuple
+    +{static} point_id(passage_id : str) : str
+  }
+}
+
+class "SentenceTransformer\n(sentence-transformers, torch)" as ST <<library>> $EXTERNAL
+class "QdrantClient\n(qdrant-client)" as QC <<library>> $EXTERNAL
+class "sqlite3.Connection" as SQ <<library>> $EXTERNAL
+
+Embedder <|.. SentenceTransformerEmbedder
+Embedder <|.. HashingEmbedder
+SentenceTransformerEmbedder *--> "1" ST : model
+SentenceTransformerEmbedder ..> embedder_mod : <<use>>\nprefixes
+Store *--> "1" SQ : conn
+Store ..> _Tx : <<create>>
+_Tx --> Store
+Store ..> store_mod : <<use>>
+VectorIndex o--> "1" QC : client
+VectorIndex ..> vi_mod : <<use>>
+
+note bottom of Store
+  One SQLite file. Tables: documents, document_versions,
+  passages, passages_fts (FTS5, the BM25 index),
+  approval_log, query_log, shadow_log, feedback, meta.
+end note
+
+note bottom of SentenceTransformerEmbedder
+  intfloat/multilingual-e5-small with the prefixes
+  "query: " and "passage: "; device cuda, or cpu when
+  CUDA is not available. Vectors are L2-normalised.
+end note
+
+note bottom of VectorIndex
+  One Qdrant collection per embedding model:
+  <base>__<model slug>, cosine distance, payload
+  indexes for the permission and metadata filters.
+end note
+
+$legend("indexing,external")
+@enduml

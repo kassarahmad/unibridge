@@ -1,0 +1,89 @@
+@startuml
+!include _style.iuml
+title Class diagram - package security (src/p14_search/security)
+hide circle
+allowmixing
+
+package "security" {
+
+  class Principal <<dataclass>> $SECURITY {
+    +name : str
+    +role : str
+    +level : AccessLevel
+    +offices : str [*]
+    +all_offices : bool {readOnly}
+    +pseudonym : str {readOnly}
+    +can_manage(office : str) : bool
+  }
+
+  class PrincipalRegistry $SECURITY {
+    -_by_hash : dict [sha256(key) -> Principal]
+    +authenticate(api_key : str [0..1]) : Principal [0..1]
+    +principals : Principal [*] {readOnly}
+    +{static} from_config(path : Path, env_file : Path) : PrincipalRegistry
+  }
+
+  class "principals" as principals_mod <<module>> $SECURITY {
+    +ALL_OFFICES = "*"
+  }
+
+  class "acl" as acl_mod <<module>> $SECURITY {
+    +{static} allows(principal : Principal, access_level : str, office : str) : bool
+    +{static} sql_clause(principal, filters : SearchFilters [0..1], doc_alias : str) : (where, params)
+    +{static} qdrant_filter(principal, filters : SearchFilters [0..1]) : Filter
+  }
+
+  artifact "config/principals_unibridge.json\n(names, roles, levels, offices; no secrets)" as cfg $SECURITY
+  artifact ".env\n(API keys, not committed)" as env $SECURITY
+}
+
+enum AccessLevel $MODELS {
+  public
+  internal
+  restricted
+}
+class SearchFilters $MODELS {
+  +office : str [*]
+  +type : str [*]
+  +source_id : str [*]
+}
+class BM25Retriever $RETRIEVAL
+class DenseRetriever $RETRIEVAL
+class SearchService $RETRIEVAL
+class IngestionService $INGESTION
+class "FastAPI app\nget_principal()" as api <<module>> $API
+
+PrincipalRegistry o--> "*" Principal
+PrincipalRegistry ..> cfg : <<read>>
+PrincipalRegistry ..> env : <<read>>
+Principal --> "1" AccessLevel : level
+Principal ..> principals_mod
+acl_mod ..> Principal
+acl_mod ..> AccessLevel
+acl_mod ..> SearchFilters
+
+api ..> PrincipalRegistry : <<use>>\nauthenticate(X-API-Key)
+api ..> acl_mod : <<use>>\nallows
+BM25Retriever ..> acl_mod : <<use>>\nsql_clause
+DenseRetriever ..> acl_mod : <<use>>\nqdrant_filter
+SearchService ..> acl_mod : <<use>>\nallows (re-check)
+IngestionService ..> Principal : <<use>>\ncan_manage
+
+note right of acl_mod
+  One rule, three forms. A principal sees a document when
+  the document is public, or it is internal and the principal
+  is at least internal, or it is restricted and the principal
+  is restricted for that office (or for all offices).
+  The rule is applied inside the SQL query (BM25), inside the
+  Qdrant filter (dense) and again on the loaded rows.
+end note
+
+note bottom of PrincipalRegistry
+  Keys are compared by SHA-256 with a constant-time
+  comparison; query logs store only the pseudonym.
+  UniBridge roles: visitor (public), student (internal),
+  three offices (restricted, own office), admin.
+end note
+
+$legend("security,models,retrieval,ingestion,api")
+@enduml

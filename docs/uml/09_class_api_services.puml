@@ -1,0 +1,158 @@
+@startuml
+!include _style.iuml
+title Class diagram - api, services and config (src/p14_search/api, services.py, config.py, unibridge_profile.py)
+hide circle
+
+package "api" {
+  class "app" as app_mod <<module>> $API {
+    +{static} create_app(settings : Settings [0..1], services : Services [0..1], init_services : bool) : FastAPI
+    +{static} problem(request, status, title, detail) : JSONResponse
+    ..routes (all need X-API-Key except health)..
+    +GET /v1/health : HealthResponse
+    +GET /v1/version : Versions
+    +POST /v1/search : SearchResponse
+    +POST /v1/answer : AnswerResponse
+    +POST /v1/handoff : HandoffResponse
+    +POST /v1/procedure/scholarship : ProcedureResponse
+    +POST /v1/documents : IngestResult
+    +POST /v1/documents/{id}/approve : IngestResult
+    +GET /v1/documents/{id} : DocumentInfo
+    +GET /v1/passages/{id} : PassageInfo
+    +POST /v1/feedback : FeedbackResult
+    ..dependencies..
+    -get_services(request) : Services
+    -get_principal(request, services) : Principal
+  }
+  class ApiError <<exception>> $API {
+    +status : int
+    +title : str
+    +detail : str [0..1]
+  }
+  class HealthResponse $API {
+    +status : str
+    +components : dict
+  }
+  class ApproveRequest $API {
+    +note : str [0..1]
+  }
+}
+
+package "services, config, profile" {
+  class Services <<dataclass>> $CORE {
+    +settings : Settings
+    +store : Store
+    +qdrant : QdrantClient
+    +index : VectorIndex
+    +embedder : Embedder
+    +registry : PrincipalRegistry
+    +ingestion : IngestionService
+    +search : SearchService
+    +llm : LLMClient [0..1]
+    +handoff : HandoffService [0..1]
+    +answer : AnswerService [0..1]
+    +procedure : ScholarshipGuide [0..1]
+  }
+
+  class "services" as services_mod <<module>> $CORE {
+    +{static} build_services(settings, store, qdrant, embedder, registry, llm_provider) : Services
+  }
+
+  class Settings $CORE {
+    +qdrant_url : str
+    +qdrant_collection : str
+    +embedding_model : str = "intfloat/multilingual-e5-small"
+    +embedding_device : str = "cuda"
+    +sqlite_path : Path
+    +principals_path : Path
+    +max_upload_mb : int = 20
+    +display_system : str = "S2"
+    +shadow_system : str [0..1]
+    +ie_min_dense : float
+    +ie_min_bm25 : float
+    ..LLM..
+    +llm_provider : str {openai, anthropic, local}
+    +llm_model : str
+    +llm_api_key : SecretStr
+    +llm_base_url : str = "http://127.0.0.1:1234/v1"
+    +llm_timeout_s : float = 120
+    +llm_max_output_tokens : int = 600
+    +llm_cache_dir : Path
+    +llm_usage_log : Path
+    +llm_budget_usd : float = 5.0
+    +answer_top_k : int = 6
+    +answer_verify_support : bool = true
+    +answer_query_translation : bool = true
+  }
+
+  class "config" as config_mod <<module>> $CORE {
+    +{static} get_settings() : Settings
+  }
+
+  class "unibridge_profile" as profile_mod <<module>> $CORE {
+    +OVERRIDES : dict
+    +CALIBRATION : Path
+    +{static} unibridge_settings(base : Settings [0..1]) : Settings
+  }
+
+  class "unibridge_main" as main_mod <<module>> $CORE {
+    +app : FastAPI
+  }
+}
+
+class "FastAPI" as FastAPI <<library>> $EXTERNAL
+class "pydantic_settings.BaseSettings" as BaseSettings <<library>> $EXTERNAL
+class AnswerService $ANSWER
+class LLMClient $ANSWER
+class HandoffService $HANDOFF
+class ScholarshipGuide $PROCEDURE
+class SearchService $RETRIEVAL
+class IngestionService $INGESTION
+class Store $INDEXING
+class VectorIndex $INDEXING
+interface Embedder <<Protocol>> $INDEXING
+class PrincipalRegistry $SECURITY
+
+BaseSettings <|-- Settings
+app_mod ..> FastAPI : <<create>>
+app_mod ..> Services : <<use>>\napp.state.services
+app_mod ..> services_mod : <<use>>\nbuild at startup
+app_mod ..> ApiError : <<throw>>
+app_mod ..> HealthResponse : <<create>>
+app_mod ..> ApproveRequest
+main_mod ..> app_mod : <<use>>\ncreate_app
+main_mod ..> profile_mod : <<use>>
+profile_mod ..> Settings : <<create>>\ncopy with overrides
+config_mod ..> Settings : <<create>>
+services_mod ..> Services : <<create>>
+
+Services o--> "1" Settings
+Services o--> "1" Store
+Services o--> "1" VectorIndex
+Services o--> "1" Embedder
+Services o--> "1" PrincipalRegistry
+Services o--> "1" IngestionService
+Services o--> "1" SearchService
+Services o--> "0..1" LLMClient
+Services o--> "0..1" HandoffService
+Services o--> "0..1" AnswerService
+Services o--> "0..1" ScholarshipGuide
+
+note right of services_mod
+  The one place where objects are wired. Tests and scripts
+  call it with their own store, Qdrant client, embedder,
+  registry or LLM provider (FakeProvider in the tests).
+end note
+
+note bottom of profile_mod
+  UniBridge = the same code with its own SQLite file,
+  Qdrant collection, principals file and the evidence
+  thresholds of eval/results/unibridge/calibration.json.
+end note
+
+note bottom of app_mod
+  Errors are RFC 9457 problem+json. Every request gets
+  an X-Request-ID and one structured log line.
+end note
+
+$legend("api,core,answer,handoff,procedure,retrieval,ingestion,indexing,security,external")
+@enduml

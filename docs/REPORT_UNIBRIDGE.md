@@ -108,7 +108,40 @@ that finds no sentence, cannot be produced with the test corpus). And "an answer
 the verifier and by the extractive mode; the mode `llm`, which skips the verifier, exists only for the evaluation
 baseline and is a separate branch of the net.
 
-### 3.3 Languages
+### 3.3 UML diagrams
+
+The design is documented with UML 2.5 diagrams written in PlantUML (`docs/uml/*.puml`, rendered to
+`docs/images/uml/` by `scripts/render_plantuml.py`). All diagrams share one style file, with one colour per
+package and a legend. They were written from the code, and a test (`tests/test_uml.py`) keeps the class diagrams
+honest: every class, attribute, method, module function and API route drawn in them is looked up in the source
+with Python's `ast` module, so a renamed method makes the test fail until the diagram is updated.
+
+![Package diagram](images/uml/01_packages.png)
+
+The package diagram shows the layering: the API depends on the wiring module (`services`), which builds the
+domain services (`answer`, `handoff`, `procedure`, `retrieval`, `ingestion`); these depend on `indexing` and
+`security`, and only `indexing` and `answer.llm` touch external systems. One dependency is circular and we report
+it as it is: `answer` uses `handoff` to draft the e-mail, and `handoff` imports the language tables, the prompts
+and the LLM client from `answer`.
+
+![Component diagram](images/uml/15_components.png)
+
+![Sequence: from a question to an answer with citations](images/uml/11_seq_answer.png)
+
+![Deployment on the development laptop](images/uml/16_deployment_laptop.png)
+
+| Diagram | File (`docs/images/uml/`) |
+|---|---|
+| Package diagram | [01_packages](images/uml/01_packages.png) |
+| Class diagrams, one per package | [answer](images/uml/02_class_answer.png), [retrieval](images/uml/03_class_retrieval.png), [indexing](images/uml/04_class_indexing.png), [ingestion](images/uml/05_class_ingestion.png), [handoff](images/uml/06_class_handoff.png), [procedure](images/uml/07_class_procedure.png), [security](images/uml/08_class_security.png), [api, services, config](images/uml/09_class_api_services.png), [models](images/uml/10_class_models.png) |
+| Sequence (a) question, language, hybrid retrieval, translation and fusion, LLM, verifier, cited answer | [11_seq_answer](images/uml/11_seq_answer.png) |
+| Sequence (b) document indexing: ingest, parse, chunk, approval, embed, Qdrant | [12_seq_indexing](images/uml/12_seq_indexing.png) |
+| Sequence (c) "I don't know" and the e-mail draft for the right office | [13_seq_handoff](images/uml/13_seq_handoff.png) |
+| Sequence (d) ERDIS scholarship procedure guide | [14_seq_scholarship](images/uml/14_seq_scholarship.png) |
+| Component diagram | [15_components](images/uml/15_components.png) |
+| Deployment: laptop, and a variant on a university GPU server (a proposal, not deployed) | [16_deployment_laptop](images/uml/16_deployment_laptop.png), [17_deployment_server](images/uml/17_deployment_server.png) |
+
+### 3.4 Languages
 
 The first version supported Italian, English and Arabic. We extended it to the languages that international
 students in Italy are most likely to read best: Italian, English, Arabic, French, Spanish, Portuguese, German,

@@ -1,0 +1,109 @@
+@startuml
+!include _style.iuml
+title UniBridge - package diagram
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+
+package "Clients and tools (repository root)" as clients {
+  package "frontend\n(Streamlit demo)" as frontend $FRONTEND {
+  }
+  package "scripts\n(corpus, ingestion, models, benchmark)" as scripts $TOOLS {
+  }
+  package "eval\n(evaluation scripts, results)" as eval $TOOLS {
+  }
+}
+
+package "src/p14_search" as src {
+  package "api" as api $API {
+  }
+  package "services, config,\nunibridge_profile" as core $CORE {
+  }
+  package "answer" as answer $ANSWER {
+  }
+  package "handoff" as handoff $HANDOFF {
+  }
+  package "procedure" as procedure $PROCEDURE {
+  }
+  package "retrieval" as retrieval $RETRIEVAL {
+  }
+  package "ingestion" as ingestion $INGESTION {
+  }
+  package "indexing" as indexing $INDEXING {
+  }
+  package "security" as security $SECURITY {
+  }
+  package "models, i18n\n(imported by every package)" as models $MODELS {
+  }
+  package "evaluation" as evaluation $TOOLS {
+  }
+}
+
+package "External libraries and systems" as ext {
+  package "FastAPI,\nPydantic" as x_fastapi $EXTERNAL {
+  }
+  package "openai SDK -> LM Studio,\nOllama, OpenAI (optional);\nanthropic SDK (optional)" as x_llm $EXTERNAL {
+  }
+  package "lingua\n(language detection)" as x_lingua $EXTERNAL {
+  }
+  package "sentence-transformers,\ntorch (CUDA)" as x_st $EXTERNAL {
+  }
+  package "qdrant-client ->\nQdrant server" as x_qdrant $EXTERNAL {
+  }
+  package "sqlite3\n(FTS5)" as x_sqlite $EXTERNAL {
+  }
+  package "pypdf, pypdfium2,\npython-docx, bs4" as x_parsers $EXTERNAL {
+  }
+  package "pm4py\n(optional)" as x_pm4py $EXTERNAL {
+  }
+}
+
+' --- clients of the application
+frontend ..> api : <<use>>\nHTTP /v1
+scripts ..> core
+eval ..> core
+eval ..> evaluation
+
+' --- inside src/p14_search (taken from the import statements)
+api ..> core
+api ..> security
+api ..> ingestion : errors
+core ..> answer
+core ..> handoff
+core ..> procedure
+core ..> retrieval
+core ..> ingestion
+core ..> indexing
+core ..> security
+answer ..> retrieval
+answer ..> handoff
+handoff ..> answer : language,\nllm, prompts
+answer ..> procedure : flow.py:\nNet, Step
+procedure ..> indexing
+retrieval ..> indexing
+retrieval ..> security
+ingestion ..> indexing
+ingestion ..> security
+evaluation ..> retrieval
+security ..> models
+
+' --- external
+api ..> x_fastapi
+answer ..> x_llm
+answer ..> x_lingua
+indexing ..> x_st
+indexing ..> x_qdrant
+indexing ..> x_sqlite
+ingestion ..> x_parsers
+procedure ..> x_pm4py
+
+note bottom of models
+  Dashed arrow = <<import>> dependency (UML 2.5), read from the
+  import statements of the code. Not drawn, to keep the diagram readable:
+  api, answer, handoff, procedure, retrieval and ingestion all import
+  models; answer, handoff and procedure import i18n; frontend imports
+  i18n and answer.language; scripts import procedure and answer.
+end note
+
+$legend()
+@enduml

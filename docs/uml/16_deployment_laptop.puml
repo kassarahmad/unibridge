@@ -1,0 +1,69 @@
+@startuml
+!include _style.iuml
+title Deployment diagram - development laptop (everything local, works offline)
+skinparam nodesep 45
+skinparam ranksep 60
+
+node "Windows 11 laptop (HP Omen: Ryzen 9, 16 GB RAM)" <<device>> as laptop {
+
+  node "Browser" <<executionEnvironment>> as browser {
+    artifact "UniBridge demo page" as page $FRONTEND
+  }
+
+  node "Python 3.11 virtual environment (.venv)" <<executionEnvironment>> as venv {
+    node "streamlit process :8501" <<process>> as st {
+      artifact "frontend/unibridge_app.py" as ui $FRONTEND
+    }
+    node "uvicorn process :8001" <<process>> as uv {
+      artifact "p14_search.unibridge_main:app\n(FastAPI + services)" as api $API
+      artifact "multilingual-e5-small\n(torch, device cuda or cpu)" as e5 $INDEXING
+    }
+  }
+
+  node "Docker Desktop (WSL 2)" <<executionEnvironment>> as docker {
+    node "container p14-qdrant\nqdrant/qdrant:v1.19.2" <<container>> as qc {
+      artifact "Qdrant :6333 REST, :6334 gRPC" as qdrant $INDEXING
+    }
+    database "volume qdrant_data" as qvol $INDEXING
+  }
+
+  node "LM Studio" <<executionEnvironment>> as lms {
+    artifact "OpenAI-compatible server :1234" as lmserver $EXTERNAL
+    artifact "Qwen3VL 8B Instruct Q4_K_M\n(GGUF, context 8192)" as gguf $EXTERNAL
+  }
+
+  node "NVIDIA RTX 5070 Laptop GPU, 8 GB VRAM (CUDA)" <<device>> as gpu
+
+  database "File system" as fs {
+    artifact "data/processed/unibridge.sqlite" as sqlite $INDEXING
+    artifact "data/processed/llm_cache,\nlogs/llm_usage.jsonl" as cache $ANSWER
+    artifact ".env, config/*.json" as cfg $CORE
+    artifact "Hugging Face cache\n(HF_HUB_OFFLINE=1)" as hf $INDEXING
+  }
+}
+
+cloud "Internet (optional)" as net {
+  node "OpenAI / Anthropic API" as cloudllm $EXTERNAL
+}
+
+page --> ui : HTTP localhost:8501
+ui --> api : HTTP 127.0.0.1:8001 /v1\nX-API-Key
+api --> qdrant : HTTP 127.0.0.1:6333
+api --> lmserver : HTTP 127.0.0.1:1234/v1\nLLM_PROVIDER=local
+api --> sqlite : file (sqlite3, WAL)
+api --> cache : files
+api ..> cfg : <<read>>
+e5 ..> hf : <<read>> model weights
+qdrant --> qvol
+lmserver --> gguf : loads
+gguf ..> gpu : <<deploy>> full offload,\nabout 7 GB VRAM
+e5 ..> gpu : <<deploy>> optional,\nabout 0.5 GB VRAM
+api ..> cloudllm : HTTPS, only with\nLLM_PROVIDER=openai | anthropic
+
+note bottom of gpu
+  The LLM and the embedding model share the 8 GB of the GPU.
+  Without a GPU both run on the CPU (the LLM much more slowly).
+end note
+
+$legend("frontend,api,indexing,answer,core,external")
+@enduml

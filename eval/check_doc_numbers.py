@@ -22,8 +22,8 @@ DOCS = ["docs/REPORT.md", "docs/EVALUATION.md", "docs/DATA.md", "docs/DECISIONS.
 UB_DOCS = ["docs/REPORT_UNIBRIDGE.md", "docs/DATA_UNIBRIDGE.md"]
 BLOCK_RE = re.compile(r"<!-- RESULTS:(\w+):START -->\n(.*?)\n<!-- RESULTS:\1:END -->", re.S)
 NUM_RE = re.compile(r"(?<![\w.\-/])(\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+\.\d+)( ?%)?(?![\w.])")
-# Not data: section numbers in headings, software versions.
-IGNORE_LINE_RE = re.compile(r"^\s*#|python 3\.\d+|python3\.\d+|uv python install|version 5\.0", re.IGNORECASE)
+# Not data: section numbers in headings, software and standard versions.
+IGNORE_LINE_RE = re.compile(r"^\s*#|python 3\.\d+|python3\.\d+|uv python install|version 5\.0|UML 2\.\d", re.IGNORECASE)
 
 
 def result_values(folder=RESULTS) -> set[float]:

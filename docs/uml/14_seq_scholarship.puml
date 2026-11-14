@@ -1,0 +1,64 @@
+@startuml
+!include _style.iuml
+title Sequence (d) - ERDIS scholarship procedure guide (POST /v1/procedure/scholarship)
+autonumber "<b>0"
+skinparam maxMessageSize 230
+
+actor Student as student
+participant "Streamlit demo\nunibridge_pages/scholarship_guide.py" as ui $FRONTEND
+participant "FastAPI app" as api $API
+participant "PrincipalRegistry" as reg $SECURITY
+participant "ScholarshipGuide" as guide $PROCEDURE
+participant "rules\n(thresholds, dates, articles)" as rules $PROCEDURE
+participant "workflow net\nmodel + soundness" as net $PROCEDURE
+participant "ics" as ics $PROCEDURE
+database "SQLite\n(passages of the call)" as sqlite $INDEXING
+
+== Once, at start-up (build_services) ==
+guide -> net : build_net()  [20 transitions, 18 places]
+guide -> sqlite : passages of the ERDIS call (indexed = 1)
+guide -> guide : passage_id of every quoted article (rules.SOURCES)
+
+== Each request ==
+student -> ui : level, year, credits, ISEE, ISPE, family abroad,\nresidence permit, application submitted, reference date
+ui -> api : POST /v1/procedure/scholarship (ProcedureRequest)
+api -> reg : authenticate(X-API-Key)
+reg --> api : Principal
+api -> guide : guide(facts, request_id)
+
+guide -> guide : evaluate(facts, today)
+loop deadline, ISEE, ISPE, previous degree, duration, merit, residence permit, amount
+  guide -> rules : threshold or date (ISEE_MAX, required_credits(), bonus_cap(), ...)
+  rules --> guide : value
+  guide -> guide : RuleResult (pass | fail | check | info) + cite(article, quote, passage_id)
+end
+guide -> guide : verdict: any fail -> not_eligible;\nany check -> check_with_office; else eligible
+
+guide -> guide : replay(facts, today, eligible)
+loop while some enabled transition has happened
+  guide -> net : enabled(net, marking)
+  net --> guide : enabled transitions
+  guide -> net : fire(net, marking, transition)
+  net --> guide : new marking
+end
+guide -> net : enabled(net, final marking)
+net --> guide : next steps
+guide -> guide : ProcedureStatus (marking, done, next, finished)
+
+guide -> guide : personal checklist (ISEE or ISEE parificato, application,\nresidence permit, IBAN, credits) in the student's language
+guide -> guide : deadlines with their articles
+guide -> ics : calendar(deadlines, today)
+ics --> guide : iCalendar text (RFC 5545)
+guide -> guide : log only request_id and verdict
+
+guide --> api : ProcedureResponse (verdict, rules, status,\nchecklist, deadlines, ics, disclaimer)
+api --> ui : 200 application/json
+ui --> student : verdict, rules with articles, position in the procedure,\nchecklist, .ics download
+
+note over guide, ics
+  No LLM is involved. The student's facts are neither stored nor logged.
+  The guide states that only the outcome published by ERDIS is binding.
+end note
+
+$legend("frontend,api,security,procedure,indexing")
+@enduml

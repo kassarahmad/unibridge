@@ -139,8 +139,48 @@ HandoffRequest, ProcedureRequest, ...).
 LLM steps use temperature 0 and a disk cache, so a re-run gives the same answers at no cost; every call is logged
 in `logs\llm_usage.jsonl` and stops at 5 USD of estimated spend.
 
+### UML diagrams
+UML 2.5 diagrams in PlantUML: sources in [docs/uml/](docs/uml/) (one shared style, one colour per package),
+pictures in [docs/images/uml/](docs/images/uml/) as SVG and PNG. `tests/test_uml.py` checks every class, method
+and route drawn in the class diagrams against the code.
+
+![Package diagram](docs/images/uml/01_packages.png)
+
+![Component diagram](docs/images/uml/15_components.png)
+
+<details>
+<summary>All 17 diagrams: classes per package, four sequences, deployment</summary>
+
+| Diagram | Picture |
+|---|---|
+| Class diagram: answer | [02_class_answer](docs/images/uml/02_class_answer.png) |
+| Class diagram: retrieval | [03_class_retrieval](docs/images/uml/03_class_retrieval.png) |
+| Class diagram: indexing | [04_class_indexing](docs/images/uml/04_class_indexing.png) |
+| Class diagram: ingestion | [05_class_ingestion](docs/images/uml/05_class_ingestion.png) |
+| Class diagram: handoff | [06_class_handoff](docs/images/uml/06_class_handoff.png) |
+| Class diagram: procedure | [07_class_procedure](docs/images/uml/07_class_procedure.png) |
+| Class diagram: security | [08_class_security](docs/images/uml/08_class_security.png) |
+| Class diagram: api, services, config | [09_class_api_services](docs/images/uml/09_class_api_services.png) |
+| Class diagram: models (API contract) | [10_class_models](docs/images/uml/10_class_models.png) |
+| Sequence (a): question → language → hybrid retrieval → translation + RRF → LLM → verifier → cited answer | [11_seq_answer](docs/images/uml/11_seq_answer.png) |
+| Sequence (b): document indexing (ingest, parse, chunk, approval, embed, Qdrant) | [12_seq_indexing](docs/images/uml/12_seq_indexing.png) |
+| Sequence (c): "I don't know" → e-mail draft for the right office | [13_seq_handoff](docs/images/uml/13_seq_handoff.png) |
+| Sequence (d): ERDIS scholarship procedure guide | [14_seq_scholarship](docs/images/uml/14_seq_scholarship.png) |
+| Deployment: Windows laptop, Docker Desktop with Qdrant, LM Studio, GPU | [16_deployment_laptop](docs/images/uml/16_deployment_laptop.png) |
+| Deployment variant: university GPU server (proposal) | [17_deployment_server](docs/images/uml/17_deployment_server.png) |
+
+![Sequence: answer with citations](docs/images/uml/11_seq_answer.png)
+![Deployment on the laptop](docs/images/uml/16_deployment_laptop.png)
+
+</details>
+
+To render them again: Java 17 or newer ([Adoptium](https://adoptium.net/)) and `plantuml-<version>.jar` from the
+[official releases](https://github.com/plantuml/plantuml/releases) saved in `tools/` (not committed), then
+`.venv\Scripts\python.exe scripts\render_plantuml.py`.
+
 ### Rebuilding the deliverables
 ```powershell
+.venv\Scripts\python.exe scripts\render_plantuml.py                  # UML diagrams -> docs\images\uml\*.svg, *.png (Java + tools\plantuml*.jar)
 .venv\Scripts\python.exe scripts\render_mermaid.py                   # diagrams -> docs\images\ub-*.png
 .venv\Scripts\python.exe scripts\render_bpmn.py                      # BPMN picture -> docs\images\scholarship_bpmn.png
 .venv\Scripts\python.exe scripts\build_report_docx.py                # report .docx + .pdf (needs Microsoft Word)

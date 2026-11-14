@@ -1,0 +1,75 @@
+@startuml
+!include _style.iuml
+title Deployment diagram - variant on a university GPU server (proposal, not deployed)
+skinparam nodesep 45
+skinparam ranksep 60
+
+node "Student device" <<device>> as client {
+  node "Browser" <<executionEnvironment>> as browser {
+    artifact "UniBridge demo page" as page $FRONTEND
+  }
+}
+
+node "Office workstation" <<device>> as officepc {
+  artifact "upload / approval client\n(REST, office API key)" as officeclient $TOOLS
+}
+
+node "University network" as uninet {
+
+  node "Reverse proxy (TLS)" <<executionEnvironment>> as proxy {
+    artifact "HTTPS :443 -> Streamlit, API" as rp $API
+  }
+
+  node "Application server (Linux, Docker Compose)" <<device>> as app {
+    node "container unibridge-ui" <<container>> as cui {
+      artifact "streamlit :8501\nfrontend/unibridge_app.py" as ui $FRONTEND
+    }
+    node "container unibridge-api" <<container>> as capi {
+      artifact "uvicorn :8001\np14_search.unibridge_main:app" as api $API
+    }
+    node "container qdrant" <<container>> as cq {
+      artifact "Qdrant :6333" as qdrant $INDEXING
+    }
+    database "volumes" as vols {
+      artifact "unibridge.sqlite" as sqlite $INDEXING
+      artifact "qdrant_data" as qvol $INDEXING
+      artifact "llm_cache, logs" as cache $ANSWER
+    }
+  }
+
+  node "GPU server (Linux, NVIDIA GPU with 24 GB or more)" <<device>> as gpusrv {
+    node "LLM server (Ollama or llama.cpp / vLLM)" <<executionEnvironment>> as llmenv {
+      artifact "OpenAI-compatible API :11434/v1" as llmapi $EXTERNAL
+      artifact "open-weight instruct model\n(GGUF or safetensors)" as model $EXTERNAL
+    }
+    node "embedding service (optional)" <<executionEnvironment>> as embenv {
+      artifact "multilingual-e5-small on CUDA" as e5 $INDEXING
+    }
+  }
+}
+
+page --> rp : HTTPS
+officeclient --> rp : HTTPS /v1/documents
+rp --> ui : HTTP
+rp --> api : HTTP /v1
+ui --> api : HTTP /v1, X-API-Key
+api --> qdrant : HTTP :6333
+api --> sqlite : file
+api --> cache : files
+qdrant --> qvol
+api --> llmapi : HTTP, LLM_PROVIDER=local\nLLM_BASE_URL=http://gpu-server:11434/v1
+llmapi --> model : loads
+api ..> e5 : in-process on the API host (CPU)\nor on the GPU server
+
+note bottom of gpusrv
+  Same code and configuration keys as on the laptop: only LLM_BASE_URL,
+  LLM_MODEL and EMBEDDING_DEVICE change. No request leaves the university network.
+end note
+
+note bottom of app
+  Needed before real use and not in the prototype: an identity provider instead of
+  static API keys, backups of SQLite and Qdrant, more API workers, monitoring.
+end note
+
+$legend("frontend,api,indexing,answer,tools,external")
+@enduml

@@ -1,0 +1,73 @@
+@startuml
+!include _style.iuml
+title Sequence (b) - document indexing: ingest, parse, chunk, owner approval, embed, Qdrant
+autonumber "<b>0"
+skinparam maxMessageSize 220
+
+actor "Office staff / admin\n(or scripts/ingest_unibridge.py)" as owner
+participant "FastAPI app\napi/app.py" as api $API
+participant "PrincipalRegistry" as reg $SECURITY
+participant "IngestionService" as ing $INGESTION
+participant "parser" as parser $INGESTION
+participant "chunker" as chunker $INGESTION
+participant "Store" as store $INDEXING
+database "SQLite" as sqlite $INDEXING
+participant "Embedder\ne5-small (CPU or GPU)" as emb $INDEXING
+participant "VectorIndex" as index $INDEXING
+database "Qdrant" as qdrant $INDEXING
+
+== 1. Ingestion: the document is stored but NOT searchable ==
+owner -> api : POST /v1/documents (IngestDocument:\nfile in base64, metadata, access_level, owner)
+api -> reg : authenticate(X-API-Key)
+reg --> api : Principal
+api -> ing : ingest(doc, principal)
+ing -> ing : principal.can_manage(office)?
+break not allowed
+  ing --> api : NotAllowed
+  api --> owner : 403 problem+json
+end
+ing -> parser : parse(bytes, media_type, max_bytes)
+note right of parser
+  real type from the bytes, size limit, encrypted PDF,
+  DOCX zip bomb / macros, XML through defusedxml
+end note
+parser --> ing : Block [*] (text, page, section)
+ing -> chunker : document_id(), document_version() = SHA-256 of the file
+ing -> store : same version already stored?
+alt already stored
+  ing --> api : IngestResult (unchanged = true)
+else new version
+  ing -> chunker : chunk(blocks, document_id, version)
+  chunker --> ing : Chunk [*] (about 1000 chars, overlap 150, stable passage_id)
+  ing -> store : transaction()
+  store -> sqlite : INSERT documents (status pending),\ndocument_versions, passages (indexed = 0)
+  ing --> api : IngestResult (status pending)
+end
+api --> owner : 202 Accepted
+
+== 2. Human approval: the owner makes the version searchable ==
+owner -> api : POST /v1/documents/{id}/approve {note}
+api -> reg : authenticate(X-API-Key)
+reg --> api : Principal
+api -> ing : approve(document_id, principal, note)
+ing -> store : SELECT document, passages of the current version
+ing -> ing : principal.can_manage(office)?
+ing -> emb : embed_passages(["passage: " + title + section + text])
+emb --> ing : vectors (384 dimensions, normalised)
+ing -> index : upsert(payloads: passage_id, access_level, office, type, source_id; vectors)
+index -> qdrant : upsert points
+ing -> index : delete(passages of the superseded version)
+index -> qdrant : delete points
+ing -> store : transaction()
+store -> sqlite : passages_fts (BM25 index), passages.indexed = 1,\nold version superseded, status approved, approval_log
+ing -> store : refresh_snapshot_id()
+ing --> api : IngestResult (status approved)
+api --> owner : 200 OK
+
+note over ing, qdrant
+  Qdrant is written first: if SQLite then fails, the stray vectors are ignored,
+  because search only returns passages with indexed = 1 in SQLite.
+end note
+
+$legend("api,security,ingestion,indexing")
+@enduml

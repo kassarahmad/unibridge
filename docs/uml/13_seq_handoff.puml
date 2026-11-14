@@ -1,0 +1,61 @@
+@startuml
+!include _style.iuml
+title Sequence (c) - "I don't know" and the e-mail draft for the right office
+autonumber "<b>0"
+skinparam maxMessageSize 220
+
+actor Student as student
+participant "Streamlit demo\nunibridge_pages/ask.py" as ui $FRONTEND
+participant "FastAPI app" as api $API
+participant "AnswerService" as ans $ANSWER
+participant "HandoffService" as hand $HANDOFF
+participant "rule table\nconfig/handoff_offices.json" as rules $HANDOFF
+participant "LLMClient" as llm $ANSWER
+participant "LM Studio / Ollama\n(or OpenAI)" as server $EXTERNAL
+actor "Office\n(ERDIS, student office,\ninternational office)" as office
+
+student -> ui : question
+ui -> api : POST /v1/answer {query}
+api -> ans : answer(req, principal, request_id)
+note over ans
+  Retrieval and answer step as in sequence (a). No sentence is left when:
+  no passage or evidence below the threshold; the LLM replies NO_ANSWER;
+  the verifier drops every sentence; the extractive answer finds nothing.
+end note
+ans -> ans : message = I_DONT_KNOW[lang]\nmode = insufficient_evidence
+
+opt req.with_handoff (default true)
+  ans -> hand : draft(query, lang, sources[:3], request_id,\ntop_office = office of the best document)
+  hand -> rules : keywords of every office
+  hand -> hand : choose_office(): count keyword matches;\ntie -> top_office, then rule order
+  alt no keyword matches
+    hand --> ans : HandoffResponse (out_of_scope = true, draft = null,\nmessage OUT_OF_SCOPE_NOTE[lang])
+  else office chosen
+    opt lang != "it" and an LLM is configured
+      hand -> llm : complete(TRANSLATE_SYSTEM, question,\n"handoff_translation")
+      llm -> server : POST /v1/chat/completions (skipped on cache hit)
+      server --> llm : question in Italian
+      llm --> hand : italian (null on LLMError)
+    end
+    hand -> hand : formal Italian text: office name, question (Italian + original),\ndocuments already checked, placeholders [Nome e cognome], [Matricola]
+    hand --> ans : HandoffResponse (draft: office, channel, to, subject, body,\nrule that chose the office, sent = false)
+  end
+end
+
+ans --> api : AnswerResponse (answer_text = "", insufficient_evidence = true,\nmessage, handoff)
+api --> ui : 200 application/json
+ui --> student : "I don't know" in the student's language\n+ draft to copy or download
+
+== The student decides: UniBridge never sends anything ==
+student -> office : sends the message by e-mail, SRM ticket or at the desk
+
+== Also on request, after a normal answer ==
+student -> ui : "write to the office" about an answer
+ui -> api : POST /v1/handoff {query, language, passage_ids}
+api -> api : every passage_id: indexed and allowed for this principal?\n(otherwise 404)
+api -> hand : draft(query, language, sources, request_id, office_id)
+hand --> api : HandoffResponse
+api --> ui : 200 application/json
+
+$legend("frontend,api,answer,handoff,external")
+@enduml

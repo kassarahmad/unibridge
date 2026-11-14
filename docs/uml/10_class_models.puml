@@ -1,0 +1,298 @@
+@startuml
+!include _style.iuml
+title Class diagram - models (src/p14_search/models.py): the API contract of UniBridge
+hide circle
+left to right direction
+
+package "models" {
+
+  enum AccessLevel $MODELS {
+    public
+    internal
+    restricted
+  }
+
+  ' --- answers -------------------------------------------------------------
+  class AnswerRequest $MODELS {
+    +query : str
+    +language : Lang [0..1]
+    +mode : auto | extractive | llm | llm_verified
+    +top_k : int [0..1]
+    +with_handoff : bool = true
+  }
+  class AnswerResponse $MODELS {
+    +request_id : str
+    +query : str
+    +language : Lang
+    +mode : llm_verified | llm | extractive | insufficient_evidence
+    +answer_text : str
+    +insufficient_evidence : bool
+    +message : str [0..1]
+    +retrieval_system : str
+    +query_italian : str [0..1]
+    +latency_ms : float
+  }
+  class AnswerSentence $MODELS {
+    +text : str
+    +passage_ids : str [*]
+    +supported : bool [0..1]
+  }
+  class SourcePassage $MODELS {
+    +passage_id : str
+    +alias : str
+    +rank : int
+    +text : str
+  }
+  class VerificationReport $MODELS {
+    +generated_sentences : int
+    +dropped_uncited : int
+    +dropped_invalid_citation : int
+    +dropped_unsupported : int
+    +support_checked : bool
+  }
+  class LLMUsage $MODELS {
+    +provider : str
+    +model : str
+    +calls : int
+    +cached_calls : int
+    +input_tokens : int
+    +output_tokens : int
+    +cost_usd : float [0..1]
+  }
+  class Citation $MODELS {
+    +document_id : str
+    +document_version : str
+    +title : str
+    +section : str [0..1]
+    +page : int [0..1]
+    +char_start : int
+    +char_end : int
+    +source_url : str [0..1]
+  }
+  class Versions $MODELS {
+    +pipeline_version : str
+    +chunker_version : str
+    +embedding_model : str
+    +reranker_model : str [0..1]
+    +index_snapshot_id : str [0..1]
+  }
+
+  ' --- handoff -------------------------------------------------------------
+  class HandoffRequest $MODELS {
+    +query : str
+    +language : Lang [0..1]
+    +passage_ids : str [0..10]
+    +office_id : str [0..1]
+  }
+  class HandoffResponse $MODELS {
+    +request_id : str
+    +language : Lang
+    +out_of_scope : bool
+    +message : str
+  }
+  class HandoffDraft $MODELS {
+    +office_id : str
+    +office_name : str
+    +channel : email | srm_ticket | desk
+    +to : str [0..1]
+    +subject : str
+    +body : str
+    +question_italian : str [0..1]
+    +translated_by_llm : bool
+    +sent : bool = false
+  }
+  class HandoffSource $MODELS {
+    +passage_id : str
+    +title : str
+    +section : str [0..1]
+    +page : int [0..1]
+    +source_url : str [0..1]
+  }
+
+  ' --- search --------------------------------------------------------------
+  class SearchRequest $MODELS {
+    +query : str
+    +top_k : int = 10
+    +with_summary : bool = true
+  }
+  class SearchFilters $MODELS {
+    +office : str [*]
+    +type : str [*]
+    +source_id : str [*]
+  }
+  class SearchResponse $MODELS {
+    +request_id : str
+    +query : str
+    +system : str
+    +insufficient_evidence : bool
+  }
+  class ResultDocument $MODELS {
+    +document_id : str
+    +document_version : str
+    +title : str
+    +owner : str
+    +synthetic : bool
+    +llm_generated : bool
+    +best_rank : int
+  }
+  class Passage $MODELS {
+    +passage_id : str
+    +text : str
+  }
+  class Evidence $MODELS {
+    +score : float
+    +rank : int
+    +retriever_ranks : dict
+    +retriever_scores : dict
+  }
+  class Summary $MODELS {
+    +method = "extractive"
+    +generated : bool = false
+  }
+  class SummarySentence $MODELS {
+    +text : str
+    +passage_id : str
+  }
+  class DocumentMetadata $MODELS {
+    +office : str
+    +type : str
+    +author : str [0..1]
+    +date : str [0..1]
+    +project : str [0..1]
+    +source_url : str [0..1]
+  }
+
+  ' --- ingestion -----------------------------------------------------------
+  class IngestDocument $MODELS {
+    +source_id : str
+    +external_id : str
+    +title : str
+    +owner : str
+    +source_piece : str = "P14"
+    +validated_by : str [0..1]
+    +synthetic : bool
+    +llm_generated : bool
+  }
+  class FileContent $MODELS {
+    +filename : str
+    +media_type : str
+    +content_base64 : str
+  }
+  class IngestResult $MODELS {
+    +document_id : str
+    +document_version : str
+    +status : pending | approved
+    +passages : int
+    +unchanged : bool
+  }
+
+  ' --- scholarship guide ---------------------------------------------------
+  class ProcedureRequest $MODELS {
+    +language : Lang = "en"
+    +today : str [0..1]
+    +level : L | LM | LMCU5 | LMCU6
+    +year : int
+    +credits : int [0..1]
+    +bonus_credits : int
+    +isee : float [0..1]
+    +ispe : float [0..1]
+    +family_abroad : bool
+    +non_eu : bool
+    +has_residence_permit : bool [0..1]
+    +residence : str [0..1]
+    +application_submitted : bool [0..1]
+    +enrolled : bool
+    +review_requested : bool
+    .. and 5 more facts ..
+  }
+  class ProcedureResponse $MODELS {
+    +request_id : str
+    +language : Lang
+    +verdict : eligible | not_eligible | check_with_office
+    +verdict_text : str
+    +amount_category : str [0..1]
+    +amount_full_eur : float [0..1]
+    +ics : str
+    +disclaimer : str
+  }
+  class RuleResult $MODELS {
+    +id : str
+    +title : str
+    +outcome : pass | fail | check | info | not_applicable
+    +detail : str
+  }
+  class RuleCitation $MODELS {
+    +document_id : str
+    +section : str
+    +quote : str
+    +passage_id : str [0..1]
+  }
+  class ChecklistItem $MODELS {
+    +id : str
+    +text : str
+    +due : str [0..1]
+    +status : done | todo | overdue | info
+  }
+  class Deadline $MODELS {
+    +date : str
+    +title : str
+    +indicative : bool
+  }
+  class ProcedureStatus $MODELS {
+    +reference_date : str
+    +marking : str [*]
+    +finished : bool
+  }
+  class ProcedureStep $MODELS {
+    +id : str
+    +name : str
+    +lane : str
+    +article : str [0..1]
+  }
+}
+
+AnswerResponse *--> "*" AnswerSentence : sentences
+AnswerResponse *--> "*" SourcePassage : sources
+AnswerResponse *--> "0..1" VerificationReport : verification
+AnswerResponse *--> "0..1" LLMUsage : llm
+AnswerResponse *--> "0..1" HandoffResponse : handoff
+AnswerResponse *--> "1" Versions : versions
+SourcePassage *--> "1" Citation : citation
+AnswerSentence ..> SourcePassage : passage_ids
+
+HandoffResponse *--> "0..1" HandoffDraft : draft
+HandoffDraft *--> "*" HandoffSource : sources
+
+SearchRequest *--> "0..1" SearchFilters : filters
+SearchResponse *--> "*" ResultDocument : results
+SearchResponse *--> "0..1" Summary : summary
+SearchResponse *--> "1" Versions : versions
+ResultDocument *--> "*" Passage : passages
+ResultDocument *--> "1" DocumentMetadata : metadata
+ResultDocument --> "1" AccessLevel : access_level
+Passage *--> "1" Citation : citation
+Passage *--> "1" Evidence : evidence
+Summary *--> "*" SummarySentence : sentences
+
+IngestDocument *--> "1" FileContent : file
+IngestDocument *--> "1" DocumentMetadata : metadata
+IngestDocument --> "1" AccessLevel : access_level
+
+ProcedureResponse *--> "*" RuleResult : rules
+ProcedureResponse *--> "1" ProcedureStatus : status
+ProcedureResponse *--> "*" ChecklistItem : checklist
+ProcedureResponse *--> "*" Deadline : deadlines
+ProcedureStatus *--> "*" ProcedureStep : done, next
+RuleResult *--> "1" RuleCitation : citation
+ChecklistItem *--> "1" RuleCitation : citation
+Deadline *--> "1" RuleCitation : citation
+
+note as N1
+  Pydantic models; contracts.py exports them as the JSON Schemas of
+  contracts/schemas/. Lang = one of the 17 language codes of i18n.LANGS.
+  Not shown: DocumentInfo, PassageInfo, FeedbackRequest,
+  FeedbackResult, Problem (P14 endpoints).
+end note
+
+$legend("models")
+@enduml

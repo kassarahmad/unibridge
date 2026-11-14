@@ -1,0 +1,114 @@
+@startuml
+!include _style.iuml
+title Class diagram - package ingestion (src/p14_search/ingestion)
+hide circle
+
+package "ingestion" {
+
+  class IngestionService $INGESTION {
+    +store : Store
+    +index : VectorIndex
+    +embedder : Embedder
+    +max_bytes : int
+    +ingest(doc : IngestDocument, principal : Principal) : IngestResult
+    +approve(did : str, principal : Principal, note : str [0..1], refresh_snapshot : bool) : IngestResult
+  }
+
+  class "service" as service_mod <<module>> $INGESTION {
+    +{static} embedding_text(title, section, text) : str
+  }
+
+  class NotAllowed <<exception>> $INGESTION
+  class NotFound <<exception>> $INGESTION
+
+  class "parser" as parser_mod <<module>> $INGESTION {
+    +SUPPORTED = (PDF, DOCX, HTML, TXT)
+    +MAX_DOCX_UNCOMPRESSED, MAX_DOCX_RATIO
+    +{static} parse(data : bytes, declared_media_type : str, max_bytes : int) : Block [*]
+    +{static} detect_media_type(data : bytes, declared : str) : str
+    -{static} _parse_pdf(data) : Block [*]
+    -{static} _parse_docx(data) : Block [*]
+    -{static} _parse_html(data) : Block [*]
+    -{static} _parse_txt(data) : Block [*]
+    -{static} _check_docx_package(data)
+  }
+
+  class Block <<dataclass>> $INGESTION {
+    +text : str
+    +page : int [0..1]
+    +section : str [0..1]
+  }
+
+  class ParseError <<exception>> $INGESTION {
+    +status : int = 422
+  }
+
+  class "chunker" as chunker_mod <<module>> $INGESTION {
+    +TARGET_CHARS = 1000
+    +OVERLAP_CHARS = 150
+    +{static} chunk(blocks : Block [*], doc_id : str, doc_version : str) : (text, Chunk [*])
+    +{static} document_id(source_id, external_id) : str
+    +{static} document_version(data : bytes) : str
+    +{static} passage_id(doc_id, doc_version, char_start, chunker_version) : str
+    +{static} full_text(blocks : Block [*]) : (str, int [*])
+  }
+
+  class Chunk <<dataclass>> $INGESTION {
+    +passage_id : str
+    +ordinal : int
+    +text : str
+    +section : str [0..1]
+    +page : int [0..1]
+    +char_start : int
+    +char_end : int
+  }
+}
+
+class Store $INDEXING
+class VectorIndex $INDEXING
+interface Embedder <<Protocol>> $INDEXING
+class Principal <<dataclass>> $SECURITY {
+  +can_manage(office : str) : bool
+}
+class IngestDocument $MODELS
+class IngestResult $MODELS
+
+IngestionService o--> "1" Store
+IngestionService o--> "1" VectorIndex
+IngestionService o--> "1" Embedder
+IngestionService ..> parser_mod : <<use>>\nparse
+IngestionService ..> chunker_mod : <<use>>\nchunk, ids
+IngestionService ..> service_mod : <<use>>
+IngestionService ..> Principal : <<use>>\ncan_manage
+IngestionService ..> IngestDocument
+IngestionService ..> IngestResult : <<create>>
+IngestionService ..> NotAllowed : <<throw>>
+IngestionService ..> NotFound : <<throw>>
+parser_mod ..> Block : <<create>>
+parser_mod ..> ParseError : <<throw>>
+chunker_mod ..> Block
+chunker_mod ..> Chunk : <<create>>
+
+note right of IngestionService
+  ingest(): parse, chunk and store the document as
+  "pending"; nothing is searchable yet.
+  approve(): only a principal that manages the office;
+  embeds the passages, writes Qdrant, then the FTS5
+  index and the state in one SQLite transaction,
+  supersedes the old version, logs the approval.
+end note
+
+note bottom of parser_mod
+  Safe parsing: real type detected from the bytes,
+  size limit, encrypted PDFs refused, DOCX checked
+  for zip bombs and macros, XML through defusedxml.
+end note
+
+note bottom of chunker_mod
+  document_version = SHA-256 of the file;
+  passage_id = hash of document, version, offset
+  and chunker version, so a citation stays stable.
+end note
+
+$legend("ingestion,indexing,security,models")
+@enduml

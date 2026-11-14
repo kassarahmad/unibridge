@@ -1,0 +1,79 @@
+@startuml
+!include _style.iuml
+title Component diagram - UniBridge
+skinparam componentStyle uml2
+skinparam nodesep 40
+skinparam ranksep 60
+
+actor Student as student
+actor "Office staff /\nadmin" as staff
+
+component "Streamlit demo\nfrontend/unibridge_app.py" <<application>> as ui $FRONTEND
+component "scripts, eval\n(ingestion, evaluation, benchmark)" <<tools>> as tools $TOOLS
+
+component "UniBridge API (FastAPI, uvicorn)\np14_search.unibridge_main:app" <<service>> as apiproc {
+  portin "REST /v1\nX-API-Key" as p_rest
+  component "api\nroutes, errors, request log" as api $API
+  component "security\nPrincipalRegistry, acl" as sec $SECURITY
+  component "services\nbuild_services (wiring), Settings" as core $CORE
+  component "answer\nAnswerService, verifier, prompts" as ans $ANSWER
+  component "answer.llm\nLLMClient: cache, usage log, spend limit" as llm $ANSWER
+  component "handoff\nHandoffService" as hand $HANDOFF
+  component "procedure\nScholarshipGuide, workflow net" as proc $PROCEDURE
+  component "retrieval\nSearchService, BM25, dense, RRF" as ret $RETRIEVAL
+  component "ingestion\nparser, chunker, approval" as ing $INGESTION
+  component "indexing\nStore, VectorIndex, Embedder" as idx $INDEXING
+  portout "SQL" as p_sql
+  portout "Qdrant REST" as p_qdrant
+  portout "OpenAI-compatible\nchat completions" as p_llm
+}
+
+database "SQLite file\ndata/processed/unibridge.sqlite\n(documents, passages, FTS5, logs)" as sqlite $INDEXING
+database "Qdrant\ncollection unibridge_passages__...\n(vectors + access payload)" as qdrant $INDEXING
+component "multilingual-e5-small\n(sentence-transformers, torch)\nin-process, CPU or CUDA" <<model>> as e5 $INDEXING
+component "LM Studio server :1234\nor Ollama :11434\nlocal LLM (Qwen3 8B, GGUF)" <<service>> as local $EXTERNAL
+cloud "OpenAI / Anthropic API\n(optional, needs a key)" as cloud $EXTERNAL
+artifact "LLM response cache\ndata/processed/llm_cache" as cache $ANSWER
+artifact "config: principals_unibridge.json,\nhandoff_offices.json, .env,\ncalibration.json" as cfg $CORE
+
+student --> ui : browser
+staff --> p_rest : upload and approve\ndocuments
+ui --> p_rest : HTTP + JSON
+tools ..> core : <<import>>\nin-process
+
+p_rest --> api
+api --> sec : authenticate
+api --> core
+api --> ans : /v1/answer
+api --> hand : /v1/handoff
+api --> proc : /v1/procedure/scholarship
+api --> ret : /v1/search
+api --> ing : /v1/documents
+ans --> ret : rank, hydrate
+ans --> llm : translate, answer,\nsupport check
+ans --> hand : draft on "I don't know"
+hand --> llm : translate the question
+ret --> sec : permission filter
+ret --> idx
+ing --> idx
+proc --> idx : passages of the call
+idx --> p_sql
+idx --> p_qdrant
+idx --> e5 : embed
+llm --> p_llm
+llm --> cache : read / write
+core ..> cfg : <<read>>
+
+p_sql --> sqlite
+p_qdrant --> qdrant : HTTP :6333
+p_llm --> local : HTTP, LLM_PROVIDER=local\n(default for offline use)
+p_llm ..> cloud : HTTPS, LLM_PROVIDER=openai | anthropic\n(optional)
+
+note bottom of local
+  No API key, no cost, nothing leaves the machine.
+  Without any LLM the API still answers
+  (extractive mode).
+end note
+
+$legend("frontend,api,security,core,answer,handoff,procedure,retrieval,ingestion,indexing,tools,external")
+@enduml

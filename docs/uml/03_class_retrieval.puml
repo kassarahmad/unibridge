@@ -1,0 +1,112 @@
+@startuml
+!include _style.iuml
+title Class diagram - package retrieval (src/p14_search/retrieval)
+hide circle
+
+package "retrieval" {
+
+  class SearchService $RETRIEVAL {
+    +store : Store
+    +bm25 : BM25Retriever
+    +dense : DenseRetriever
+    +settings : Settings
+    +search(req : SearchRequest, principal : Principal, request_id : str) : SearchResponse
+    +rank_all(query, principal, k, systems, filters) : dict [system -> Ranking]
+    +hydrate(hits : Hit [*], principal : Principal) : ResultDocument [*]
+    +versions() : Versions
+    -_insufficient(system, hits, top_bm25, top_dense) : bool
+  }
+
+  class Ranking <<dataclass>> $RETRIEVAL {
+    +system : str
+    +hits : Hit [*]
+    +insufficient_evidence : bool
+    +top_bm25 : float [0..1]
+    +top_dense : float [0..1]
+  }
+
+  class Hit <<dataclass>> $RETRIEVAL {
+    +passage_id : str
+    +score : float
+    +rank : int
+    +retriever_ranks : dict
+    +retriever_scores : dict
+  }
+
+  class BM25Retriever $RETRIEVAL {
+    +name = "bm25"
+    +store : Store
+    +retrieve(query, principal, k, filters) : Hit [*]
+  }
+
+  class DenseRetriever $RETRIEVAL {
+    +name = "dense"
+    +index : VectorIndex
+    +embedder : Embedder
+    +retrieve(query, principal, k, filters) : Hit [*]
+  }
+
+  class "retrievers" as retrievers_mod <<module>> $RETRIEVAL {
+    +RRF_K = 60
+    +CANDIDATES = 50
+    +STOPWORDS : set
+    +{static} fts_query(text : str) : str [0..1]
+    +{static} rrf_fuse(runs : dict, k : int, rrf_k : int) : Hit [*]
+  }
+
+  class "summary" as summary_mod <<module>> $RETRIEVAL {
+    +MAX_SENTENCES = 3
+    +TOP_PASSAGES = 3
+    +{static} extractive_summary(query, passages) : Summary [0..1]
+  }
+
+  class "service" as service_mod <<module>> $RETRIEVAL {
+    +SYSTEMS = ("B0", "S1", "S2")
+  }
+}
+
+class Store $INDEXING
+class VectorIndex $INDEXING
+interface Embedder <<Protocol>> $INDEXING
+class "acl" as acl_mod <<module>> $SECURITY {
+  +{static} allows(principal, access_level, office) : bool
+  +{static} sql_clause(principal, filters, doc_alias) : (str, list)
+  +{static} qdrant_filter(principal, filters) : Filter
+}
+class Principal <<dataclass>> $SECURITY
+class Settings $CORE
+class SearchResponse $MODELS
+class ResultDocument $MODELS
+class Summary $MODELS
+
+SearchService o--> "1" BM25Retriever : bm25
+SearchService o--> "1" DenseRetriever : dense
+SearchService o--> "1" Store : store
+SearchService --> Settings : thresholds,\ndisplay / shadow system
+SearchService ..> Ranking : <<create>>
+SearchService ..> retrievers_mod : <<use>>\nrrf_fuse
+SearchService ..> summary_mod : <<use>>
+SearchService ..> acl_mod : <<use>>\nre-check in hydrate()
+SearchService ..> SearchResponse : <<create>>
+SearchService ..> ResultDocument : <<create>>
+Ranking o--> "*" Hit
+BM25Retriever o--> "1" Store
+BM25Retriever ..> acl_mod : <<use>>\nsql_clause
+BM25Retriever ..> Hit : <<create>>
+DenseRetriever o--> "1" VectorIndex
+DenseRetriever o--> "1" Embedder
+DenseRetriever ..> acl_mod : <<use>>\nqdrant_filter
+DenseRetriever ..> Hit : <<create>>
+summary_mod ..> Summary : <<create>>
+acl_mod ..> Principal
+
+note right of SearchService
+  B0 = BM25, S1 = dense, S2 = reciprocal rank fusion
+  of the two. The permission filter is applied inside
+  both retrievers and checked again in hydrate().
+  insufficient_evidence: top score below the threshold
+  calibrated on the tuning split.
+end note
+
+$legend("retrieval,indexing,security,core,models")
+@enduml

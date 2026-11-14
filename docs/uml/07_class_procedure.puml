@@ -1,0 +1,130 @@
+@startuml
+!include _style.iuml
+title Class diagram - package procedure (src/p14_search/procedure)
+hide circle
+
+package "procedure" {
+
+  class ScholarshipGuide $PROCEDURE {
+    +net : Net
+    +passages : dict [key -> passage_id]
+    +guide(f : ProcedureRequest, request_id : str) : ProcedureResponse
+    +evaluate(f : ProcedureRequest, today : date) : RuleResult [*]
+    +replay(f : ProcedureRequest, today : date, eligible : bool [0..1]) : (marking, fired : str [*])
+    +step(tid : str) : ProcedureStep
+    +cite(key : str) : RuleCitation
+  }
+
+  class Net <<dataclass>> $PROCEDURE {
+    +places : str [*]
+    +transitions : dict [id -> Step]
+    +arcs : (str, str) [*] {readOnly}
+  }
+
+  class Step <<dataclass>> $PROCEDURE {
+    +id : str
+    +name : str
+    +lane : str
+    +kind : task | event | gateway_branch
+    +inputs : str [*]
+    +outputs : str [*]
+    +article : str [0..1]
+    +date : str [0..1]
+    +indicative : bool
+  }
+
+  class Gateway <<dataclass>> $PROCEDURE {
+    +id : str
+    +kind : xor_split | xor_merge | and_split | and_join
+    +place : str [0..1]
+    +name : str
+  }
+
+  class "model" as model_mod <<module>> $PROCEDURE {
+    +STEPS : Step [20]
+    +GATEWAYS : Gateway [8]
+    +SOURCE = "i"
+    +SINK = "o"
+    +{static} build_net(steps : Step [*]) : Net
+  }
+
+  class "soundness" as soundness_mod <<module>> $PROCEDURE {
+    +BOUND = 5
+    +{static} enabled(net : Net, m : Counter) : str [*]
+    +{static} fire(net : Net, m : Counter, tid : str) : Counter
+    +{static} is_workflow_net(net : Net) : dict
+    +{static} reachability(net : Net) : (graph, bounded)
+    +{static} check_soundness(net : Net) : dict
+    +{static} pm4py_check(pnml_path : str) : dict
+  }
+
+  class "rules" as rules_mod <<module>> $PROCEDURE {
+    +CALL = "ub:erdis-bando-borsa-2026-27"
+    +DEADLINE_APPLICATION = 2026-08-28
+    +ISEE_MAX = 24000.0
+    +ISPE_MAX = 50000.0
+    +MERIT_FULL_TIME, LEGAL_YEARS, BONUS_MAX, AMOUNTS : dict
+    +SOURCES : dict [key -> Source]
+    +{static} required_credits(level, year, extra_semester) : int [0..1]
+    +{static} bonus_cap(level, year) : int
+  }
+
+  class Source <<dataclass>> $PROCEDURE {
+    +section : str
+    +quote : str
+    +document_id : str
+  }
+
+  class "ics" as ics_mod <<module>> $PROCEDURE {
+    +{static} calendar(events : (date, title, text) [*], stamp : date) : str
+  }
+
+  class "guide" as guide_mod <<module>> $PROCEDURE {
+    +VERDICT, DISCLAIMER, TEXTS, LABELS : dict
+  }
+}
+
+class "flow" as flow_mod <<module>> $ANSWER {
+  +STEPS : Step [26]
+  +{static} build_answer_net() : Net
+}
+class Store $INDEXING
+class ProcedureRequest $MODELS
+class ProcedureResponse $MODELS
+class "pm4py (Woflan)" as pm4py <<library>> $EXTERNAL
+
+ScholarshipGuide *--> "1" Net : net
+ScholarshipGuide ..> Store : <<use>>\npassage of each quoted article
+ScholarshipGuide ..> rules_mod : <<use>>
+ScholarshipGuide ..> soundness_mod : <<use>>\nenabled, fire
+ScholarshipGuide ..> ics_mod : <<use>>
+ScholarshipGuide ..> guide_mod : <<use>>
+ScholarshipGuide ..> model_mod : <<use>>\nbuild_net
+ScholarshipGuide ..> ProcedureRequest
+ScholarshipGuide ..> ProcedureResponse : <<create>>
+Net o--> "*" Step : transitions
+model_mod ..> Net : <<create>>
+model_mod o--> "*" Step : STEPS
+model_mod o--> "*" Gateway : GATEWAYS
+soundness_mod ..> Net
+soundness_mod ..> pm4py : <<use>>\noptional cross-check
+rules_mod o--> "*" Source
+flow_mod ..> model_mod : <<use>>\nsame Net / Step, same checker
+
+note right of ScholarshipGuide
+  No LLM. evaluate(): deterministic rules of the ERDIS call,
+  each with the article it comes from. replay(): fires the
+  enabled transitions of the workflow net that the student's
+  facts and the reference date say have happened; the enabled
+  transitions of the final marking are the next steps.
+  The facts are neither stored nor logged.
+end note
+
+note bottom of model_mod
+  One model: the workflow net, the BPMN file
+  (docs/bpmn/scholarship.bpmn) and the state machine
+  of the guide are all derived from STEPS.
+end note
+
+$legend("procedure,answer,indexing,models,external")
+@enduml

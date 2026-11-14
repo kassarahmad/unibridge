@@ -20,3 +20,5 @@ dist/
 Claude outputs/
 docs/DEFENSE_NOTES_UNIBRIDGE.md
 node_modules/
+# third-party tools downloaded locally (plantuml.jar for scripts/render_plantuml.py)
+tools/

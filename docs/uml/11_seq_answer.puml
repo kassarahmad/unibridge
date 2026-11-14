@@ -1,0 +1,89 @@
+@startuml
+!include _style.iuml
+title Sequence (a) - from a question to an answer with citations (POST /v1/answer)
+autonumber "<b>0"
+skinparam maxMessageSize 210
+
+actor Student as student
+participant "Streamlit demo\nunibridge_pages/ask.py" as ui $FRONTEND
+participant "FastAPI app\napi/app.py" as api $API
+participant "PrincipalRegistry" as reg $SECURITY
+participant "AnswerService" as ans $ANSWER
+participant "language\n(lingua)" as lang $ANSWER
+participant "SearchService\nBM25Retriever, DenseRetriever" as search $RETRIEVAL
+database "SQLite\nFTS5" as sqlite $INDEXING
+participant "Embedder\ne5-small" as emb $INDEXING
+database "Qdrant" as qdrant $INDEXING
+participant "LLMClient\n(cache, log)" as llm $ANSWER
+participant "LM Studio / Ollama\n(or OpenAI)" as server $EXTERNAL
+participant "verifier" as ver $ANSWER
+
+student -> ui : question in any of 17 languages
+ui -> api : POST /v1/answer {query}\nheader X-API-Key
+api -> reg : authenticate(api_key)
+reg --> api : Principal (role, level, offices)
+api -> ans : answer(req, principal, request_id)
+
+ans -> lang : detect(query)
+lang --> ans : lang (e.g. "ar")
+
+group Hybrid retrieval S2 [permission filter inside both retrievers]
+  ans -> search : rank_all(query, principal, k, ("S2",))
+  search -> sqlite : FTS5 MATCH + acl.sql_clause(principal)
+  sqlite --> search : BM25 run
+  search -> emb : embed_queries(["query: " + query])
+  emb --> search : vector
+  search -> qdrant : search(vector, acl.qdrant_filter(principal))
+  qdrant --> search : dense run
+  search -> search : rrf_fuse(bm25, dense)
+  search --> ans : Ranking (hits, insufficient_evidence)
+end
+
+opt lang != "it" and an LLM is configured  [query translation + RRF]
+  ans -> llm : translate_query():\ncomplete(TRANSLATE_SYSTEM, query)
+  llm -> server : POST /v1/chat/completions\ntemperature 0 (skipped on cache hit)
+  server --> llm : Italian translation
+  llm --> ans : italian
+  ans -> search : rank_all(italian, principal, k, ("S2",))
+  search --> ans : second Ranking
+  ans -> ans : rrf_fuse(original, italian)
+end
+
+ans -> search : hydrate(hits, principal)
+search -> sqlite : passages + documents (indexed = 1)
+search --> ans : documents, permissions re-checked
+ans -> ans : sources P1..Pk with citations
+
+alt no source, or insufficient evidence
+  ref over ans, ver : "I don't know" + handoff: sequence (c)
+else mode extractive (requested, or no LLM configured)
+  ans -> ans : _extractive(): sentences copied from the passages
+else mode llm_verified
+  ans -> llm : complete(answer_prompt(question, lang, P1..Pk),\nmax 600 tokens, "answer")
+  llm -> server : POST /v1/chat/completions, temperature 0
+  server --> llm : sentences ending with [Pn], or NO_ANSWER
+  llm --> ans : LLMResult (text, tokens, cost, cached)
+  ans -> ver : verify_citations(text, {P1..Pk})
+  ver --> ans : kept, dropped_uncited, dropped_invalid
+  loop every kept sentence, every cited passage
+    ans -> llm : complete(support_prompt(passage, sentence),\nmax 3 tokens, "support_check")
+    llm -> server : POST /v1/chat/completions
+    server --> llm : yes / no
+    llm --> ans : supported?
+  end
+  ans -> ans : drop unsupported sentences,\nVerificationReport
+  break LLMError (server down, timeout, spend limit)
+    ans -> ans : fallback: _extractive()
+  end
+  opt NO_ANSWER, or no sentence left
+    ref over ans, ver : "I don't know" + handoff: sequence (c)
+  end
+end
+
+ans -> sqlite : log_query(pseudonym, query, mode, passages, latency)
+ans --> api : AnswerResponse (sentences + passage_ids, sources with\nthe Italian original, verification, llm usage)
+api --> ui : 200 application/json
+ui --> student : answer in the language of the question;\nevery sentence with its source and the Italian text
+
+$legend("frontend,api,security,answer,retrieval,indexing,external")
+@enduml

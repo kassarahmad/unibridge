@@ -178,6 +178,27 @@ To render them again: Java 17 or newer ([Adoptium](https://adoptium.net/)) and `
 [official releases](https://github.com/plantuml/plantuml/releases) saved in `tools/` (not committed), then
 `.venv\Scripts\python.exe scripts\render_plantuml.py`.
 
+### Local CPU and GPU benchmark
+
+Measured on the development laptop under AC power (Ryzen 9 8940HX and RTX 5070 Laptop GPU).
+
+| Measurement | CPU or LLM `--gpu off` | CUDA or LLM `--gpu max` |
+|---|---:|---:|
+| Index 2,330 passages | 58.73 s | 4.88 s |
+| LLM output speed, median | 8.0 tokens/s | 58.3 tokens/s |
+| Verified answer with embeddings on each device, median | 1.449 s | 1.837 s |
+| Extractive answer with embeddings on each device, median | 0.099 s | 0.045 s |
+
+GPU acceleration saved the most time in batch indexing and LLM generation. With the LLM on the
+GPU in both verified-answer runs, CPU embeddings gave the lower median in this run. LM Studio
+still allocated 1,418 MiB of GPU memory with `--gpu off`, so the comparison identifies the
+LM Studio settings used. See the [full tables](eval/results/unibridge/benchmark_devices.md),
+[raw measurements](eval/results/unibridge/benchmark_devices.json) and
+[benchmark script](scripts/benchmark_devices.py).
+
+![Local CPU and GPU benchmark](docs/images/benchmark_devices.png)
+
+
 ### Rebuilding the deliverables
 ```powershell
 .venv\Scripts\python.exe scripts\render_plantuml.py                  # UML diagrams -> docs\images\uml\*.svg, *.png (Java + tools\plantuml*.jar)

@@ -342,6 +342,38 @@ For in-scope test questions the office chosen by the rule table is the expected 
 Arabic 0.6538); in 23.66% no office is chosen and the draft goes to a
 generic address. Out-of-scope questions never get a draft. Drafts are not sent: the student copies or downloads them.
 
+### 6.6 Local CPU and GPU benchmark
+
+The benchmark ran on the development laptop on AC power with an AMD Ryzen 9 8940HX and an NVIDIA
+GeForce RTX 5070 Laptop GPU. The embedding test measured batch indexing over 2,330 passages and
+single-query encoding. The LLM test streamed 20 prompts in Italian, English and Arabic through
+LM Studio with Qwen3VL 8B Instruct Q4_K_M. The end-to-end test sent 20 questions to an in-process
+`POST /v1/answer` with Qdrant running locally. For verified answers, the LLM used `--gpu max`
+while the benchmark varied the embedding device.
+
+| Measurement | CPU or LLM `--gpu off` | CUDA or LLM `--gpu max` |
+|---|---:|---:|
+| Index 2,330 passages (s) | 58.73 | 4.88 |
+| Encode one query, median (ms) | 12.45 | 8.32 |
+| LLM time to first token, median (s) | 1.45 | 0.45 |
+| LLM output speed, median (tokens/s) | 8.0 | 58.3 |
+| Verified answer with embeddings on each device, median (s) | 1.449 | 1.837 |
+| Extractive answer with embeddings on each device, median (s) | 0.099 | 0.045 |
+
+![CPU and GPU benchmark on the development laptop](images/benchmark_devices.png)
+
+CUDA made batch indexing 12.0 times faster. Full GPU offload made LLM generation 7.3 times
+faster by median output rate. Under `--gpu off`, GPU memory still increased by 1,418 MiB at
+model load. The benchmark measured memory allocation and leaves the extent of GPU computation
+in that configuration unverified. The measured verified-answer median was lower with CPU
+embeddings in this run. The extractive mode showed the opposite ordering. These end-to-end
+results describe the 20-question run with its fixed execution order.
+
+The [benchmark tables](../eval/results/unibridge/benchmark_devices.md),
+[per-question measurements](../eval/results/unibridge/benchmark_devices.json) and
+[benchmark script](../scripts/benchmark_devices.py) record the setup and results.
+
+
 ## 7. Security, privacy and cost
 
 The API key lives only in `.env`, which git ignores; `.env.example` has empty `LLM_*` values, and before every commit

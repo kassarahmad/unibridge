@@ -1,0 +1,560 @@
+{
+  "system": {
+    "os": "Windows 10 (10.0.26200)",
+    "python": "3.11.18",
+    "cpu": "AMD Ryzen 9 8940HX with Radeon Graphics",
+    "logical_threads": 32,
+    "torch": "2.11.0+cu128",
+    "torch_cuda": "12.8",
+    "cuda_available": true,
+    "on_ac_power": true,
+    "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "gpu_memory_mib": 8151,
+    "gpu_driver": "592.19"
+  },
+  "embeddings": {
+    "model": "intfloat/multilingual-e5-small",
+    "prefixes": [
+      "query: ",
+      "passage: "
+    ],
+    "batch_size": 64,
+    "n_passages": 2330,
+    "passage_chars": 1535746,
+    "n_query_latencies": 200,
+    "n_distinct_queries": 155,
+    "cpu": {
+      "device": "cpu",
+      "torch_threads": 16,
+      "load_s": 2.63,
+      "index_s": 58.73,
+      "passages_per_s": 39.7,
+      "query_ms_median": 12.45,
+      "query_ms_p95": 14.23
+    },
+    "cuda": {
+      "device": "cuda:0",
+      "torch_threads": 16,
+      "load_s": 2.88,
+      "index_s": 4.88,
+      "passages_per_s": 477.7,
+      "query_ms_median": 8.32,
+      "query_ms_p95": 13.94
+    },
+    "speedup_cuda_vs_cpu": {
+      "indexing": 12.0,
+      "query_median": 1.5
+    }
+  },
+  "generated_at": "2026-11-14T13:25:21+00:00",
+  "llm": {
+    "server": "LM Studio (OpenAI-compatible API)",
+    "base_url": "http://127.0.0.1:1234/v1",
+    "model": "qwen3vl-8b-instruct",
+    "context_length": 8192,
+    "temperature": 0,
+    "max_output_tokens": 600,
+    "n_prompts": 20,
+    "prompt_languages": {
+      "it": 7,
+      "en": 7,
+      "ar": 6
+    },
+    "passages_per_prompt": 6.0,
+    "model_name": "Qwen3VL 8B Instruct",
+    "parameters": "8B",
+    "quantization": "Q4_K_M",
+    "file_gb": 5.78,
+    "gpu": {
+      "lms_gpu_option": "max",
+      "load_s": 9.3,
+      "gpu_memory_before_mib": 0,
+      "gpu_memory_after_mib": 7024,
+      "gpu_memory_delta_mib": 7024,
+      "ttft_s_median": 0.45,
+      "ttft_s_p95": 0.62,
+      "total_s_median": 1.03,
+      "total_s_p95": 3.24,
+      "tokens_per_s_median": 58.3,
+      "tokens_per_s_p95": 60.9,
+      "tokens_per_s_n": 15,
+      "output_tokens_median": 33.0,
+      "citation_format_ok": 20,
+      "runs": [
+        {
+          "qid": "U001",
+          "lang": "it",
+          "ttft_s": 0.584,
+          "total_s": 1.091,
+          "input_tokens": 1603,
+          "output_tokens": 30,
+          "tokens_per_s": 57.179,
+          "text": "La domanda può essere presentata dal momento della pubblicazione dei bandi fino alla fine del mese di agosto. [P1]"
+        },
+        {
+          "qid": "U004",
+          "lang": "it",
+          "ttft_s": 0.526,
+          "total_s": 3.157,
+          "input_tokens": 1421,
+          "output_tokens": 158,
+          "tokens_per_s": 59.651,
+          "text": "La domanda di borsa di studio può essere presentata entro il termine stabilito dal bando di concorso. [P2]  \nIl termine di scadenza della domanda è fissato al 28 agosto 2026. [P4]  \nNon è possibile presentare domande oltre tale data, poiché il termine è perentorio ed inderogabile. [P5]  \nLe domande devono essere compilate unicamente online. [P5]  \nLa domanda può essere presentata anche senza possedere l’attestazione ISEE, ma con impegno a presentarla entro il 28 agosto 2026. [P4]"
+        },
+        {
+          "qid": "U007",
+          "lang": "it",
+          "ttft_s": 0.619,
+          "total_s": 1.96,
+          "input_tokens": 1788,
+          "output_tokens": 77,
+          "tokens_per_s": 56.687,
+          "text": "Non è possibile accettare domande oltre la data di scadenza del bando. [P1]  \nIl termine per la presentazione della domanda è perentorio ed inderogabile. [P3]  \nGli studenti che hanno presentato la domanda oltre il termine sono esclusi dal beneficio. [P5]"
+        },
+        {
+          "qid": "U015",
+          "lang": "it",
+          "ttft_s": 0.65,
+          "total_s": 4.891,
+          "input_tokens": 1816,
+          "output_tokens": 248,
+          "tokens_per_s": 58.237,
+          "text": "Per gli studenti iscritti a corsi di Laurea (L), la borsa di studio è concessa per sette semestri a partire dall’anno di prima immatricolazione. [P1]  \nPer gli studenti iscritti a corsi di Laurea Magistrale a Ciclo Unico (LMCU), la borsa è concessa per tutta la durata prevista dai rispettivi ordinamenti più un semestre, a partire dall’anno di prima immatricolazione. [P2]  \nPer gli studenti iscritti a corsi di Laurea Magistrale (LM) di secondo livello, la borsa è concessa per cinque semestri a partire dall’anno di prima iscrizione al corso di secondo livello. [P1]  \nPer gli studenti iscritti a Dottorato o corsi di Specializzazione, la borsa è concessa per tutta la durata prevista dal rispettivo ordinamento a partire dall’anno di prima iscrizione al corso di terzo livello. [P4]"
+        },
+        {
+          "qid": "U018",
+          "lang": "it",
+          "ttft_s": 0.563,
+          "total_s": 1.134,
+          "input_tokens": 1581,
+          "output_tokens": 34,
+          "tokens_per_s": 57.807,
+          "text": "La domanda di borsa di studio ha validità per un anno accademico, pertanto va ripresentata anno per anno. [P1]"
+        },
+        {
+          "qid": "U021",
+          "lang": "it",
+          "ttft_s": 0.462,
+          "total_s": 0.978,
+          "input_tokens": 1503,
+          "output_tokens": 32,
+          "tokens_per_s": 60.119,
+          "text": "La domanda di borsa di studio ha validità per un anno accademico e va ripresentata anno per anno. [P1]"
+        },
+        {
+          "qid": "U022",
+          "lang": "it",
+          "ttft_s": 0.474,
+          "total_s": 1.162,
+          "input_tokens": 1604,
+          "output_tokens": 41,
+          "tokens_per_s": 58.146,
+          "text": "Sì, puoi presentare domanda di borsa di studio se hai già una laurea, ma solo per un corso di laurea di secondo livello. [P1]"
+        },
+        {
+          "qid": "U002",
+          "lang": "en",
+          "ttft_s": 0.622,
+          "total_s": 1.051,
+          "input_tokens": 1577,
+          "output_tokens": 23,
+          "tokens_per_s": 51.276,
+          "text": "You can submit the application for benefits by 28 August 2026. [P5]"
+        },
+        {
+          "qid": "U008",
+          "lang": "en",
+          "ttft_s": 0.465,
+          "total_s": 0.529,
+          "input_tokens": 1269,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U010",
+          "lang": "en",
+          "ttft_s": 0.375,
+          "total_s": 0.44,
+          "input_tokens": 1263,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U016",
+          "lang": "en",
+          "ttft_s": 0.338,
+          "total_s": 2.281,
+          "input_tokens": 986,
+          "output_tokens": 112,
+          "tokens_per_s": 57.104,
+          "text": "For part-time students, the benefit is granted for a period of thirteen years for five-year single-cycle master’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of fifteen years for six-year single-cycle master’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of nine years for bachelor’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of seven years for Master’s degree programmes. [P4]"
+        },
+        {
+          "qid": "U019",
+          "lang": "en",
+          "ttft_s": 0.513,
+          "total_s": 1.404,
+          "input_tokens": 1527,
+          "output_tokens": 53,
+          "tokens_per_s": 58.347,
+          "text": "No, you do not need to reapply; if you meet the credit requirements by 30 November 2027, your scholarship will be retained automatically for the 2026/2027 academic year. [P3]"
+        },
+        {
+          "qid": "U023",
+          "lang": "en",
+          "ttft_s": 0.43,
+          "total_s": 0.995,
+          "input_tokens": 1223,
+          "output_tokens": 35,
+          "tokens_per_s": 60.199,
+          "text": "Yes, you can apply for a scholarship if your previous qualification is equivalent to a master’s degree and you are applying for a specialisation or PhD. [P4]"
+        },
+        {
+          "qid": "U026",
+          "lang": "en",
+          "ttft_s": 0.419,
+          "total_s": 2.315,
+          "input_tokens": 1254,
+          "output_tokens": 114,
+          "tokens_per_s": 59.585,
+          "text": "For students enrolled for the first time in the first year of bachelor’s, master’s, or single-cycle master’s degree programmes, the merit criteria are assessed retrospectively at the time of payment of the second or third instalment of the scholarship. [P6]  \nThe academic requirement is to have earned, by 10/08/2027, at least 20 credits (10 credits for part-time enrolment) for courses organised into several academic periods and at least 10 credits for other courses. [P6]"
+        },
+        {
+          "qid": "U003",
+          "lang": "ar",
+          "ttft_s": 0.31,
+          "total_s": 1.018,
+          "input_tokens": 648,
+          "output_tokens": 44,
+          "tokens_per_s": 60.679,
+          "text": "يمكنك تقديم طلب الحصول على المزايا من تاريخ نشر الإعلانات حتى موعد الانتهاء، والذي يُحدد عادةً في نهاية شهر أغسطس. [P6]"
+        },
+        {
+          "qid": "U009",
+          "lang": "ar",
+          "ttft_s": 0.155,
+          "total_s": 0.207,
+          "input_tokens": 508,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U017",
+          "lang": "ar",
+          "ttft_s": 0.063,
+          "total_s": 0.52,
+          "input_tokens": 497,
+          "output_tokens": 29,
+          "tokens_per_s": 61.264,
+          "text": "يمكنك تقديم طلب المنحة الدراسية لسنة 2026/2027. [P1]"
+        },
+        {
+          "qid": "U020",
+          "lang": "ar",
+          "ttft_s": 0.128,
+          "total_s": 0.18,
+          "input_tokens": 559,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U024",
+          "lang": "ar",
+          "ttft_s": 0.089,
+          "total_s": 0.6,
+          "input_tokens": 512,
+          "output_tokens": 32,
+          "tokens_per_s": 60.638,
+          "text": "لا يُذكر في المقالات ما إذا كان حملة الشهادات الجامعية مؤهلين للتقدم. [P3]"
+        },
+        {
+          "qid": "U027",
+          "lang": "ar",
+          "ttft_s": 0.2,
+          "total_s": 0.253,
+          "input_tokens": 662,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        }
+      ],
+      "input_tokens_median": 1266.0
+    },
+    "cpu": {
+      "lms_gpu_option": "off",
+      "load_s": 6.3,
+      "gpu_memory_before_mib": 0,
+      "gpu_memory_after_mib": 1418,
+      "gpu_memory_delta_mib": 1418,
+      "ttft_s_median": 1.45,
+      "ttft_s_p95": 2.57,
+      "total_s_median": 6.12,
+      "total_s_p95": 17.15,
+      "tokens_per_s_median": 8.0,
+      "tokens_per_s_p95": 8.9,
+      "tokens_per_s_n": 15,
+      "output_tokens_median": 34.0,
+      "citation_format_ok": 20,
+      "runs": [
+        {
+          "qid": "U001",
+          "lang": "it",
+          "ttft_s": 2.085,
+          "total_s": 6.496,
+          "input_tokens": 1603,
+          "output_tokens": 38,
+          "tokens_per_s": 8.386,
+          "text": "La domanda può essere presentata dal momento della pubblicazione dei bandi fino alla scadenza, indicativamente alla fine del mese di agosto. [P1]"
+        },
+        {
+          "qid": "U004",
+          "lang": "it",
+          "ttft_s": 1.602,
+          "total_s": 15.741,
+          "input_tokens": 1421,
+          "output_tokens": 118,
+          "tokens_per_s": 8.275,
+          "text": "La domanda di borsa di studio può essere presentata entro il termine stabilito dal bando di concorso. [P2]  \nIl termine di scadenza della domanda è fissato al 28 agosto 2026. [P4]  \nNon è possibile accettare domande oltre tale data. [P5]  \nLa domanda deve essere compilata unicamente online. [P5]  \nLe domande presentate con modalità diverse non saranno prese in considerazione. [P5]"
+        },
+        {
+          "qid": "U007",
+          "lang": "it",
+          "ttft_s": 2.569,
+          "total_s": 11.204,
+          "input_tokens": 1788,
+          "output_tokens": 69,
+          "tokens_per_s": 7.875,
+          "text": "Non è possibile accettare domande oltre la data di scadenza. [P1]  \nIl termine per la presentazione della domanda è perentorio ed inderogabile. [P3]  \nLe domande presentate oltre il termine sono escluse dal concorso. [P5]"
+        },
+        {
+          "qid": "U015",
+          "lang": "it",
+          "ttft_s": 2.166,
+          "total_s": 38.608,
+          "input_tokens": 1816,
+          "output_tokens": 276,
+          "tokens_per_s": 7.546,
+          "text": "Per gli studenti iscritti a corsi di Laurea (L), la borsa di studio è concessa per un periodo di sette semestri, a partire dall’anno di prima immatricolazione. [P1]  \nPer gli studenti iscritti a corsi di Laurea Magistrale a Ciclo Unico (LMCU), la borsa di studio è concessa per tutta la durata prevista dai rispettivi ordinamenti più un semestre, a partire dall’anno di prima immatricolazione. [P2]  \nPer gli studenti iscritti a corsi di Laurea Magistrale (LM) di secondo livello, la borsa di studio è concessa per cinque semestri, a partire dall’anno di prima immatricolazione al corso di secondo livello. [P1]  \nPer gli studenti iscritti a Dottorato di ricerca o corsi di Specializzazione (ad eccezione di quelli dell'area medica), la borsa di studio è concessa per tutta la durata prevista dall’ordinamento, a partire dall’anno di prima immatricolazione al corso di terzo livello. [P4]"
+        },
+        {
+          "qid": "U018",
+          "lang": "it",
+          "ttft_s": 1.781,
+          "total_s": 5.931,
+          "input_tokens": 1581,
+          "output_tokens": 34,
+          "tokens_per_s": 7.953,
+          "text": "La domanda di borsa di studio ha validità per un anno accademico, pertanto va ripresentata anno per anno. [P1]"
+        },
+        {
+          "qid": "U021",
+          "lang": "it",
+          "ttft_s": 1.7,
+          "total_s": 5.486,
+          "input_tokens": 1503,
+          "output_tokens": 32,
+          "tokens_per_s": 8.187,
+          "text": "La domanda di borsa di studio ha validità per un anno accademico e va ripresentata anno per anno. [P1]"
+        },
+        {
+          "qid": "U022",
+          "lang": "it",
+          "ttft_s": 1.568,
+          "total_s": 7.11,
+          "input_tokens": 1604,
+          "output_tokens": 41,
+          "tokens_per_s": 7.217,
+          "text": "Sì, puoi presentare domanda di borsa di studio se hai già una laurea, ma solo per un corso di laurea di secondo livello. [P1]"
+        },
+        {
+          "qid": "U002",
+          "lang": "en",
+          "ttft_s": 2.624,
+          "total_s": 6.357,
+          "input_tokens": 1577,
+          "output_tokens": 23,
+          "tokens_per_s": 5.893,
+          "text": "You can submit the application for benefits by 28 August 2026. [P5]"
+        },
+        {
+          "qid": "U008",
+          "lang": "en",
+          "ttft_s": 2.029,
+          "total_s": 2.477,
+          "input_tokens": 1269,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U010",
+          "lang": "en",
+          "ttft_s": 1.244,
+          "total_s": 1.698,
+          "input_tokens": 1263,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U016",
+          "lang": "en",
+          "ttft_s": 1.178,
+          "total_s": 15.335,
+          "input_tokens": 986,
+          "output_tokens": 112,
+          "tokens_per_s": 7.84,
+          "text": "For part-time students, the benefit is granted for a period of thirteen years for five-year single-cycle master’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of fifteen years for six-year single-cycle master’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of nine years for bachelor’s degree programmes. [P4]  \nFor part-time students, the benefit is granted for a period of seven years for Master’s degree programmes. [P4]"
+        },
+        {
+          "qid": "U019",
+          "lang": "en",
+          "ttft_s": 1.864,
+          "total_s": 8.445,
+          "input_tokens": 1527,
+          "output_tokens": 53,
+          "tokens_per_s": 7.903,
+          "text": "No, you do not need to reapply; if you meet the credit requirements by 30 November 2027, your scholarship will be retained automatically for the 2026/2027 academic year. [P3]"
+        },
+        {
+          "qid": "U023",
+          "lang": "en",
+          "ttft_s": 1.33,
+          "total_s": 5.574,
+          "input_tokens": 1223,
+          "output_tokens": 35,
+          "tokens_per_s": 8.01,
+          "text": "Yes, you can apply for a scholarship if your previous qualification is equivalent to a master’s degree and you are applying for a specialisation or PhD. [P4]"
+        },
+        {
+          "qid": "U026",
+          "lang": "en",
+          "ttft_s": 1.235,
+          "total_s": 16.025,
+          "input_tokens": 1254,
+          "output_tokens": 117,
+          "tokens_per_s": 7.843,
+          "text": "For students enrolled for the first time in the first year of bachelor’s, master’s, and single-cycle master’s degree programmes, the merit criteria are assessed retrospectively at the time of payment of the second or third instalment of the scholarship. [P6]  \nThe academic requirement for this stage is to have earned, by 10/08/2027, at least 20 credits (10 credits for part-time enrolment) for courses organised into several academic periods and at least 10 credits for other courses. [P6]"
+        },
+        {
+          "qid": "U003",
+          "lang": "ar",
+          "ttft_s": 1.282,
+          "total_s": 6.319,
+          "input_tokens": 648,
+          "output_tokens": 43,
+          "tokens_per_s": 8.339,
+          "text": "يمكنك تقديم طلب الحصول على المزايا من تاريخ نشر الإعلانات حتى موعد الانتهاء، والذي يُحدد عادةً نهاية شهر أغسطس. [P6]"
+        },
+        {
+          "qid": "U009",
+          "lang": "ar",
+          "ttft_s": 0.625,
+          "total_s": 0.959,
+          "input_tokens": 508,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U017",
+          "lang": "ar",
+          "ttft_s": 0.424,
+          "total_s": 3.557,
+          "input_tokens": 497,
+          "output_tokens": 29,
+          "tokens_per_s": 8.938,
+          "text": "يمكنك تقديم طلب المنحة الدراسية لسنة 2026/2027. [P1]"
+        },
+        {
+          "qid": "U020",
+          "lang": "ar",
+          "ttft_s": 0.644,
+          "total_s": 0.974,
+          "input_tokens": 559,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        },
+        {
+          "qid": "U024",
+          "lang": "ar",
+          "ttft_s": 0.471,
+          "total_s": 3.957,
+          "input_tokens": 512,
+          "output_tokens": 32,
+          "tokens_per_s": 8.893,
+          "text": "لا يُذكر في المقالات ما إذا كان حملة الشهادات الجامعية مؤهلًا للتقدم. [P3]"
+        },
+        {
+          "qid": "U027",
+          "lang": "ar",
+          "ttft_s": 0.558,
+          "total_s": 0.879,
+          "input_tokens": 662,
+          "output_tokens": 4,
+          "tokens_per_s": null,
+          "text": "NO_ANSWER"
+        }
+      ],
+      "input_tokens_median": 1266.0
+    },
+    "speedup_gpu_vs_cpu": {
+      "time_to_first_token": 3.2,
+      "total_time": 5.9,
+      "tokens_per_s": 7.3
+    }
+  },
+  "e2e": {
+    "endpoint": "POST /v1/answer (in-process API)",
+    "n_questions": 20,
+    "llm": "qwen3vl-8b-instruct, full GPU offload",
+    "llm_response_cache": "off",
+    "llm_verified": {
+      "embeddings_cuda": {
+        "latency_s_median": 1.837,
+        "latency_s_p95": 5.617,
+        "answer_modes": {
+          "llm_verified": 19,
+          "insufficient_evidence": 1
+        },
+        "llm_calls_per_answer": 3.9
+      },
+      "embeddings_cpu": {
+        "latency_s_median": 1.449,
+        "latency_s_p95": 4.752,
+        "answer_modes": {
+          "llm_verified": 19,
+          "insufficient_evidence": 1
+        },
+        "llm_calls_per_answer": 3.85
+      },
+      "median_difference_s_cpu_minus_cuda": -0.388
+    },
+    "extractive": {
+      "embeddings_cuda": {
+        "latency_s_median": 0.045,
+        "latency_s_p95": 0.614,
+        "answer_modes": {
+          "extractive": 14,
+          "insufficient_evidence": 6
+        },
+        "llm_calls_per_answer": 0.0
+      },
+      "embeddings_cpu": {
+        "latency_s_median": 0.099,
+        "latency_s_p95": 0.611,
+        "answer_modes": {
+          "extractive": 14,
+          "insufficient_evidence": 6
+        },
+        "llm_calls_per_answer": 0.0
+      },
+      "median_difference_s_cpu_minus_cuda": 0.054
+    }
+  }
+}

@@ -35,6 +35,36 @@ By language: 30 documents in Italian, 12 in English. By type: 9 regulations, 4 c
   2026-11-11. The same ministerial circular is taken from the University of Ferrara copy
   (`unife.it`), which publishes the signed ministerial PDF; this is stated in the manifest `note`.
 
+### 1.1 National extension (15 November 2026)
+
+The first corpus answered well only for Camerino and the Marche region. A student in Rome, Turin or Palermo
+has the same national procedures (visa, residence permit, tax code, health service, recognition of the
+foreign qualification, ISEE) but a different regional right-to-study body. The manifest therefore gained
+**37 more real public documents** (80 in manifest) and a `region` field for every item (`national` = valid
+in the whole country; 40 items are Marche-specific).
+
+| Area | Documents | Sources |
+|---|---|---|
+| National law | 3 | Normattiva: D.Lgs. 286/1998 (immigration consolidated act: art. 39 students, art. 34 health), D.P.R. 394/1999 (implementing regulation: art. 14 part-time work, art. 46 study), D.P.C.M. 159/2013 (ISEE, art. 8 right to study) |
+| National thresholds 2026/27 | 3 | MUR: D.D. 175/2026 (minimum scholarship amounts), D.D. 176/2026 (ISEE and ISPE limits), D.M. 176/2026 (particularly poor countries) - the PDF is found on the decree page (`pdf_link`) |
+| Visa and residence permit | 7 | MAECI FAQ "studiare in Italia", embassy visa checklist, MAECI declaration of value for refugees, guides of Sapienza, Pisa, Genova, Ca' Foscari |
+| Tax code | 2 | Agenzia delle Entrate mini-guide for foreigners and citizen brochure |
+| Health service (SSN) | 3 | Ministry of Health / INMP "InformaSalute", Ca' Foscari (EN), University of Bologna |
+| Recognition of qualifications | 3 | CIMEA (statements of comparability and verification, ARDI), University of Florence |
+| Right to study in other regions | 16 | DiSCo Lazio (IT, EN), DSU Toscana FAQ, EDISU Piemonte (EN guide, step by step), ER.GO (general rules, deadlines) and Bologna's list of documents, Insubria (EN), Milano-Bicocca, Brescia, Milano (housing), Iuav ISEE guide (EN), Palermo ISEE parificato, ERSU Catania FAQ, Bari scholarships for international students |
+
+Licence keys added to the manifest: `pa_web` (pages and leaflets of public administrations), `dsu_regional`
+(calls of regional right-to-study bodies or universities acting as such: official acts) and `univ_web`
+(university pages and guides: used locally, not redistributed). HTML pages of sites not inspected by hand
+use `"selector": "auto"` (first of `main`, `article`, `[role=main]`, `#content`, `.content`, `body` with real
+text).
+
+Dropped after the first download (15 Nov): three Polizia di Stato printable pages (the server answers a script with an HTML page, as for the Questura notice above), and three PDFs that had moved (INPS study-permit leaflet, Politecnico di Torino health guide, University of Padova tax-code guidelines: HTTP 404). The esteri.it and cimea.it pages need the Windows certificate store (`truststore`, in the `data` extra). Known limits: the ADISU Puglia call was found only on a third-party mirror and is not used; regional calls
+change URL every year, so `fetch_corpus_unibridge.py` reports a failure instead of stopping, and the item
+must be updated in the manifest. The handoff table (`config/handoff_offices.json`) still routes to UNICAM
+and ERDIS Marche offices: for another region the assistant cites the regional document but the drafted
+e-mail is addressed to the Marche office (see `docs/OPEN_QUESTIONS.md`).
+
 ## 2. Licences and conditions of use
 
 Checked on 2026-11-11; the licence key of every document is in the manifest.

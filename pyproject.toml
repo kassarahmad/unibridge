@@ -36,6 +36,7 @@ dev = [
 ]
 data = [
     "fpdf2>=2.7",
+    "truststore>=0.9",  # scripts/fetch_corpus_unibridge.py: Windows certificate store
 ]
 ui = [
     "streamlit>=1.38",

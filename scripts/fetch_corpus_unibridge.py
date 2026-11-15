@@ -6,6 +6,10 @@ data/unibridge_manifest.json.
   first line of a paragraph become <h3> headings, so each answer is its own section (citations point to the
   question). The SHA-256 of the original response and of the derived file are both recorded.
 - urn: Normattiva consolidated export, reusing scripts/fetch_corpus.py.
+- selector "auto": the first of main / article / [role=main] / #content / .content / body found in the page
+  (for national and other-region pages whose layout was not inspected by hand).
+- pdf_link: the manifest `url` is a landing page (e.g. a MUR decree page); the first link matching the regex
+  `pdf_link` is followed and the PDF behind it is saved. Both URLs are recorded.
 
 Usage:
     python scripts/fetch_corpus_unibridge.py            # download missing files only
@@ -24,6 +28,7 @@ import json
 import re
 import sys
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -33,6 +38,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import fetch_corpus  # noqa: E402  (Normattiva helpers)
+
+try:  # use the operating system's certificate store (Windows fetches missing intermediate certificates)
+    import truststore
+
+    truststore.inject_into_ssl()
+except ImportError:  # pip install truststore; without it a few sites (esteri.it, cimea.it) fail on Windows
+    pass
 
 MANIFEST = ROOT / "data" / "unibridge_manifest.json"
 OUT_DIR = ROOT / "data" / "raw" / "unibridge"
@@ -52,10 +64,32 @@ def _is_question(text: str) -> bool:
     return 8 <= len(text) <= 250 and (text.endswith("?") or bool(upper))
 
 
+AUTO_SELECTORS = ("main", "article", "[role=main]", "#content", ".content", "body")
+
+
+def pick_region(soup: BeautifulSoup, selector: str):
+    if selector != "auto":
+        return soup.select_one(selector)
+    for candidate in AUTO_SELECTORS:
+        region = soup.select_one(candidate)
+        if region is not None and len(region.get_text(" ", strip=True)) > 200:
+            return region
+    return soup.body
+
+
+def pdf_behind(page_url: str, pattern: str) -> str:
+    """URL of the first link on a landing page whose href matches `pattern`."""
+    soup = BeautifulSoup(get(page_url).decode("utf-8", errors="replace"), "html.parser")
+    for a in soup.find_all("a", href=True):
+        if re.search(pattern, a["href"], flags=re.I):
+            return urllib.parse.urljoin(page_url, a["href"])
+    raise RuntimeError(f"no link matching {pattern!r} on {page_url}")
+
+
 def content_html(page: bytes, selector: str, title: str, url: str) -> bytes:
     """Content region of a page as a small standalone HTML document."""
     soup = BeautifulSoup(page.decode("utf-8", errors="replace"), "html.parser")
-    region = soup.select_one(selector)
+    region = pick_region(soup, selector)
     if region is None:
         raise RuntimeError(f"selector {selector!r} not found")
     for tag in region(["script", "style", "noscript", "nav", "form", "iframe", "img", "svg"]):
@@ -90,9 +124,14 @@ def fetch(doc: dict, force: bool) -> dict:
         record.update(source_url=act["source_url"], url=act["urn_url"], original_sha256=act["sha256"])
         data = target.read_bytes()
     else:
-        raw = get(doc["url"])
+        url = doc["url"]
+        if doc.get("pdf_link"):
+            url = pdf_behind(doc["url"], doc["pdf_link"])
+            record["landing"] = doc.get("landing") or doc["url"]
+            time.sleep(DELAY_S)
+        raw = get(url)
         record["original_sha256"] = hashlib.sha256(raw).hexdigest()
-        record["source_url"] = doc["url"]
+        record["source_url"] = url
         if doc["format"] == "pdf":
             if not raw.startswith(b"%PDF"):
                 raise RuntimeError("response is not a PDF")

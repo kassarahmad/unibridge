@@ -116,6 +116,12 @@ package and a legend. They were written from the code, and a test (`tests/test_u
 honest: every class, attribute, method, module function and API route drawn in them is looked up in the source
 with Python's `ast` module, so a renamed method makes the test fail until the diagram is updated.
 
+The same model is delivered as a Visual Paradigm project (`docs/visual_paradigm/UniBridge_UML_completo.vpp`,
+Visual Paradigm Community Edition). It holds the diagrams listed below with the same layout, five overview
+diagrams in Italian (use cases, classes, three sequences) and eleven more: the system context, six activity
+diagrams, the SQLite data model, the shadow-mode sequence and the two Petri nets of section 3.2 and of the
+scholarship procedure.
+
 ![Package diagram](images/uml/01_packages.png)
 
 The package diagram shows the layering: the API depends on the wiring module (`services`), which builds the

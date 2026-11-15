@@ -144,6 +144,12 @@ UML 2.5 diagrams in PlantUML: sources in [docs/uml/](docs/uml/) (one shared styl
 pictures in [docs/images/uml/](docs/images/uml/) as SVG and PNG. `tests/test_uml.py` checks every class, method
 and route drawn in the class diagrams against the code.
 
+The same model is delivered as a Visual Paradigm project,
+[docs/visual_paradigm/UniBridge_UML_completo.vpp](docs/visual_paradigm/UniBridge_UML_completo.vpp) (Visual Paradigm
+18.1 Community Edition). It holds 33 diagrams: the 17 diagrams below with the same layout, 5 overview diagrams in
+Italian (use cases, classes, three sequences) and 11 more (system context, six activity diagrams, the SQLite data
+model, the shadow-mode sequence and the two Petri nets of `docs/bpmn/*.pnml`).
+
 ![Package diagram](docs/images/uml/01_packages.png)
 
 ![Component diagram](docs/images/uml/15_components.png)

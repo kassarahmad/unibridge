@@ -1,0 +1,29 @@
+@startuml UniBridge_Handoff
+title Handoff: bozza di e-mail all'ufficio
+start
+if (office_id indicato dal chiamante?) then (sì)
+else (no)
+  :Cerca le parole chiave degli uffici\n(config/handoff_offices.json);
+  if (Almeno una parola corrisponde?) then (no)
+    :out_of_scope = true, nessuna bozza;
+    stop
+  else (sì)
+  endif
+  if (Pareggio tra uffici?) then (sì)
+    :Vince l'ufficio del passaggio migliore;
+  else (no)
+  endif
+endif
+:Ufficio scelto;
+if (Domanda in italiano?) then (no)
+  if (LLM attivo?) then (sì)
+    :LLM traduce la domanda in italiano;
+  else (no)
+    :Tiene la domanda originale;
+  endif
+else (sì)
+endif
+:Compone bozza formale in italiano;
+:Lo studente la invia da solo;
+stop
+@enduml

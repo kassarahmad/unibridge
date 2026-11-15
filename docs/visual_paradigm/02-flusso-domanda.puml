@@ -1,0 +1,45 @@
+@startuml UniBridge_FlussoDomanda
+title Diagramma di flusso: dalla domanda alla risposta
+start
+:Lo studente scrive la domanda nella chat Streamlit;
+:POST /v1/answer con header X-API-Key;
+if (Chiave API valida?) then (no)
+  :Risposta 401 Unauthorized;
+  stop
+else (sì)
+endif
+:Ruolo dell'utente (visitor, student, office, admin);
+:Rileva la lingua (17 lingue);
+fork
+  :BM25 su SQLite FTS5;
+fork again
+  :E5 trasforma la domanda in vettore;
+  :Ricerca dense su Qdrant;
+end fork
+:Fusione RRF (k = 60), filtro permessi già applicato;
+if (Lingua non italiana e LLM attivo?) then (sì)
+  :LLM traduce la domanda in italiano;
+  :Seconda ricerca ibrida sulla traduzione;
+  :RRF delle due classifiche;
+else (no)
+endif
+if (Evidenza sopra la soglia calibrata?) then (no)
+  :Non lo so, nella lingua della domanda;
+  if (Una regola trova l'ufficio?) then (sì)
+    :Bozza e-mail in italiano all'ufficio;
+  else (no)
+    :Domanda fuori ambito, nessuna bozza;
+  endif
+else (sì)
+  if (LLM configurato?) then (no)
+    :Risposta estrattiva: copia le frasi migliori dai passaggi;
+  else (sì)
+    :gpt-4o-mini scrive la risposta solo dai passaggi P1..Pk;
+    :Verificatore elimina le frasi non supportate;
+  endif
+  :Risposta + citazioni + testo originale italiano;
+endif
+:Salva in query_log (SQLite);
+:La chat mostra risposta, fonti e pulsante e-mail;
+stop
+@enduml

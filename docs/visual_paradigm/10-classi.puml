@@ -1,0 +1,75 @@
+@startuml UniBridge_Classi
+title Diagramma delle classi
+class Services {
+  settings
+  store
+  index
+  embedder
+  registry
+  ingestion
+  search
+}
+class Store {
+  +query(sql, params)
+  +transaction()
+  +refresh_snapshot_id()
+  +log_query()
+  +log_shadow()
+  +add_feedback()
+}
+class VectorIndex {
+  +collection
+  +ensure_collection()
+  +upsert(payloads, vectors)
+  +delete(passage_ids)
+  +search(vector, filter, limit)
+}
+interface Embedder {
+  +embed_queries(texts)
+  +embed_passages(texts)
+}
+class SentenceTransformerEmbedder
+class HashingEmbedder
+class IngestionService {
+  +ingest(doc, principal)
+  +approve(document_id, principal, note)
+}
+class SearchService {
+  +rank_all(query, principal, k, systems)
+  +search(request, principal, request_id)
+  +hydrate(hits, principal)
+  +versions()
+}
+class BM25Retriever {
+  +retrieve(query, principal, k, filters)
+}
+class DenseRetriever {
+  +retrieve(query, principal, k, filters)
+}
+class Principal {
+  name
+  role
+  level
+  offices
+  +can_manage(office)
+}
+class PrincipalRegistry {
+  +authenticate(api_key)
+}
+Embedder <|.. SentenceTransformerEmbedder
+Embedder <|.. HashingEmbedder
+Services --> Store
+Services --> VectorIndex
+Services --> IngestionService
+Services --> SearchService
+Services --> PrincipalRegistry
+IngestionService --> Store
+IngestionService --> VectorIndex
+IngestionService --> Embedder
+SearchService --> BM25Retriever
+SearchService --> DenseRetriever
+BM25Retriever --> Store
+DenseRetriever --> VectorIndex
+DenseRetriever --> Embedder
+PrincipalRegistry --> Principal
+@enduml

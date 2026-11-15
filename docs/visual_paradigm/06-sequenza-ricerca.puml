@@ -1,0 +1,23 @@
+@startuml UniBridge_SequenzaRicerca
+title Sequenza ricerca ibrida (POST /v1/search)
+actor Client as C
+participant "API FastAPI" as API
+participant "SearchService" as S
+participant "BM25Retriever\n(SQLite FTS5)" as B
+participant "DenseRetriever\n(E5 + Qdrant)" as D
+database "SQLite" as DB
+C -> API : POST /v1/search + X-API-Key
+API -> API : chiave -> Principal (401 se sconosciuta)
+API -> S : search(request, principal)
+par
+  S -> B : retrieve(query, 50) con filtro permessi SQL
+else
+  S -> D : retrieve(query, 50) con filtro permessi Qdrant
+end
+S -> S : RRF(bm25, dense)
+S -> S : insufficient_evidence se sotto soglia
+S -> DB : carica passaggi e documenti
+S -> S : citazioni, evidenza, riassunto
+S -> DB : query_log
+API --> C : 200 SearchResponse
+@enduml

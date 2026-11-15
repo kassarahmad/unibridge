@@ -1,0 +1,37 @@
+@startuml UniBridge_SequenzaRisposta
+title Sequenza POST /v1/answer (modalità llm_verified)
+autonumber
+actor Studente as S
+participant "Streamlit" as UI
+participant "AnswerService" as A
+participant "SearchService\n(S2 + permessi)" as R
+participant "LLMClient" as L
+participant "Verificatore" as V
+participant "HandoffService" as H
+S -> UI : domanda
+UI -> A : POST /v1/answer + X-API-Key
+A -> A : rileva la lingua
+A -> R : ricerca ibrida sulla domanda
+opt lingua diversa dall'italiano
+  A -> L : traduce la domanda in italiano
+  A -> R : ricerca ibrida sulla traduzione
+  A -> A : fusione RRF delle due classifiche
+end
+alt evidenza sotto la soglia
+  A -> H : ufficio + bozza e-mail
+  A --> UI : Non lo so + bozza
+else evidenza trovata
+  A -> L : risposta solo dai passaggi P1..Pk
+  A -> V : elimina frasi senza citazione valida
+  loop per ogni frase
+    V -> L : il passaggio la supporta?
+  end
+  alt nessuna frase rimasta
+    A -> H : ufficio + bozza
+    A --> UI : Non lo so + bozza
+  else
+    A --> UI : frasi + citazioni + originale italiano
+  end
+end
+UI --> S : risposta e pulsante e-mail
+@enduml

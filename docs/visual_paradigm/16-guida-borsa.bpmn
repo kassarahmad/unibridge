@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="defs_guida_borsa" targetNamespace="https://unibridge.example/bpmn">
+  <collaboration id="collab">
+    <participant id="pool" name="UniBridge: Guida alla borsa ERDIS" processRef="guida_borsa"/>
+  </collaboration>
+  <process id="guida_borsa" name="UniBridge: Guida alla borsa ERDIS" isExecutable="false">
+    <laneSet id="lanes">
+      <lane id="lane_stud" name="Studente">
+        <flowNodeRef>start</flowNodeRef>
+        <flowNodeRef>t_dati</flowNodeRef>
+        <flowNodeRef>t_vede</flowNodeRef>
+        <flowNodeRef>end</flowNodeRef>
+      </lane>
+      <lane id="lane_api" name="UniBridge (regole fisse, procedure/guide.py)">
+        <flowNodeRef>t_post</flowNodeRef>
+        <flowNodeRef>g_fork</flowNodeRef>
+        <flowNodeRef>r_deadline</flowNodeRef>
+        <flowNodeRef>r_isee</flowNodeRef>
+        <flowNodeRef>r_ispe</flowNodeRef>
+        <flowNodeRef>r_prior</flowNodeRef>
+        <flowNodeRef>r_dur</flowNodeRef>
+        <flowNodeRef>r_merit</flowNodeRef>
+        <flowNodeRef>r_permit</flowNodeRef>
+        <flowNodeRef>r_amount</flowNodeRef>
+        <flowNodeRef>g_join</flowNodeRef>
+        <flowNodeRef>g_fail</flowNodeRef>
+        <flowNodeRef>t_ne</flowNodeRef>
+        <flowNodeRef>g_check</flowNodeRef>
+        <flowNodeRef>t_cwo</flowNodeRef>
+        <flowNodeRef>t_el</flowNodeRef>
+        <flowNodeRef>g_mv</flowNodeRef>
+        <flowNodeRef>t_petri</flowNodeRef>
+        <flowNodeRef>t_ics</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="start" name="Apre la Guida alla borsa">
+      <outgoing>f1</outgoing>
+    </startEvent>
+    <userTask id="t_dati" name="Inserisce livello, anno, crediti, ISEE, residenza">
+      <incoming>f1</incoming>
+      <outgoing>f2</outgoing>
+    </userTask>
+    <task id="t_post" name="Riceve POST /v1/procedure/scholarship">
+      <incoming>f2</incoming>
+      <outgoing>f3</outgoing>
+    </task>
+    <parallelGateway id="g_fork" name="">
+      <incoming>f3</incoming>
+      <outgoing>f4</outgoing>
+      <outgoing>f5</outgoing>
+      <outgoing>f6</outgoing>
+      <outgoing>f7</outgoing>
+      <outgoing>f8</outgoing>
+      <outgoing>f9</outgoing>
+      <outgoing>f10</outgoing>
+      <outgoing>f11</outgoing>
+    </parallelGateway>
+    <task id="r_deadline" name="deadline: domanda entro il 28/8/2026">
+      <incoming>f4</incoming>
+      <outgoing>f12</outgoing>
+    </task>
+    <task id="r_isee" name="isee: ISEE fino a 24.000 EUR">
+      <incoming>f5</incoming>
+      <outgoing>f13</outgoing>
+    </task>
+    <task id="r_ispe" name="ispe: ISPE fino a 50.000 EUR">
+      <incoming>f6</incoming>
+      <outgoing>f14</outgoing>
+    </task>
+    <task id="r_prior" name="prior_degree: nessun titolo dello stesso livello">
+      <incoming>f7</incoming>
+      <outgoing>f15</outgoing>
+    </task>
+    <task id="r_dur" name="duration: entro la durata del beneficio">
+      <incoming>f8</incoming>
+      <outgoing>f16</outgoing>
+    </task>
+    <task id="r_merit" name="merit: crediti richiesti entro il 10/8/2026">
+      <incoming>f9</incoming>
+      <outgoing>f17</outgoing>
+    </task>
+    <task id="r_permit" name="permit: permesso di soggiorno 2026/2027">
+      <incoming>f10</incoming>
+      <outgoing>f18</outgoing>
+    </task>
+    <task id="r_amount" name="amount: categoria dell'importo">
+      <incoming>f11</incoming>
+      <outgoing>f19</outgoing>
+    </task>
+    <parallelGateway id="g_join" name="">
+      <incoming>f12</incoming>
+      <incoming>f13</incoming>
+      <incoming>f14</incoming>
+      <incoming>f15</incoming>
+      <incoming>f16</incoming>
+      <incoming>f17</incoming>
+      <incoming>f18</incoming>
+      <incoming>f19</incoming>
+      <outgoing>f20</outgoing>
+    </parallelGateway>
+    <exclusiveGateway id="g_fail" name="Almeno una regola fail?">
+      <incoming>f20</incoming>
+      <outgoing>f21</outgoing>
+      <outgoing>f22</outgoing>
+    </exclusiveGateway>
+    <task id="t_ne" name="Verdetto: non idoneo (not_eligible)">
+      <incoming>f21</incoming>
+      <outgoing>f25</outgoing>
+    </task>
+    <exclusiveGateway id="g_check" name="Almeno una regola check?">
+      <incoming>f22</incoming>
+      <outgoing>f23</outgoing>
+      <outgoing>f24</outgoing>
+    </exclusiveGateway>
+    <task id="t_cwo" name="Verdetto: verificare con ERDIS (check_with_office)">
+      <incoming>f23</incoming>
+      <outgoing>f26</outgoing>
+    </task>
+    <task id="t_el" name="Verdetto: idoneo (eligible)">
+      <incoming>f24</incoming>
+      <outgoing>f27</outgoing>
+    </task>
+    <exclusiveGateway id="g_mv" name="">
+      <incoming>f25</incoming>
+      <incoming>f26</incoming>
+      <incoming>f27</incoming>
+      <outgoing>f28</outgoing>
+    </exclusiveGateway>
+    <task id="t_petri" name="Avanza la rete di Petri del bando: passi fatti e successivi">
+      <incoming>f28</incoming>
+      <outgoing>f29</outgoing>
+    </task>
+    <task id="t_ics" name="Crea checklist e scadenze in file .ics">
+      <incoming>f29</incoming>
+      <outgoing>f30</outgoing>
+    </task>
+    <userTask id="t_vede" name="Vede il verdetto e scarica il file .ics">
+      <incoming>f30</incoming>
+      <outgoing>f31</outgoing>
+    </userTask>
+    <endEvent id="end" name="Guida completata">
+      <incoming>f31</incoming>
+    </endEvent>
+    <sequenceFlow id="f1" sourceRef="start" targetRef="t_dati"/>
+    <sequenceFlow id="f2" sourceRef="t_dati" targetRef="t_post"/>
+    <sequenceFlow id="f3" sourceRef="t_post" targetRef="g_fork"/>
+    <sequenceFlow id="f4" sourceRef="g_fork" targetRef="r_deadline"/>
+    <sequenceFlow id="f5" sourceRef="g_fork" targetRef="r_isee"/>
+    <sequenceFlow id="f6" sourceRef="g_fork" targetRef="r_ispe"/>
+    <sequenceFlow id="f7" sourceRef="g_fork" targetRef="r_prior"/>
+    <sequenceFlow id="f8" sourceRef="g_fork" targetRef="r_dur"/>
+    <sequenceFlow id="f9" sourceRef="g_fork" targetRef="r_merit"/>
+    <sequenceFlow id="f10" sourceRef="g_fork" targetRef="r_permit"/>
+    <sequenceFlow id="f11" sourceRef="g_fork" targetRef="r_amount"/>
+    <sequenceFlow id="f12" sourceRef="r_deadline" targetRef="g_join"/>
+    <sequenceFlow id="f13" sourceRef="r_isee" targetRef="g_join"/>
+    <sequenceFlow id="f14" sourceRef="r_ispe" targetRef="g_join"/>
+    <sequenceFlow id="f15" sourceRef="r_prior" targetRef="g_join"/>
+    <sequenceFlow id="f16" sourceRef="r_dur" targetRef="g_join"/>
+    <sequenceFlow id="f17" sourceRef="r_merit" targetRef="g_join"/>
+    <sequenceFlow id="f18" sourceRef="r_permit" targetRef="g_join"/>
+    <sequenceFlow id="f19" sourceRef="r_amount" targetRef="g_join"/>
+    <sequenceFlow id="f20" sourceRef="g_join" targetRef="g_fail"/>
+    <sequenceFlow id="f21" sourceRef="g_fail" targetRef="t_ne" name="sì"/>
+    <sequenceFlow id="f22" sourceRef="g_fail" targetRef="g_check" name="no"/>
+    <sequenceFlow id="f23" sourceRef="g_check" targetRef="t_cwo" name="sì"/>
+    <sequenceFlow id="f24" sourceRef="g_check" targetRef="t_el" name="no"/>
+    <sequenceFlow id="f25" sourceRef="t_ne" targetRef="g_mv"/>
+    <sequenceFlow id="f26" sourceRef="t_cwo" targetRef="g_mv"/>
+    <sequenceFlow id="f27" sourceRef="t_el" targetRef="g_mv"/>
+    <sequenceFlow id="f28" sourceRef="g_mv" targetRef="t_petri"/>
+    <sequenceFlow id="f29" sourceRef="t_petri" targetRef="t_ics"/>
+    <sequenceFlow id="f30" sourceRef="t_ics" targetRef="t_vede"/>
+    <sequenceFlow id="f31" sourceRef="t_vede" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="diagram">
+    <bpmndi:BPMNPlane id="plane" bpmnElement="collab">
+      <bpmndi:BPMNShape id="pool_di" bpmnElement="pool" isHorizontal="true"><dc:Bounds x="30" y="0" width="2278" height="855"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_stud_di" bpmnElement="lane_stud" isHorizontal="true"><dc:Bounds x="60" y="0" width="2248" height="95"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_api_di" bpmnElement="lane_api" isHorizontal="true"><dc:Bounds x="60" y="95" width="2248" height="760"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start"><dc:Bounds x="132" y="29" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_dati_di" bpmnElement="t_dati"><dc:Bounds x="245" y="11" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_post_di" bpmnElement="t_post"><dc:Bounds x="405" y="106" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_fork_di" bpmnElement="g_fork"><dc:Bounds x="605" y="117" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_deadline_di" bpmnElement="r_deadline"><dc:Bounds x="725" y="106" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_isee_di" bpmnElement="r_isee"><dc:Bounds x="725" y="201" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_ispe_di" bpmnElement="r_ispe"><dc:Bounds x="725" y="296" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_prior_di" bpmnElement="r_prior"><dc:Bounds x="725" y="391" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_dur_di" bpmnElement="r_dur"><dc:Bounds x="725" y="486" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_merit_di" bpmnElement="r_merit"><dc:Bounds x="725" y="581" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_permit_di" bpmnElement="r_permit"><dc:Bounds x="725" y="676" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="r_amount_di" bpmnElement="r_amount"><dc:Bounds x="725" y="771" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_join_di" bpmnElement="g_join"><dc:Bounds x="925" y="117" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_fail_di" bpmnElement="g_fail" isMarkerVisible="true"><dc:Bounds x="1085" y="117" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_ne_di" bpmnElement="t_ne"><dc:Bounds x="1205" y="106" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_check_di" bpmnElement="g_check" isMarkerVisible="true"><dc:Bounds x="1245" y="307" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_cwo_di" bpmnElement="t_cwo"><dc:Bounds x="1365" y="296" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_el_di" bpmnElement="t_el"><dc:Bounds x="1365" y="486" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_mv_di" bpmnElement="g_mv" isMarkerVisible="true"><dc:Bounds x="1565" y="117" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_petri_di" bpmnElement="t_petri"><dc:Bounds x="1685" y="106" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_ics_di" bpmnElement="t_ics"><dc:Bounds x="1845" y="106" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_vede_di" bpmnElement="t_vede"><dc:Bounds x="2005" y="11" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_di" bpmnElement="end"><dc:Bounds x="2212" y="29" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f1_di" bpmnElement="f1"><di:waypoint x="168" y="47"/><di:waypoint x="245" y="47"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2"><di:waypoint x="375" y="47"/><di:waypoint x="390" y="47"/><di:waypoint x="390" y="142"/><di:waypoint x="405" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3"><di:waypoint x="535" y="142"/><di:waypoint x="605" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f4_di" bpmnElement="f4"><di:waypoint x="655" y="142"/><di:waypoint x="725" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f5_di" bpmnElement="f5"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="237"/><di:waypoint x="725" y="237"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f6_di" bpmnElement="f6"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="332"/><di:waypoint x="725" y="332"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f7_di" bpmnElement="f7"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="427"/><di:waypoint x="725" y="427"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f8_di" bpmnElement="f8"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="522"/><di:waypoint x="725" y="522"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f9_di" bpmnElement="f9"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="617"/><di:waypoint x="725" y="617"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f10_di" bpmnElement="f10"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="712"/><di:waypoint x="725" y="712"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f11_di" bpmnElement="f11"><di:waypoint x="655" y="142"/><di:waypoint x="690" y="142"/><di:waypoint x="690" y="807"/><di:waypoint x="725" y="807"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f12_di" bpmnElement="f12"><di:waypoint x="855" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f13_di" bpmnElement="f13"><di:waypoint x="855" y="237"/><di:waypoint x="890" y="237"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f14_di" bpmnElement="f14"><di:waypoint x="855" y="332"/><di:waypoint x="890" y="332"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f15_di" bpmnElement="f15"><di:waypoint x="855" y="427"/><di:waypoint x="890" y="427"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f16_di" bpmnElement="f16"><di:waypoint x="855" y="522"/><di:waypoint x="890" y="522"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f17_di" bpmnElement="f17"><di:waypoint x="855" y="617"/><di:waypoint x="890" y="617"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f18_di" bpmnElement="f18"><di:waypoint x="855" y="712"/><di:waypoint x="890" y="712"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f19_di" bpmnElement="f19"><di:waypoint x="855" y="807"/><di:waypoint x="890" y="807"/><di:waypoint x="890" y="142"/><di:waypoint x="925" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f20_di" bpmnElement="f20"><di:waypoint x="975" y="142"/><di:waypoint x="1085" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f21_di" bpmnElement="f21"><di:waypoint x="1135" y="142"/><di:waypoint x="1205" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f22_di" bpmnElement="f22"><di:waypoint x="1135" y="142"/><di:waypoint x="1190" y="142"/><di:waypoint x="1190" y="332"/><di:waypoint x="1245" y="332"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f23_di" bpmnElement="f23"><di:waypoint x="1295" y="332"/><di:waypoint x="1365" y="332"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f24_di" bpmnElement="f24"><di:waypoint x="1295" y="332"/><di:waypoint x="1330" y="332"/><di:waypoint x="1330" y="522"/><di:waypoint x="1365" y="522"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f25_di" bpmnElement="f25"><di:waypoint x="1335" y="142"/><di:waypoint x="1565" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f26_di" bpmnElement="f26"><di:waypoint x="1495" y="332"/><di:waypoint x="1530" y="332"/><di:waypoint x="1530" y="142"/><di:waypoint x="1565" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f27_di" bpmnElement="f27"><di:waypoint x="1495" y="522"/><di:waypoint x="1530" y="522"/><di:waypoint x="1530" y="142"/><di:waypoint x="1565" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f28_di" bpmnElement="f28"><di:waypoint x="1615" y="142"/><di:waypoint x="1685" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f29_di" bpmnElement="f29"><di:waypoint x="1815" y="142"/><di:waypoint x="1845" y="142"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f30_di" bpmnElement="f30"><di:waypoint x="1975" y="142"/><di:waypoint x="1990" y="142"/><di:waypoint x="1990" y="47"/><di:waypoint x="2005" y="47"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f31_di" bpmnElement="f31"><di:waypoint x="2135" y="47"/><di:waypoint x="2212" y="47"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,25 @@
+@startuml UniBridge_SequenzaIngestion
+title Sequenza caricamento documenti con approvazione
+actor "Responsabile ufficio" as O
+participant "API" as API
+participant "IngestionService" as I
+participant "Parser + Chunker" as P
+database "SQLite" as DB
+participant "Embedder E5" as E
+database "Qdrant" as Q
+O -> API : POST /v1/documents
+API -> I : ingest(doc, principal)
+I -> I : can_manage(office)? altrimenti 403
+I -> P : parse + divisione in chunk
+P --> I : passaggi con id stabili
+I -> DB : documento pending, passaggi indexed=0
+API --> O : 202 pending
+note over DB, Q : Non ancora ricercabile
+O -> API : POST /v1/documents/{id}/approve
+API -> I : approve(id)
+I -> E : embed_passages("passage: " + testo)
+I -> Q : upsert dei vettori (384 dim, coseno)
+I -> Q : cancella la versione superata
+I -> DB : indice FTS5, indexed=1, approval_log
+API --> O : 200 approved
+@enduml

@@ -1,0 +1,32 @@
+@startuml UniBridge_GuidaBorsa
+title Guida alla borsa: controllo dei requisiti
+start
+:Dati dello studente (livello, anno, crediti, ISEE, ISPE, residenza, permesso, data);
+fork
+  :deadline: domanda entro 28/8/2026;
+fork again
+  :isee: fino a 24.000 EUR;
+fork again
+  :ispe: fino a 50.000 EUR;
+fork again
+  :prior_degree: nessun titolo stesso livello;
+fork again
+  :duration: entro la durata del beneficio;
+fork again
+  :merit: crediti richiesti entro 10/8/2026;
+fork again
+  :permit: permesso di soggiorno 2026/27;
+fork again
+  :amount: categoria importo;
+end fork
+if (Almeno un fail?) then (sì)
+  :not_eligible;
+elseif (Almeno un check?) then (sì)
+  :check_with_office;
+else
+  :eligible;
+endif
+:Avanza la rete di Petri del bando;
+:Checklist + scadenze .ics;
+stop
+@enduml

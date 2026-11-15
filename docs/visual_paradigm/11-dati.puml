@@ -1,0 +1,64 @@
+@startuml UniBridge_Dati
+title Modello dei dati SQLite
+class documents <<table>> {
+  document_id : text <<PK>>
+  title : text
+  office : text
+  type : text
+  access_level : text
+  owner : text
+  status : text
+  current_version : text
+}
+class document_versions <<table>> {
+  document_id : text <<PK>>
+  document_version : text <<PK>>
+  status : text
+  chunker_version : text
+}
+class passages <<table>> {
+  passage_id : text <<UK>>
+  section : text
+  page : int
+  char_start : int
+  char_end : int
+  indexed : int
+  active : int
+}
+class passages_fts <<table>> {
+  section : text
+  text : text
+}
+class approval_log <<table>> {
+  document_id : text
+  approved_by : text
+  note : text
+}
+class query_log <<table>> {
+  request_id : text <<PK>>
+  principal_hash : text
+  system : text
+  results_json : text
+  insufficient_evidence : int
+  latency_ms : real
+}
+class shadow_log <<table>> {
+  request_id : text <<PK>>
+  shown_system : text
+  shadow_system : text
+  overlap_at_k : real
+}
+class feedback <<table>> {
+  id : int <<PK>>
+  request_id : text
+  passage_id : text
+  judgement : text
+}
+documents "1" -- "0..*" document_versions
+documents "1" -- "0..*" passages
+document_versions "1" -- "0..*" passages
+passages "1" -- "1" passages_fts
+documents "1" -- "0..*" approval_log
+query_log "1" -- "0..1" shadow_log
+query_log "1" -- "0..*" feedback
+@enduml

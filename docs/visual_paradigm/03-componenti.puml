@@ -1,0 +1,30 @@
+@startuml UniBridge_Componenti
+title Componenti di UniBridge
+component "Streamlit\nfrontend/unibridge_app.py" as UI
+package "FastAPI - p14_search.unibridge_main" {
+  component "api/app.py\nendpoint /v1/*" as API
+  component "security\nchiavi API, ruoli, permessi" as SEC
+  component "answer\nlingua, risposta, verificatore, LLM" as ANS
+  component "handoff\nscelta ufficio, bozza e-mail" as HAND
+  component "procedure\nregole borsa, BPMN, rete di Petri, .ics" as PROC
+  component "retrieval\nBM25, dense, RRF, citazioni" as RET
+  component "indexing\nembedder E5, store, vector index" as IDX
+  component "ingestion\nparser, chunker, approvazione" as ING
+}
+database "SQLite\nunibridge.sqlite" as DB
+database "Qdrant\nunibridge_passages" as QD
+cloud "Provider LLM\n(facoltativo)" as LLM
+UI --> API : HTTP + X-API-Key
+API --> SEC
+API --> ANS
+API --> HAND
+API --> PROC
+API --> ING
+ANS --> RET
+ANS --> HAND
+ANS ..> LLM
+RET --> IDX
+ING --> IDX
+IDX --> DB
+IDX --> QD
+@enduml

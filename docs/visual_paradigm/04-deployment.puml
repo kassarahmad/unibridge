@@ -1,0 +1,25 @@
+@startuml UniBridge_Deployment
+title Deployment locale
+node "PC Windows" {
+  node ".venv Python 3.11" {
+    artifact "Streamlit :8501" as ST
+    artifact "Uvicorn + FastAPI :8001" as API
+    artifact "Modello E5\nmultilingual-e5-small" as E5
+  }
+  database "SQLite\ndata/processed/unibridge.sqlite" as DB
+  node "Docker Desktop" {
+    database "Qdrant 1.19.2\ncontainer p14-qdrant\n:6333 REST, :6334 gRPC" as QD
+  }
+}
+actor Browser
+cloud "Hugging Face Hub\n(solo primo download)" as HF
+cloud "API LLM\n(facoltativa)" as LLM
+Browser --> ST : localhost:8501
+Browser --> API : 127.0.0.1:8001/docs
+ST --> API : HTTP + X-API-Key
+API --> E5
+API --> DB
+API --> QD
+E5 ..> HF
+API ..> LLM
+@enduml

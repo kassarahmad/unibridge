@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="defs_handoff" targetNamespace="https://unibridge.example/bpmn">
+  <collaboration id="collab">
+    <participant id="pool" name="UniBridge: bozza di e-mail all'ufficio" processRef="handoff"/>
+  </collaboration>
+  <process id="handoff" name="UniBridge: bozza di e-mail all'ufficio" isExecutable="false">
+    <laneSet id="lanes">
+      <lane id="lane_stud" name="Studente">
+        <flowNodeRef>t_ricevi</flowNodeRef>
+        <flowNodeRef>t_invia</flowNodeRef>
+        <flowNodeRef>end</flowNodeRef>
+      </lane>
+      <lane id="lane_api" name="UniBridge (HandoffService)">
+        <flowNodeRef>start</flowNodeRef>
+        <flowNodeRef>g_off</flowNodeRef>
+        <flowNodeRef>t_kw</flowNodeRef>
+        <flowNodeRef>g_match</flowNodeRef>
+        <flowNodeRef>end_out</flowNodeRef>
+        <flowNodeRef>t_tie</flowNodeRef>
+        <flowNodeRef>g_mo</flowNodeRef>
+        <flowNodeRef>g_it</flowNodeRef>
+        <flowNodeRef>g_llm</flowNodeRef>
+        <flowNodeRef>g_m3</flowNodeRef>
+        <flowNodeRef>t_draft</flowNodeRef>
+      </lane>
+      <lane id="lane_llm" name="LLM (facoltativo)">
+        <flowNodeRef>t_tr</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="start" name="Risposta Non lo so oppure POST /v1/handoff">
+      <outgoing>f1</outgoing>
+    </startEvent>
+    <exclusiveGateway id="g_off" name="Ufficio indicato dal chiamante?">
+      <incoming>f1</incoming>
+      <outgoing>f2</outgoing>
+      <outgoing>f3</outgoing>
+    </exclusiveGateway>
+    <task id="t_kw" name="Cerca le parole chiave degli uffici (handoff_offices.json)">
+      <incoming>f3</incoming>
+      <outgoing>f4</outgoing>
+    </task>
+    <exclusiveGateway id="g_match" name="Almeno una parola corrisponde?">
+      <incoming>f4</incoming>
+      <outgoing>f5</outgoing>
+      <outgoing>f6</outgoing>
+    </exclusiveGateway>
+    <endEvent id="end_out" name="Fuori ambito: nessuna bozza">
+      <incoming>f5</incoming>
+    </endEvent>
+    <task id="t_tie" name="Sceglie l'ufficio (pareggio: ufficio del passaggio migliore)">
+      <incoming>f6</incoming>
+      <outgoing>f7</outgoing>
+    </task>
+    <exclusiveGateway id="g_mo" name="">
+      <incoming>f2</incoming>
+      <incoming>f7</incoming>
+      <outgoing>f8</outgoing>
+    </exclusiveGateway>
+    <exclusiveGateway id="g_it" name="Domanda in italiano?">
+      <incoming>f8</incoming>
+      <outgoing>f9</outgoing>
+      <outgoing>f10</outgoing>
+    </exclusiveGateway>
+    <exclusiveGateway id="g_llm" name="LLM attivo?">
+      <incoming>f10</incoming>
+      <outgoing>f11</outgoing>
+      <outgoing>f12</outgoing>
+    </exclusiveGateway>
+    <task id="t_tr" name="Traduce la domanda in italiano">
+      <incoming>f11</incoming>
+      <outgoing>f13</outgoing>
+    </task>
+    <exclusiveGateway id="g_m3" name="">
+      <incoming>f9</incoming>
+      <incoming>f12</incoming>
+      <incoming>f13</incoming>
+      <outgoing>f14</outgoing>
+    </exclusiveGateway>
+    <task id="t_draft" name="Compone la bozza formale in italiano con le fonti">
+      <incoming>f14</incoming>
+      <outgoing>f15</outgoing>
+    </task>
+    <userTask id="t_ricevi" name="Legge la bozza e le istruzioni di invio">
+      <incoming>f15</incoming>
+      <outgoing>f16</outgoing>
+    </userTask>
+    <userTask id="t_invia" name="Invia l'e-mail all'ufficio da solo">
+      <incoming>f16</incoming>
+      <outgoing>f17</outgoing>
+    </userTask>
+    <endEvent id="end" name="Richiesta inviata all'ufficio">
+      <incoming>f17</incoming>
+    </endEvent>
+    <sequenceFlow id="f1" sourceRef="start" targetRef="g_off"/>
+    <sequenceFlow id="f2" sourceRef="g_off" targetRef="g_mo" name="sì"/>
+    <sequenceFlow id="f3" sourceRef="g_off" targetRef="t_kw" name="no"/>
+    <sequenceFlow id="f4" sourceRef="t_kw" targetRef="g_match"/>
+    <sequenceFlow id="f5" sourceRef="g_match" targetRef="end_out" name="no"/>
+    <sequenceFlow id="f6" sourceRef="g_match" targetRef="t_tie" name="sì"/>
+    <sequenceFlow id="f7" sourceRef="t_tie" targetRef="g_mo"/>
+    <sequenceFlow id="f8" sourceRef="g_mo" targetRef="g_it"/>
+    <sequenceFlow id="f9" sourceRef="g_it" targetRef="g_m3" name="sì"/>
+    <sequenceFlow id="f10" sourceRef="g_it" targetRef="g_llm" name="no"/>
+    <sequenceFlow id="f11" sourceRef="g_llm" targetRef="t_tr" name="sì"/>
+    <sequenceFlow id="f12" sourceRef="g_llm" targetRef="g_m3" name="no"/>
+    <sequenceFlow id="f13" sourceRef="t_tr" targetRef="g_m3"/>
+    <sequenceFlow id="f14" sourceRef="g_m3" targetRef="t_draft"/>
+    <sequenceFlow id="f15" sourceRef="t_draft" targetRef="t_ricevi"/>
+    <sequenceFlow id="f16" sourceRef="t_ricevi" targetRef="t_invia"/>
+    <sequenceFlow id="f17" sourceRef="t_invia" targetRef="end"/>
+  </process>
+  <bpmndi:BPMNDiagram id="diagram">
+    <bpmndi:BPMNPlane id="plane" bpmnElement="collab">
+      <bpmndi:BPMNShape id="pool_di" bpmnElement="pool" isHorizontal="true"><dc:Bounds x="30" y="0" width="2278" height="550"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_stud_di" bpmnElement="lane_stud" isHorizontal="true"><dc:Bounds x="60" y="0" width="2248" height="110"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_api_di" bpmnElement="lane_api" isHorizontal="true"><dc:Bounds x="60" y="110" width="2248" height="330"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="lane_llm_di" bpmnElement="lane_llm" isHorizontal="true"><dc:Bounds x="60" y="440" width="2248" height="110"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start"><dc:Bounds x="132" y="147" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_off_di" bpmnElement="g_off" isMarkerVisible="true"><dc:Bounds x="285" y="140" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_kw_di" bpmnElement="t_kw"><dc:Bounds x="405" y="239" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_match_di" bpmnElement="g_match" isMarkerVisible="true"><dc:Bounds x="605" y="250" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_out_di" bpmnElement="end_out"><dc:Bounds x="772" y="367" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_tie_di" bpmnElement="t_tie"><dc:Bounds x="725" y="239" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_mo_di" bpmnElement="g_mo" isMarkerVisible="true"><dc:Bounds x="925" y="140" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_it_di" bpmnElement="g_it" isMarkerVisible="true"><dc:Bounds x="1085" y="140" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_llm_di" bpmnElement="g_llm" isMarkerVisible="true"><dc:Bounds x="1245" y="250" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_tr_di" bpmnElement="t_tr"><dc:Bounds x="1365" y="459" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_m3_di" bpmnElement="g_m3" isMarkerVisible="true"><dc:Bounds x="1565" y="140" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_draft_di" bpmnElement="t_draft"><dc:Bounds x="1685" y="129" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_ricevi_di" bpmnElement="t_ricevi"><dc:Bounds x="1845" y="19" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t_invia_di" bpmnElement="t_invia"><dc:Bounds x="2005" y="19" width="130" height="72"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_di" bpmnElement="end"><dc:Bounds x="2212" y="37" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f1_di" bpmnElement="f1"><di:waypoint x="168" y="165"/><di:waypoint x="285" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2"><di:waypoint x="335" y="165"/><di:waypoint x="925" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3"><di:waypoint x="335" y="165"/><di:waypoint x="370" y="165"/><di:waypoint x="370" y="275"/><di:waypoint x="405" y="275"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f4_di" bpmnElement="f4"><di:waypoint x="535" y="275"/><di:waypoint x="605" y="275"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f5_di" bpmnElement="f5"><di:waypoint x="655" y="275"/><di:waypoint x="713" y="275"/><di:waypoint x="713" y="385"/><di:waypoint x="772" y="385"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f6_di" bpmnElement="f6"><di:waypoint x="655" y="275"/><di:waypoint x="725" y="275"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f7_di" bpmnElement="f7"><di:waypoint x="855" y="275"/><di:waypoint x="890" y="275"/><di:waypoint x="890" y="165"/><di:waypoint x="925" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f8_di" bpmnElement="f8"><di:waypoint x="975" y="165"/><di:waypoint x="1085" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f9_di" bpmnElement="f9"><di:waypoint x="1135" y="165"/><di:waypoint x="1565" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f10_di" bpmnElement="f10"><di:waypoint x="1135" y="165"/><di:waypoint x="1190" y="165"/><di:waypoint x="1190" y="275"/><di:waypoint x="1245" y="275"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f11_di" bpmnElement="f11"><di:waypoint x="1295" y="275"/><di:waypoint x="1330" y="275"/><di:waypoint x="1330" y="495"/><di:waypoint x="1365" y="495"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f12_di" bpmnElement="f12"><di:waypoint x="1295" y="275"/><di:waypoint x="1430" y="275"/><di:waypoint x="1430" y="165"/><di:waypoint x="1565" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f13_di" bpmnElement="f13"><di:waypoint x="1495" y="495"/><di:waypoint x="1530" y="495"/><di:waypoint x="1530" y="165"/><di:waypoint x="1565" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f14_di" bpmnElement="f14"><di:waypoint x="1615" y="165"/><di:waypoint x="1685" y="165"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f15_di" bpmnElement="f15"><di:waypoint x="1815" y="165"/><di:waypoint x="1830" y="165"/><di:waypoint x="1830" y="55"/><di:waypoint x="1845" y="55"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f16_di" bpmnElement="f16"><di:waypoint x="1975" y="55"/><di:waypoint x="2005" y="55"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f17_di" bpmnElement="f17"><di:waypoint x="2135" y="55"/><di:waypoint x="2212" y="55"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
